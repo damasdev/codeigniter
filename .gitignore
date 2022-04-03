@@ -1,34 +1,21 @@
 .DS_Store
 
 application/cache/*
-!application/cache/index.html
+!application/cache/.gitkeep
 
 application/logs/*
-!application/logs/index.html
+!application/logs/.gitkeep
 
 !application/*/.htaccess
 
 composer.lock
-tests/mocks/database/ci_test.sqlite
+package-lock.json
 
-user_guide_src/build/*
-user_guide_src/cilexer/build/*
-user_guide_src/cilexer/dist/*
-user_guide_src/cilexer/pycilexer.egg-info/*
 /vendor/
 /node_modules/
 /bin/
 
 # IDE Files
 #-------------------------
-/nbproject/
 .idea/*
-
-## Sublime Text cache files
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
-*.sublime-workspace
-*.sublime-project
-/tests/tests/
-/tests/results/
+.vscode/*
