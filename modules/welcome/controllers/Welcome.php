@@ -4,6 +4,6 @@ class Welcome extends MY_Controller
 {
 	public function index()
 	{
-		$this->twig->display('welcome');
+		$this->render('welcome');
 	}
 }

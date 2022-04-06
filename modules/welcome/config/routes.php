@@ -1,3 +1,3 @@
 <?php
 
-$route['welcome'] = 'welcome';
+$route['module_name'] = 'welcome';
