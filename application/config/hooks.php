@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -11,3 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |	https://codeigniter.com/userguide3/general/hooks.html
 |
 */
+
+$hook['pre_system'][] = array(
+    'class' => 'Environment',
+    'function' => 'init',
+    'filename' => 'Environment.php',
+    'filepath' => 'hooks'
+);
