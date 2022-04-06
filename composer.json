@@ -1,10 +1,20 @@
 {
-  "description": "codeigniter",
+  "name": "damasdev/codeigniter",
+  "type": "project",
+  "description": "codeigniter framework",
   "require": {
     "php": ">=7.4.0",
     "codeigniter/framework": "3.1.*",
     "codinghamster/codeigniter-modular-extensions-hmvc": "^1.1",
     "twig/twig": "^3.0",
     "vlucas/phpdotenv": "^5.4"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ]
   }
 }
