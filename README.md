@@ -6,7 +6,6 @@
 codeigniter/
 ├── application/
 ├── composer.json
-├── composer.lock
 ├── public/
 │   ├── .htaccess
 │   └── index.php
