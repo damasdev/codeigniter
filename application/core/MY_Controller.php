@@ -1,10 +1,26 @@
 <?php
 
+/* load the MX_Controller class */
+require APPPATH . 'third_party/MX/Controller.php';
+
 class MY_Controller extends MX_Controller
 {
     public function __construct()
     {
         parent::__construct();
+        $this->hmvc();
+    }
+
+    /**
+     * HMVC : fix callback form_validation
+     * https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc.
+     *
+     * @return void
+     */
+    private function hmvc()
+    {
+        $this->load->library('form_validation');
+        $this->form_validation->CI = &$this;
     }
 
     /**
