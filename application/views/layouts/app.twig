@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+
+    <link href="{{ base_url }}/css/tabler.min.css" rel="stylesheet" />
+    <link href="{{ base_url }}/css/tabler-vendors.min.css" rel="stylesheet" />
+</head>
+
+<body class="theme-light">
+    <div class="page">
+        {% include "layouts/partials/sidebar.twig" %}
+        {% include "layouts/partials/header.twig" %}
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="page-header d-print-none">
+                    {% block header %}{% endblock %}
+                </div>
+            </div>
+            <div class="page-body">
+                <div class="container-fluid">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+            <footer class="footer footer-transparent d-print-none">
+                <div class="container-fluid">
+                    {% include "layouts/partials/footer.twig" %}
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="{{ base_url }}/js/tabler.min.js"></script>
+</body>
+
+</html>

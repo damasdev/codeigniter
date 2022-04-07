@@ -1,0 +1,30 @@
+<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu"
+            aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <h1 class="navbar-brand navbar-brand-autodark">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-terminal-2" width="24"
+                height="24" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M8 9l3 3l-3 3"></path>
+                <line x1="13" y1="15" x2="16" y2="15"></line>
+                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+            </svg>
+            CODEIGNITER
+        </h1>
+
+        <div class="navbar-nav flex-row d-lg-none">
+            {% include "layouts/partials/dropdown.twig" %}
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-menu">
+            <ul class="navbar-nav pt-lg-3">
+                {% include "layouts/partials/menu.twig" %}
+            </ul>
+        </div>
+    </div>
+</aside>
