@@ -6,14 +6,14 @@ Codeigniter Framework
 
 ```
 codeigniter/
-├── application/
 ├── modules/
-├── composer.json
 ├── public/
 │   ├── .htaccess
 │   └── index.php
-└── vendor/
-    └── codeigniter/
-        └── framework/
-            └── system/
+├── src/
+├── vendor/
+│   └── codeigniter/
+│       └── framework/
+│           └── system/
+├── composer.json
 ```
