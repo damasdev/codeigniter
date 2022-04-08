@@ -1,0 +1,28 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+
+    <link href="{{ base_url ('/css/tabler.min.css')}}" rel="stylesheet" />
+    <link href="{{ base_url ('/css/tabler-vendors.min.css')}}" rel="stylesheet" />
+
+</head>
+
+<body class="border-top-wide border-primary d-flex flex-column theme-light">
+    <div class="page page-center">
+        <div class="container-tight py-4">
+            <div class="text-center mb-4">
+                {% include "auth/layouts/partials/header.twig" %}
+            </div>
+            {{ block("body") }}
+        </div>
+    </div>
+
+    <script src="{{ base_url ('/js/tabler.min.js')}}"></script>
+</body>
+
+</html>
