@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('twig', 'session', 'database', 'form_validation', 'ion_auth', 'migration');
+$autoload['libraries'] = array('twig', 'session', 'database', 'form_validation', 'ion_auth');
 
 /*
 | -------------------------------------------------------------------
