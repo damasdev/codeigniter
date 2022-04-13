@@ -1,20 +1,38 @@
-{% extends 'auth/layouts/base.twig' %}
+{% extends 'layouts/auth.twig' %}
 
 {% block title %}
-Reset Password
+Register
 {% endblock %}
 
 {% block body %}
 
-{{ form_open ('auth/reset_password' . code, 'class="card card-md"') }}
+{{ form_open ('auth/register', 'class="card card-md"') }}
 
 <div class="card-body">
-    <h2 class="card-title text-center mb-4">Reset Password</h2>
+    <h2 class="card-title text-center mb-4">Create new account</h2>
+
+    <div class="mb-3">
+        <div class="row">
+            <div class="col-6">
+                <label class="form-label">First Name</label>
+                {{ form_input (first_name) }}
+            </div>
+            <div class="col-6">
+                <label class="form-label">Last Name</label>
+                {{ form_input (last_name) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email address</label>
+        {{ form_input (email) }}
+    </div>
 
     <div class="mb-3">
         <label class="form-label">Password</label>
         <div class="input-group input-group-flat">
-            {{ form_input (new_password) }}
+            {{ form_input (password) }}
             <span class="input-group-text">
                 <a href="#" class="link-secondary" title="" data-bs-toggle="tooltip"
                     data-bs-original-title="Show password">
@@ -34,7 +52,7 @@ Reset Password
     <div class="mb-3">
         <label class="form-label">Confirm Password</label>
         <div class="input-group input-group-flat">
-            {{ form_input (new_password_confirm) }}
+            {{ form_input (password_confirm) }}
             <span class="input-group-text">
                 <a href="#" class="link-secondary" title="" data-bs-toggle="tooltip"
                     data-bs-original-title="Show password">
@@ -51,14 +69,22 @@ Reset Password
             </span>
         </div>
     </div>
+    <div class="mb-3">
+        <label class="form-check">
+            {{ form_checkbox ('agree', '1', FALSE, 'class="form-check-input"') }}
+            <span class="form-check-label">
+                Agree the <a href="./terms-of-service.html" tabindex="-1"> terms and policy</a>.
+            </span>
+        </label>
+    </div>
     <div class="form-footer">
-        <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+        <button type="submit" class="btn btn-primary w-100">Create new account</button>
     </div>
 </div>
 
-{{ form_input (user_id) }}
-{{ form_hidden (csrf) }}
-
 {{ form_close () }}
 
+<div class="text-center text-muted mt-3">
+    Already have account? <a href="{{ base_url ('auth/login') }}" tabindex="-1">Sign in</a>
+</div>
 {% endblock %}

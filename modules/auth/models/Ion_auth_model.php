@@ -144,35 +144,35 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * Response
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	protected $response = NULL;
 
 	/**
 	 * message (uses lang file)
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	protected $messages;
 
 	/**
 	 * error message (uses lang file)
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	protected $errors;
 
 	/**
 	 * error start delimiter
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	protected $error_start_delimiter;
 
 	/**
 	 * error end delimiter
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	protected $error_end_delimiter;
 
@@ -199,9 +199,9 @@ class Ion_auth_model extends CI_Model
 
 	public function __construct()
 	{
-		$this->config->load('ion_auth', TRUE);
+		$this->config->load('auth/ion_auth', TRUE);
 		$this->load->helper('cookie', 'date');
-		$this->lang->load('ion_auth');
+		$this->lang->load('auth/ion_auth');
 
 		// initialize the database
 		$group_name = $this->config->item('database_group_name', 'ion_auth');
@@ -2587,11 +2587,6 @@ class Ion_auth_model extends CI_Model
 		// Try random_bytes: PHP 7
 		if (function_exists('random_bytes')) {
 			return bin2hex(random_bytes($result_length / 2));
-		}
-
-		// Try mcrypt
-		if (function_exists('mcrypt_create_iv')) {
-			return bin2hex(mcrypt_create_iv($result_length / 2, MCRYPT_DEV_URANDOM));
 		}
 
 		// Try openssl

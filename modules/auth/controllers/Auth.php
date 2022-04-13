@@ -8,9 +8,10 @@ class Auth extends MY_Controller
 	{
 		parent::__construct();
 
-		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
-
-		$this->lang->load('auth');
+		$this->form_validation->set_error_delimiters(
+			$this->config->item('error_start_delimiter', 'ion_auth'),
+			$this->config->item('error_end_delimiter', 'ion_auth')
+		);
 	}
 
 	/**
@@ -75,7 +76,7 @@ class Auth extends MY_Controller
 				'type' => 'password',
 			];
 
-			$this->render('auth/login', $this->data);
+			$this->render('login', $this->data);
 		}
 	}
 
@@ -139,7 +140,7 @@ class Auth extends MY_Controller
 			];
 
 			// render
-			$this->render('auth/change_password', $this->data);
+			$this->render('change_password', $this->data);
 		} else {
 			$identity = $this->session->userdata('identity');
 
@@ -188,7 +189,7 @@ class Auth extends MY_Controller
 
 			// set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->render('auth/forgot_password', $this->data);
+			$this->render('forgot-password', $this->data);
 		} else {
 			$identity_column = $this->config->item('identity', 'ion_auth');
 			$identity = $this->ion_auth->where($identity_column, $this->input->post('identity'))->users()->row();
@@ -269,7 +270,7 @@ class Auth extends MY_Controller
 				$this->data['code'] = $code;
 
 				// render
-				$this->render('reset_password', $this->data);
+				$this->render('reset-password', $this->data);
 			} else {
 				$identity = $user->{$this->config->item('identity', 'ion_auth')};
 
@@ -405,7 +406,7 @@ class Auth extends MY_Controller
 				'value' => $this->form_validation->set_value('password_confirm'),
 			];
 
-			$this->render('auth/register', $this->data);
+			$this->render('register', $this->data);
 		}
 	}
 	/**
