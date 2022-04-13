@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends MY_Controller
+class Home extends MY_Controller
 {
 	public function __construct()
 	{
@@ -11,6 +11,6 @@ class Welcome extends MY_Controller
 
 	public function index()
 	{
-		$this->render('welcome');
+		$this->render('home');
 	}
 }

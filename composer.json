@@ -1,7 +1,7 @@
 {
   "name": "damasdev/codeigniter",
   "type": "project",
-  "description": "codeigniter framework",
+  "description": "Better Codeigniter Framework",
   "require": {
     "php": ">=7.4.0",
     "codeigniter/framework": "3.1.*",
@@ -10,7 +10,7 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src/"
+      "App\\": "classes/"
     }
   },
   "scripts": {

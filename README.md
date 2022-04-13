@@ -6,6 +6,7 @@ Codeigniter Framework
 
 ```
 codeigniter/
+├── app/
 ├── modules/
 ├── public/
 │   ├── .htaccess

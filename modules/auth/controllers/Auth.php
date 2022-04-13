@@ -24,7 +24,7 @@ class Auth extends MY_Controller
 			redirect('auth/login', 'refresh');
 		}
 
-		redirect('welcome', 'refresh');
+		redirect('home', 'refresh');
 	}
 
 	/**
