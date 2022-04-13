@@ -6,8 +6,9 @@ Codeigniter Framework
 
 ```
 codeigniter/
-├── app/
 ├── modules/
+│   ├── auth
+│   ├── home
 ├── public/
 │   ├── .htaccess
 │   └── index.php
