@@ -18,3 +18,10 @@ $hook['pre_system'][] = array(
     'filename' => 'Environment.php',
     'filepath' => 'hooks'
 );
+
+$hook['pre_controller'][] = array(
+    'class' => 'Authenticate',
+    'function' => 'init',
+    'filename' => 'Authenticate.php',
+    'filepath' => 'hooks'
+);
