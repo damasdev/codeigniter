@@ -2,7 +2,6 @@
 
 class Authenticate extends MY_Controller
 {
-
     private $data = [];
 
     public function __construct()
