@@ -1,38 +1,33 @@
 <html lang="en">
+	<head>
+		<meta charset="utf-8"/>
 
-<head>
-    <meta charset="utf-8">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
 
-    <title>
-        {% block title %}{% endblock %}
-    </title>
+		<link href="{{ base_url('/css/app.min.css') }}" rel="stylesheet"/>
+		<link href="{{ base_url('/css/app-vendors.min.css') }}" rel="stylesheet"/>
+	</head>
 
-    <link href="{{ base_url ('/css/app.min.css')}}" rel="stylesheet" />
-    <link href="{{ base_url ('/css/app-vendors.min.css')}}" rel="stylesheet" />
+	<body class="border-top-wide border-primary d-flex flex-column theme-light">
+		<div class="page page-center">
+			<div class="container-tight py-4">
+				<div class="text-center mb-4">
+					<a href="{{ base_url('/') }}" class="navbar-brand navbar-brand-autodark">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-terminal-2" width="24" height="24" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+							<path d="M8 9l3 3l-3 3"></path>
+							<line x1="13" y1="15" x2="16" y2="15"></line>
+							<rect x="3" y="4" width="18" height="16" rx="2"></rect>
+						</svg>
+						CODEIGNITER
+					</a>
+				</div>
+				{{ block("body") }}
+			</div>
+		</div>
 
-</head>
-
-<body class="border-top-wide border-primary d-flex flex-column theme-light">
-    <div class="page page-center">
-        <div class="container-tight py-4">
-            <div class="text-center mb-4">
-                <a href="{{ base_url ('/') }}" class="navbar-brand navbar-brand-autodark">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-terminal-2" width="24" height="24"
-                        viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M8 9l3 3l-3 3"></path>
-                        <line x1="13" y1="15" x2="16" y2="15"></line>
-                        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                    </svg>
-                    CODEIGNITER
-                </a>
-            </div>
-            {{ block("body") }}
-        </div>
-    </div>
-
-    <script src="{{ base_url ('/js/app.min.js')}}"></script>
-</body>
-
+		<script src="{{ base_url('/js/app.min.js') }}"></script>
+	</body>
 </html>

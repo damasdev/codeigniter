@@ -210,7 +210,7 @@ $config['email_forgot_password'] = 'forgot_password.tpl.php';
  | -------------------------------------------------------------------------
  */
 $config['delimiters_source']       = 'config'; 	// "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
-$config['message_start_delimiter'] = '<p>'; 	// Message start delimiter
-$config['message_end_delimiter']   = '</p>'; 	// Message end delimiter
-$config['error_start_delimiter']   = '<p>';		// Error message start delimiter
-$config['error_end_delimiter']     = '</p>';	// Error message end delimiter
+$config['message_start_delimiter'] = ''; 	// Message start delimiter
+$config['message_end_delimiter']   = ''; 	// Message end delimiter
+$config['error_start_delimiter']   = '';		// Error message start delimiter
+$config['error_end_delimiter']     = '';	// Error message end delimiter
