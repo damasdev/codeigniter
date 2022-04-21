@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends MY_Controller
+class AuthController extends MY_Controller
 {
 	public function __construct()
 	{
@@ -14,7 +14,14 @@ class Auth extends MY_Controller
 	 */
 	public function index()
 	{
-		redirect('/home', 'refresh');
+		redirect('/home', 'refresh', 301);
+		die();
+	}
+
+	public function logout()
+	{
+		$this->authModel->logout();
+		redirect('/auth/login', 'refresh');
 		die();
 	}
 }

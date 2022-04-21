@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login extends MY_Controller
+class LoginController extends MY_Controller
 {
     private $data = [];
 
@@ -37,7 +37,7 @@ class Login extends MY_Controller
 
         $this->render('login', $this->data);
     }
-    
+
     /**
      * Store Authentication
      *
@@ -61,13 +61,11 @@ class Login extends MY_Controller
                 throw new Exception(current($errors));
             }
 
-            if (!$this->ion_auth->login($form['identity'], $form['password'], $form['remember'])) {
-                throw new Exception($this->ion_auth->errors());
+            if (!$this->authModel->login($form['identity'], $form['password'])) {
+                throw new Exception("Wrong email or password");
             }
 
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
-
-            redirect('auth', 'refresh');
+            redirect('home', 'refresh');
             die();
         } catch (\Throwable $th) {
             $this->session->set_flashdata('message', $th->getMessage());
