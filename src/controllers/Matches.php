@@ -79,13 +79,9 @@ class Matches extends MY_Controller
     public function create_app($app = null)
     {
         if (isset($app)) {
-            if (file_exists('application/controllers/' . $this->fileName($app) . '.php') or (class_exists('' . $app . 'Controller')) or (class_exists('' . $app . 'Model'))) {
-                echo $app . ' Controller or Model already exists in the application/controllers directory.';
-            } else {
-                $this->create_controller($app);
-                $this->create_model($app);
-                $this->create_view($app);
-            }
+            $this->create_controller($app);
+            $this->create_model($app);
+            $this->create_view($app);
         } else {
             echo self::FORMAT_ENTER . 'You need to provide a name for the app';
         }
