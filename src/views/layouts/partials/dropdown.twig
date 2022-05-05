@@ -3,7 +3,7 @@
         <span class="avatar avatar-sm bg-white" style="background-image: url(/img/user-circle.svg)"></span>
         <div class="d-none d-xl-block ps-2">
             <div> {{ session.user.name ?? '-' }} </div>
-            <div class="mt-1 small text-muted">{{ session.user.email ?? '-' }}</div>
+            <div class="mt-1 small text-muted">{{ session.user.role ?? '-' }}</div>
         </div>
     </a>
     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

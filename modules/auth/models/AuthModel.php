@@ -14,7 +14,7 @@ class AuthModel extends CI_Model
     public function login($username, $password): stdClass
     {
         try {
-            $user = $this->db->where('email', $username)->get(self::TABLE_NAME)->row();
+            $user = $this->db->select(['users.id', 'users.name', 'users.email', 'users.password', 'roles.name as role'])->join('roles', 'roles.id = users.role_id')->where('email', $username)->get(self::TABLE_NAME)->row();
 
             if (!$user) {
                 throw new Exception("Email is not registered yet");

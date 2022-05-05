@@ -1,15 +1,15 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
+class RoleController extends MY_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('{{MODEL}}Model', '{{MODEL_ALIAS}}Model');
+		$this->load->model('RoleModel', 'roleModel');
 	}
 	
 	public function index()
 	{
-		$this->render('{{MODEL_ALIAS}}');
+		$this->render('role');
 	}
 }
