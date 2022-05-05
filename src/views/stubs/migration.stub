@@ -26,6 +26,7 @@ class {{MIGRATION}} extends {{MI_EXTENDS}}_Migration
                 'constraint' => 50
             ]
         ];
+
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('{{TABLE}}', TRUE);

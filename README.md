@@ -29,6 +29,9 @@ Usage example
 ```php
 // Create an MVC stack
 php public/index.php matches create:app users
+
+// Create an MVC stack inside admin module
+php public/index.php matches create:app admin.users
 ```
 
 ## Controllers

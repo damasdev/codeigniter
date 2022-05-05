@@ -6,9 +6,4 @@ class {{MODEL}}Model extends {{MO_EXTENDS}}_Model
 	{
 		parent::__construct();
 	}
-	
-	public function get_all()
-	{
-		return ('This is your first application');
-	}
 }

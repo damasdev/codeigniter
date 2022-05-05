@@ -8,7 +8,7 @@
 /**
  * Configure the templates directory
  */ 
-$config['templates'] = 'views/templates/';
+$config['templates'] = 'views/stubs/';
 
 
 /**
