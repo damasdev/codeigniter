@@ -7,6 +7,13 @@ Login
 {% block body %}
 {{ form_open ('auth/login', 'class="card card-md"') }}
 <div class="card-body">
+
+    {% if message %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+    {% endif %}
+
     <div class="mb-3">
         <label class="form-label">Email address</label>
         {{ form_input (identity) }}

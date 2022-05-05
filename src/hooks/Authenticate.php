@@ -19,7 +19,7 @@ class Authenticate extends MY_Controller
             return;
         }
 
-        if (!$this->session->has_userdata('user_id')) {
+        if (!$this->auth->isLoggedIn()) {
             redirect('auth/login', 'refresh');
             die();
         }

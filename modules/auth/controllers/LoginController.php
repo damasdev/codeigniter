@@ -45,8 +45,6 @@ class LoginController extends MY_Controller
      */
     public function store()
     {
-        $this->data['title'] = $this->lang->line('login_heading');
-
         try {
             $form = [
                 'identity' => $this->input->post('identity'),
@@ -61,8 +59,8 @@ class LoginController extends MY_Controller
                 throw new Exception(current($errors));
             }
 
-            if (!$this->authModel->login($form['identity'], $form['password'])) {
-                throw new Exception("Wrong email or password");
+            if (!$this->auth->login($form['identity'], $form['password'])) {
+                throw new Exception("Wrong Email or Password");
             }
 
             redirect('home', 'refresh');

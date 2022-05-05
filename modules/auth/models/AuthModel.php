@@ -2,31 +2,31 @@
 
 class AuthModel extends CI_Model
 {
-
-    const SESSION_KEY = 'user_id';
     const TABLE_NAME = 'users';
 
-    public function login($username, $password)
+    /**
+     * login
+     *
+     * @param  string $username
+     * @param  string $password
+     * @return stdClass
+     */
+    public function login($username, $password): stdClass
     {
+        try {
+            $user = $this->db->where('email', $username)->get(self::TABLE_NAME)->row();
 
-        $user = $this->db->where('email', $username)->get(self::TABLE_NAME)->row();
+            if (!$user) {
+                throw new Exception("Email is not registered yet");
+            }
 
-        if (!$user) {
-            return FALSE;
+            if (!password_verify($password, $user->password)) {
+                throw new Exception("Password did not match");
+            }
+
+            return $user;
+        } catch (\Throwable $th) {
+            throw $th;
         }
-
-        if (!password_verify($password, $user->password)) {
-            return FALSE;
-        }
-
-        $this->session->set_userdata([self::SESSION_KEY => $user->id]);
-
-        return $this->session->has_userdata(self::SESSION_KEY);
-    }
-
-    public function logout()
-    {
-        $this->session->unset_userdata(self::SESSION_KEY);
-        return !$this->session->has_userdata(self::SESSION_KEY);
     }
 }
