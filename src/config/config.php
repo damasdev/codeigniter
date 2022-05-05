@@ -26,7 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $config['base_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
 $config['base_url'] = (isset($_SERVER['HTTPS_PROXY']) && $_SERVER['HTTPS_PROXY'] == 'Yes') ? 'https' : $config['base_url'];
 $config['base_url'] = ($_SERVER['FORCE_TO_HTTPS'] ?? 'off') == 'on' ? 'https' : $config['base_url'];
-$config['base_url'] .= '://' . (isset($_SERVER['HTTP_X_FORWARDED_SERVER']) ? $_SERVER['HTTP_X_FORWARDED_SERVER'] : $_SERVER['HTTP_HOST']);
+$config['base_url'] .= '://' . (isset($_SERVER['HTTP_X_FORWARDED_SERVER']) ? $_SERVER['HTTP_X_FORWARDED_SERVER'] : $_SERVER['HTTP_HOST'] ?? 'localhost');
 $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
 /*
@@ -69,7 +69,7 @@ $config['modules_locations'] = array(
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']    = 'REQUEST_URI';
+$config['uri_protocol'] = isset($_SERVER['REQUEST_URI']) ? 'REQUEST_URI' : 'CLI';
 
 /*
 |--------------------------------------------------------------------------
