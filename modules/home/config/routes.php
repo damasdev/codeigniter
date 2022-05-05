@@ -1,3 +1,3 @@
 <?php
 
-$route['module_name'] = 'dashboard';
+$route['home'] = 'HomeController/index';
