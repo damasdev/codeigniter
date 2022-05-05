@@ -19,7 +19,7 @@ class Authenticate extends MY_Controller
             return;
         }
 
-        if (!$this->ion_auth->logged_in()) {
+        if (!$this->auth->isLoggedIn()) {
             redirect('auth/login', 'refresh');
             die();
         }

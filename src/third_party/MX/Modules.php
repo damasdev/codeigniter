@@ -229,6 +229,22 @@ class Modules
 
 		/* parse module routes */
 		foreach (self::$routes[$module] as $key => $val) {
+
+			$http_verb = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : 'cli';
+
+			if (is_array($val))
+			{
+				$val = array_change_key_case($val, CASE_LOWER);
+				if (isset($val[$http_verb]))
+				{
+					$val = $val[$http_verb];
+				}
+				else
+				{
+					continue;
+				}
+			}
+
 			$key = str_replace([':any', ':num'], ['.+', '[0-9]+'], $key);
 
 			if (preg_match('#^' . $key . '$#', $uri)) {
