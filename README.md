@@ -37,39 +37,39 @@ php public/index.php matches create:app users
 
 You can use Matches to create a Controller file. The command will need at leas a parameter which represents the name of the controller.
 
-You can put the controller inside a directory. Directories are delimited with ".". So, if you want to create the controller inside controllers/admin, you can do create:controller admin.name_of_controller.
+You can put the controller inside a module. Directories are delimited with ".". So, if you want to create the controller inside modules/admin/controllers, you can do create:controller admin.name_of_controller.
 
 Usage examples
 
 ```php
-// Create a Welcome controller that extends MY_Controller
-php public/index.php matches create:controller welcome e:my
+// Create a Welcome controller
+php public/index.php matches create:controller welcome
 
-// Create a User controller inside admin directory that will extend Admin_Controller
-php public/index.php matches create:controller admin.user extend:admin
+// Create a User controller inside admin module
+php public/index.php matches create:controller admin.user
 ```
 
 ## Models
 
 ### `create:model name_of_model`
 
-Creates a model having name_of_model as name. You can put the model inside a directory. Directories are delimited with ".". So, if you want to create the model inside models/admin, you can do create model admin.name_of_model.
+Creates a model having name_of_model as name. You can put the model inside a module. Directories are delimited with ".". So, if you want to create the model inside modules/admin/models, you can do create model admin.name_of_model.
 
 Usage examples
 
 ```php
-// Create a user_model model that extends MY_Model
-php public/index.php matches create:model user_model e:my
+// Create a user model
+php public/index.php matches create:model user
 
-// Create a User model inside admin directory that will extend MY_Model
-php public/index.php matches create:model admin.user extend:my
+// Create a User model inside admin module
+php public/index.php matches create:model admin.user
 ```
 
 ## Views
 
 ### `create:view name_of_view`
 
-Creates a view having name_of_view as file name. You can put the view inside a directory. Directories are delimited with ".". So, if you want to create the view inside views/admin, you can do create view admin.name_of_view.
+Creates a view having name_of_view as file name. You can put the view inside a module. Directories are delimited with ".". So, if you want to create the view inside modules/admin/views, you can do create view admin.name_of_view.
 
 Usage examples
 
@@ -77,7 +77,7 @@ Usage examples
 // Create an index_view.php
 php public/index.php matches create:view user_view
 
-// Create an index_view.php inside users directory
+// Create an index_view.php inside users module
 php public/index.php matches create:view users.index_view
 ```
 

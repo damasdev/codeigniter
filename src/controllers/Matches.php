@@ -99,49 +99,57 @@ class Matches extends MY_Controller
      */
     public function create_controller()
     {
-        $available = array('extend' => 'extend', 'e' => 'extend');
-        $params = func_get_args();
-        $arguments = array();
-        foreach ($params as $parameter) {
-            $argument = explode(':', $parameter);
-            if (sizeof($argument) == 1 && !isset($controller)) {
-                $controller = $argument[0];
-            } elseif (array_key_exists($argument[0], $available)) {
-                $arguments[$available[$argument[0]]] = $argument[1];
+        try {
+            $available = array('extend' => 'extend', 'e' => 'extend');
+            $params = func_get_args();
+            $arguments = array();
+
+            foreach ($params as $parameter) {
+                $argument = explode(':', $parameter);
+                if (sizeof($argument) == 1 && !isset($controller)) {
+                    $controller = $argument[0];
+                } elseif (array_key_exists($argument[0], $available)) {
+                    $arguments[$available[$argument[0]]] = $argument[1];
+                }
             }
-        }
-        if (isset($controller)) {
+
+            if (!$controller) {
+                throw new Exception('You need to provide a name for the controller.');
+            }
+
             $names = $this->setName($controller);
             $className = $names['class'];
             $fileName = $names['file'];
             $directories = $names['directories'];
+
             if (file_exists(APPPATH . 'controllers/' . $fileName . '.php')) {
-                echo self::FORMAT_ENTER . $className . ' Controller already exists in the application/controllers' . $directories . ' directory.';
-            } else {
-                $f = $this->getTemplate('controller');
-                if ($f === false) {
-                    return false;
-                }
-                $this->findAndReplace['{{CONTROLLER}}'] = $className;
-                $this->findAndReplace['{{CONTROLLER_FILE}}'] = $fileName . '.php';
-                $this->findAndReplace['{{MV}}'] = strtolower($className);
-                $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseController;
-                $extends = in_array(strtolower($extends), array('my', 'ci')) ? strtoupper($extends) : ucfirst($extends);
-                $this->findAndReplace['{{C_EXTENDS}}'] = $extends;
-                $f = strtr($f, $this->findAndReplace);
-                if (strlen($directories) > 0 && !file_exists(APPPATH . 'controllers/' . $directories)) {
-                    mkdir(APPPATH . 'controllers/' . $directories, 0777, true);
-                }
-                if (write_file(APPPATH . 'controllers/' . $fileName . '.php', $f)) {
-                    echo self::FORMAT_ENTER . 'Controller ' . $className . ' has been created inside ' . APPPATH . 'controllers/' . $directories . '.';
-                    return true;
-                } else {
-                    echo self::FORMAT_ENTER . 'Couldn\'t write Controller.';
-                    return false;
-                }
+                throw new Exception($className . ' Controller already exists in the application/controllers' . $directories . ' directory.');
             }
-        } else {
-            echo self::FORMAT_ENTER . 'You need to provide a name for the controller.';
+
+            $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseController;
+            $extends = in_array(strtolower($extends), array('my', 'ci', 'mx')) ? strtoupper($extends) : ucfirst($extends);
+
+            $this->findAndReplace['{{CONTROLLER}}'] = $className;
+            $this->findAndReplace['{{CONTROLLER_FILE}}'] = $fileName . '.php';
+            $this->findAndReplace['{{MODEL}}'] = $className;
+            $this->findAndReplace['{{MODEL_ALIAS}}'] = strtolower($className);
+            $this->findAndReplace['{{C_EXTENDS}}'] = $extends;
+
+            $template = $this->getTemplate('controller');
+            $template = strtr($template, $this->findAndReplace);
+            if (strlen($directories) > 0 && !file_exists(APPPATH . 'controllers/' . $directories)) {
+                mkdir(APPPATH . 'controllers/' . $directories, 0777, true);
+            }
+
+            if (!write_file(APPPATH . 'controllers/' . $fileName . '.php', $template)) {
+                throw new Exception('Couldn\'t write Controller.');
+            }
+
+            echo self::FORMAT_ENTER . 'Controller ' . $className . ' has been created inside ' . APPPATH . 'controllers/' . $directories . '.';
+            echo self::FORMAT_ENTER;
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+            echo self::FORMAT_ENTER;
         }
     }
 
@@ -153,48 +161,56 @@ class Matches extends MY_Controller
      */
     public function create_model()
     {
-        $available = array('extend' => 'extend', 'e' => 'extend');
-        $params = func_get_args();
-        $arguments = array();
-        foreach ($params as $parameter) {
-            $argument = explode(':', $parameter);
-            if (sizeof($argument) == 1 && !isset($model)) {
-                $model = $argument[0];
-            } elseif (array_key_exists($argument[0], $available)) {
-                $arguments[$available[$argument[0]]] = $argument[1];
+        try {
+
+            $available = array('extend' => 'extend', 'e' => 'extend');
+            $params = func_get_args();
+            $arguments = array();
+
+            foreach ($params as $parameter) {
+                $argument = explode(':', $parameter);
+                if (sizeof($argument) == 1 && !isset($model)) {
+                    $model = $argument[0];
+                } elseif (array_key_exists($argument[0], $available)) {
+                    $arguments[$available[$argument[0]]] = $argument[1];
+                }
             }
-        }
-        if (isset($model)) {
+
+            if (!$model) {
+                throw new Exception('You need to provide a name for the model.');
+            }
+
             $names = $this->setName($model);
             $className = $names['class'];
             $fileName = $names['file'];
             $directories = $names['directories'];
+
             if (file_exists(APPPATH . 'models/' . $fileName . '.php')) {
-                echo self::FORMAT_ENTER . $className . ' Model already exists in the application/models' . $directories . ' directory.';
-            } else {
-                $f = $this->getTemplate('model');
-                if ($f === false) {
-                    return false;
-                }
-                $this->findAndReplace['{{MODEL}}'] = $className;
-                $this->findAndReplace['{{MODEL_FILE}}'] = $fileName . '.php';
-                $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseModel;
-                $extends = in_array(strtolower($extends), array('my', 'ci')) ? strtoupper($extends) : ucfirst($extends);
-                $this->findAndReplace['{{MO_EXTENDS}}'] = $extends;
-                $f = strtr($f, $this->findAndReplace);
-                if (strlen($directories) > 0 && !file_exists(APPPATH . 'models/' . $directories)) {
-                    mkdir(APPPATH . 'models/' . $directories, 0777, true);
-                }
-                if (write_file(APPPATH . 'models/' . $fileName . '.php', $f)) {
-                    echo self::FORMAT_ENTER . 'Model ' . $className . ' has been created inside ' . APPPATH . 'models/' . $directories . '.';
-                    return true;
-                } else {
-                    echo self::FORMAT_ENTER . 'Couldn\'t write Model.';
-                    return false;
-                }
+                throw new Exception($className . ' Model already exists in the application/models' . $directories . ' directory.');
             }
-        } else {
-            echo self::FORMAT_ENTER . 'You need to provide a name for the model.';
+
+            $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseModel;
+            $extends = in_array(strtolower($extends), array('my', 'ci', 'mx')) ? strtoupper($extends) : ucfirst($extends);
+
+            $this->findAndReplace['{{MODEL}}'] = $className;
+            $this->findAndReplace['{{MODEL_FILE}}'] = $fileName . '.php';
+            $this->findAndReplace['{{MO_EXTENDS}}'] = $extends;
+
+            $template = $this->getTemplate('model');
+            $template = strtr($template, $this->findAndReplace);
+            if (strlen($directories) > 0 && !file_exists(APPPATH . 'models/' . $directories)) {
+                mkdir(APPPATH . 'models/' . $directories, 0777, true);
+            }
+
+            if (!write_file(APPPATH . 'models/' . $fileName . '.php', $template)) {
+                throw new Exception('Couldn\'t write Model.');
+            }
+
+            echo self::FORMAT_ENTER . 'Model ' . $className . ' has been created inside ' . APPPATH . 'models/' . $directories . '.';
+            echo self::FORMAT_ENTER;
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+            echo self::FORMAT_ENTER;
         }
     }
 
@@ -371,7 +387,6 @@ class Matches extends MY_Controller
                 throw new Exception($className . ' Migration already exists.');
             }
 
-            $template = $this->getTemplate('migration');
             $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseMigration;
             $extends = in_array(strtolower($extends), array('my', 'ci', 'mx')) ? strtoupper($extends) : ucfirst($extends);
 
@@ -388,6 +403,7 @@ class Matches extends MY_Controller
             $this->findAndReplace['{{TABLE}}'] = $table;
 
             // Replace
+            $template = $this->getTemplate('migration');
             $template = strtr($template, $this->findAndReplace);
             if (!write_file($migrationPath . $fileName . '.php', $template)) {
                 throw new Exception('Couldn\'t write Migration.');
@@ -418,9 +434,9 @@ class Matches extends MY_Controller
             $className = $str;
         }
 
-        $fileName = ucfirst($className);
+        $className = ucfirst($className);
         $directories = implode('/', $structure);
-        $file = $directories . '/' . $fileName;
+        $file = $directories . '/' . $className;
 
         return array(
             'file' => $file,
