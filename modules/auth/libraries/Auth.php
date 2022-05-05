@@ -38,7 +38,7 @@ class Auth
             $this->session->set_userdata([
                 self::SESSION_KEY => [
                     'id' => $user->id,
-                    'name' => "{$user->first_name} {$user->last_name}",
+                    'name' => "$user->name",
                     'email' => $user->email,
                 ]
             ]);
