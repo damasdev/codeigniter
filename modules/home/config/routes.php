@@ -1,3 +1,3 @@
 <?php
 
-$route['home'] = 'Home/index';
+$route['home'] = 'HomeController/index';

@@ -115,7 +115,7 @@ class Matches extends MY_Controller
 
             $names = $this->setName($controller, 'controllers');
             $className = $names['class'];
-            $fileName = $names['file'];
+            $fileName = $names['file'] . 'Controller';
             $directories = $names['directories'];
             $is_module = $names['is_module'];
 
@@ -181,7 +181,7 @@ class Matches extends MY_Controller
 
             $names = $this->setName($model, 'models');
             $className = $names['class'];
-            $fileName = $names['file'];
+            $fileName = $names['file'] . 'Model';
             $directories = $names['directories'];
             $is_module = $names['is_module'];
 

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login extends MY_Controller
+class LoginController extends MY_Controller
 {
     private $data = [];
 

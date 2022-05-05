@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends MY_Controller
+class AuthController extends MY_Controller
 {
 	public function __construct()
 	{

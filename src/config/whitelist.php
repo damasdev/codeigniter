@@ -2,8 +2,8 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // Auth Modules
-$config['modules']['auth']['Login'] = ['index', 'store'];
-$config['modules']['auth']['Auth'] = ['logout'];
+$config['modules']['auth']['LoginController'] = ['index', 'store'];
+$config['modules']['auth']['AuthController'] = ['logout'];
 
 // Matches CLI
 $config['modules']['']['matches'] = [

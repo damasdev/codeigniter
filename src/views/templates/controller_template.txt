@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
+class {{CONTROLLER}}Controller extends {{C_EXTENDS}}_Controller
 {
 	public function __construct()
 	{
