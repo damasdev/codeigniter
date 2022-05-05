@@ -117,12 +117,15 @@ class Matches extends MY_Controller
                 throw new Exception('You need to provide a name for the controller.');
             }
 
-            $names = $this->setName($controller);
+            $names = $this->setName($controller, 'controllers');
             $className = $names['class'];
             $fileName = $names['file'];
             $directories = $names['directories'];
+            $is_module = $names['is_module'];
 
-            if (file_exists(APPPATH . 'controllers/' . $fileName . '.php')) {
+            $basePath = $is_module ? FCPATH . "../" : APPPATH;
+
+            if (file_exists($basePath . $fileName . '.php')) {
                 throw new Exception($className . ' Controller already exists in the application/controllers' . $directories . ' directory.');
             }
 
@@ -137,15 +140,15 @@ class Matches extends MY_Controller
 
             $template = $this->getTemplate('controller');
             $template = strtr($template, $this->findAndReplace);
-            if (strlen($directories) > 0 && !file_exists(APPPATH . 'controllers/' . $directories)) {
-                mkdir(APPPATH . 'controllers/' . $directories, 0777, true);
+            if (strlen($directories) > 0 && !file_exists($basePath . $directories)) {
+                mkdir($basePath . $directories, 0777, true);
             }
 
-            if (!write_file(APPPATH . 'controllers/' . $fileName . '.php', $template)) {
+            if (!write_file($basePath . $fileName . '.php', $template)) {
                 throw new Exception('Couldn\'t write Controller.');
             }
 
-            echo self::FORMAT_ENTER . 'Controller ' . $className . ' has been created inside ' . APPPATH . 'controllers/' . $directories . '.';
+            echo self::FORMAT_ENTER . 'Controller ' . $className . ' has been created inside ' . $basePath . $directories . '.';
             echo self::FORMAT_ENTER;
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -180,12 +183,15 @@ class Matches extends MY_Controller
                 throw new Exception('You need to provide a name for the model.');
             }
 
-            $names = $this->setName($model);
+            $names = $this->setName($model, 'models');
             $className = $names['class'];
             $fileName = $names['file'];
             $directories = $names['directories'];
+            $is_module = $names['is_module'];
 
-            if (file_exists(APPPATH . 'models/' . $fileName . '.php')) {
+            $basePath = $is_module ? FCPATH . "../" : APPPATH;
+
+            if (file_exists($basePath . $fileName . '.php')) {
                 throw new Exception($className . ' Model already exists in the application/models' . $directories . ' directory.');
             }
 
@@ -198,15 +204,15 @@ class Matches extends MY_Controller
 
             $template = $this->getTemplate('model');
             $template = strtr($template, $this->findAndReplace);
-            if (strlen($directories) > 0 && !file_exists(APPPATH . 'models/' . $directories)) {
-                mkdir(APPPATH . 'models/' . $directories, 0777, true);
+            if (strlen($directories) > 0 && !file_exists($basePath . $directories)) {
+                mkdir($basePath . $directories, 0777, true);
             }
 
-            if (!write_file(APPPATH . 'models/' . $fileName . '.php', $template)) {
+            if (!write_file($basePath . $fileName . '.php', $template)) {
                 throw new Exception('Couldn\'t write Model.');
             }
 
-            echo self::FORMAT_ENTER . 'Model ' . $className . ' has been created inside ' . APPPATH . 'models/' . $directories . '.';
+            echo self::FORMAT_ENTER . 'Model ' . $className . ' has been created inside ' . $basePath . $directories . '.';
             echo self::FORMAT_ENTER;
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -223,43 +229,52 @@ class Matches extends MY_Controller
      */
     public function create_view($view = null)
     {
-        $available = array();
-        $params = func_get_args();
-        $arguments = array();
-        foreach ($params as $parameter) {
-            $argument = explode(':', $parameter);
-            if (sizeof($argument) == 1 && !isset($view)) {
-                $view = $argument[0];
-            } elseif (array_key_exists($argument[0], $available)) {
-                $arguments[$available[$argument[0]]] = $argument[1];
+
+        try {
+            $available = array();
+            $params = func_get_args();
+            $arguments = array();
+
+            foreach ($params as $parameter) {
+                $argument = explode(':', $parameter);
+                if (sizeof($argument) == 1 && !isset($view)) {
+                    $view = $argument[0];
+                } elseif (array_key_exists($argument[0], $available)) {
+                    $arguments[$available[$argument[0]]] = $argument[1];
+                }
             }
-        }
-        if (isset($view)) {
-            $names = $this->setName($view);
+
+            if (!$view) {
+                throw new Exception('You need to provide a name for the view file.');
+            }
+
+            $names = $this->setName($view, 'views');
             $fileName = strtolower($names['file']);
             $directories = $names['directories'];
-            if (file_exists(APPPATH . 'views/' . $fileName . '.php')) {
-                echo self::FORMAT_ENTER . $fileName . ' View already exists in the application/views/' . $directories . ' directory.';
-            } else {
-                $f = $this->getTemplate('view');
-                if ($f === false) {
-                    return false;
-                }
-                $this->findAndReplace['{{VIEW}}'] = $fileName . '.php';
-                $f = strtr($f, $this->findAndReplace);
-                if (strlen($directories) > 0 && !file_exists(APPPATH . 'views/' . $directories)) {
-                    mkdir(APPPATH . 'views/' . $directories, 0777, true);
-                }
-                if (write_file(APPPATH . 'views/' . $fileName . '.php', $f)) {
-                    echo self::FORMAT_ENTER . 'View ' . $fileName . ' has been created inside ' . APPPATH . 'views/' . $directories . '.';
-                    return true;
-                } else {
-                    echo self::FORMAT_ENTER . 'Couldn\'t write View.';
-                    return false;
-                }
+            $is_module = $names['is_module'];
+
+            $basePath = $is_module ? FCPATH . "../" : APPPATH;
+            if (file_exists($basePath . $fileName . '.php')) {
+                throw new Exception($fileName . ' View already exists in the application/views/' . $directories . ' directory.');
             }
-        } else {
-            echo self::FORMAT_ENTER . 'You need to provide a name for the view file.';
+
+            $this->findAndReplace['{{VIEW}}'] = $fileName . '.php';
+            $template = $this->getTemplate('view');
+            $template = strtr($template, $this->findAndReplace);
+
+            if (strlen($directories) > 0 && !file_exists($basePath . $directories)) {
+                mkdir($basePath . $directories, 0777, true);
+            }
+
+            if (!write_file($basePath . $fileName . '.php', $template)) {
+                throw new Exception('Couldn\'t write View.');
+            }
+
+            echo self::FORMAT_ENTER . 'View ' . $fileName . ' has been created inside ' . $basePath . $directories . '.';
+            echo self::FORMAT_ENTER;
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+            echo self::FORMAT_ENTER;
         }
     }
 
@@ -418,20 +433,28 @@ class Matches extends MY_Controller
     }
 
     /**
-     * @param $str
+     * setName
      *
+     * @param  string $str
+     * @param  string $type
      * @return array
      */
-    private function setName($str)
+    private function setName(string $str, string $type): array
     {
         $str = strtolower($str);
 
         if (strpos($str, '.')) {
             $structure = explode('.', $str);
+            array_unshift($structure, 'modules');
             $className = array_pop($structure);
+
+            array_push($structure, $type);
+            $isModule = TRUE;
         } else {
             $structure = array();
+            array_push($structure, $type);
             $className = $str;
+            $isModule = FALSE;
         }
 
         $className = ucfirst($className);
@@ -441,7 +464,8 @@ class Matches extends MY_Controller
         return array(
             'file' => $file,
             'class' => $className,
-            'directories' => $directories
+            'directories' => $directories,
+            'is_module' => $isModule
         );
     }
 
