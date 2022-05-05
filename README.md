@@ -28,10 +28,10 @@ Usage example
 
 ```php
 // Create an MVC stack
-php public/index.php matches create:app users
+composer run-script matches create:app users
 
 // Create an MVC stack inside admin module
-php public/index.php matches create:app admin.users
+composer run-script matches create:app admin.users
 ```
 
 ## Controllers
@@ -46,10 +46,10 @@ Usage examples
 
 ```php
 // Create a Welcome controller
-php public/index.php matches create:controller welcome
+composer run-script matches create:controller welcome
 
 // Create a User controller inside admin module
-php public/index.php matches create:controller admin.user
+composer run-script matches create:controller admin.user
 ```
 
 ## Models
@@ -62,10 +62,10 @@ Usage examples
 
 ```php
 // Create a user model
-php public/index.php matches create:model user
+composer run-script matches create:model user
 
 // Create a User model inside admin module
-php public/index.php matches create:model admin.user
+composer run-script matches create:model admin.user
 ```
 
 ## Views
@@ -78,10 +78,10 @@ Usage examples
 
 ```php
 // Create an index_view.php
-php public/index.php matches create:view user_view
+composer run-script matches create:view user_view
 
 // Create an index_view.php inside users module
-php public/index.php matches create:view users.index_view
+composer run-script matches create:view users.index_view
 ```
 
 ## Migrations
@@ -96,13 +96,13 @@ Usage examples
 
 ```php
 // Create a migration
-php public/index.php matches create:migration create_users_table
+composer run-script matches create:migration create_users_table
 
 // Create a migration with a table inside it
-php public/index.php matches create:migration create_users_table table:users
+composer run-script matches create:migration create_users_table table:users
 
 // Create a migration with a table inside it
-php public/index.php matches create:migration create_users_table t:users
+composer run-script matches create:migration create_users_table t:users
 
 ```
 
@@ -114,10 +114,10 @@ Usage examples:
 
 ```php
 // Execute all migrations until the last one
-php public/index.php matches do:migration
+composer run-script matches do:migration
 
 // Execute all migrations until a certain version of migration
-php public/index.php matches do:migration 20150722
+composer run-script matches do:migration 20150722
 ```
 
 ### `undo:migration`
@@ -128,10 +128,10 @@ Usage examples:
 
 ```php
 // Undo last migration
-php public/index.php matches undo:migration
+composer run-script matches undo:migration
 
 // Undo the migrations until a specified migration version
-php public/index.php matches undo:migration 20150722
+composer run-script matches undo:migration 20150722
 ```
 
 ### `reset:migration`
@@ -142,5 +142,5 @@ Usage example:
 
 ```php
 // Reset the migrations
-php public/index.php matches reset:migration
+composer run-script matches reset:migration
 ```
