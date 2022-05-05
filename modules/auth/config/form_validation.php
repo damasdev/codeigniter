@@ -3,8 +3,8 @@
 $config = [
     'login' => [
         [
-            'field' => 'identity',
-            'label' => 'identity',
+            'field' => 'email',
+            'label' => 'email',
             'rules' => 'required'
         ],
         [

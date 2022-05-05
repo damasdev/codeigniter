@@ -18,13 +18,13 @@ class Login extends MY_Controller
     {
         $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-        $this->data['identity'] = [
-            'name' => 'identity',
-            'id' => 'identity',
+        $this->data['email'] = [
+            'name' => 'email',
+            'id' => 'email',
             'class' => 'form-control',
             'placeholder' => 'Enter Email',
             'type' => 'text',
-            'value' => $this->form_validation->set_value('identity'),
+            'value' => $this->form_validation->set_value('email'),
         ];
 
         $this->data['password'] = [
@@ -47,7 +47,7 @@ class Login extends MY_Controller
     {
         try {
             $form = [
-                'identity' => $this->input->post('identity'),
+                'email' => $this->input->post('email'),
                 'password' => $this->input->post('password'),
                 'remember' => (bool) $this->input->post('remember'),
             ];
@@ -59,7 +59,7 @@ class Login extends MY_Controller
                 throw new Exception(current($errors));
             }
 
-            if (!$this->auth->login($form['identity'], $form['password'])) {
+            if (!$this->auth->login($form['email'], $form['password'])) {
                 throw new Exception("Wrong Email or Password");
             }
 
