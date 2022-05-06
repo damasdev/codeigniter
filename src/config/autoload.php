@@ -58,7 +58,7 @@ $autoload['packages'] = array(APPPATH . 'third_party/DevelBar');
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('twig', 'session', 'database', 'auth/auth');
+$autoload['libraries'] = array('twig', 'session', 'database', 'auth/customAuth' => 'custom_auth');
 
 /*
 | -------------------------------------------------------------------

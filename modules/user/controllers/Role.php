@@ -1,15 +1,15 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class UserController extends MY_Controller
+class Role extends MY_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('UserModel', 'userModel');
+		$this->load->model('RoleModel', 'roleModel');
 	}
 	
 	public function index()
 	{
-		$this->render('user');
+		$this->render('role');
 	}
 }

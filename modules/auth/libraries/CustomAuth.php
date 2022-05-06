@@ -1,6 +1,6 @@
 <?php
 
-class Auth
+class CustomAuth
 {
     const SESSION_KEY = 'user';
 
