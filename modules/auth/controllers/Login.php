@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class LoginController extends MY_Controller
+class Login extends MY_Controller
 {
     private $data = [];
 
@@ -59,7 +59,7 @@ class LoginController extends MY_Controller
                 throw new Exception(current($errors));
             }
 
-            if (!$this->auth->login($form['email'], $form['password'])) {
+            if (!$this->custom_auth->login($form['email'], $form['password'])) {
                 throw new Exception("Wrong Email or Password");
             }
 

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class AuthController extends MY_Controller
+class Auth extends MY_Controller
 {
 	public function __construct()
 	{
@@ -20,7 +20,7 @@ class AuthController extends MY_Controller
 
 	public function logout()
 	{
-		$this->auth->logout();
+		$this->custom_auth->logout();
 		redirect('/auth/login', 'refresh');
 		die();
 	}

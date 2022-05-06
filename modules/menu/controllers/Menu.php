@@ -1,15 +1,15 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
+class Menu extends MY_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('{{MODEL}}Model', '{{MODEL_ALIAS}}Model');
+		$this->load->model('MenuModel', 'menuModel');
 	}
 	
 	public function index()
 	{
-		$this->render('{{MODEL_ALIAS}}');
+		$this->render('menu');
 	}
 }

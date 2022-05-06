@@ -80,7 +80,6 @@ class Matches extends MY_Controller
     {
         if (isset($app)) {
             $this->create_controller($app);
-            $this->create_route($app);
             $this->create_model($app);
             $this->create_view($app);
         } else {
@@ -120,9 +119,6 @@ class Matches extends MY_Controller
             $directories = $names['directories'];
             $is_module = $names['is_module'];
 
-            $controllerName = $is_module ? $className . 'Controller' : $className;
-            $fileName = $is_module ? $fileName . 'Controller' : $fileName;
-
             $basePath = $is_module ? FCPATH . "../" : APPPATH;
 
             if (file_exists($basePath . $fileName . '.php')) {
@@ -132,7 +128,7 @@ class Matches extends MY_Controller
             $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseController;
             $extends = in_array(strtolower($extends), array('my', 'ci', 'mx')) ? strtoupper($extends) : ucfirst($extends);
 
-            $this->findAndReplace['{{CONTROLLER}}'] = $controllerName;
+            $this->findAndReplace['{{CONTROLLER}}'] = $className;
             $this->findAndReplace['{{CONTROLLER_FILE}}'] = $fileName . '.php';
             $this->findAndReplace['{{MODEL}}'] = $className;
             $this->findAndReplace['{{MODEL_ALIAS}}'] = strtolower($className);
@@ -149,61 +145,6 @@ class Matches extends MY_Controller
             }
 
             echo self::FORMAT_ENTER . 'Controller ' . $className . ' has been created inside ' . $basePath . $directories . '.';
-            echo self::FORMAT_ENTER;
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
-            echo self::FORMAT_ENTER;
-        }
-    }
-
-    public function create_route()
-    {
-        try {
-
-            $params = func_get_args();
-
-            foreach ($params as $parameter) {
-                $argument = explode(':', $parameter);
-                if (sizeof($argument) == 1 && !isset($route)) {
-                    $route = $argument[0];
-                }
-            }
-
-            if (!$route) {
-                throw new Exception('You need to provide a name for the route.');
-            }
-
-            $names = $this->setName($route);
-            $className = $names['class'];
-            $directories = $names['directories'];
-            $is_module = $names['is_module'];
-
-            if (!$is_module) {
-                throw new Exception("No need config route");
-            }
-
-            $basePath = $is_module ? FCPATH . "../" : APPPATH;
-            $directories = $directories . '/config';
-            $route = $directories . '/routes.php';
-
-            if (file_exists($basePath . $route)) {
-                throw new Exception($className . ' Route already exists in the ' . $directories . ' directory.');
-            }
-
-            $this->findAndReplace['{{CONTROLLER}}'] = ucfirst($className);
-            $this->findAndReplace['{{ROUTE}}'] = strtolower($className);
-
-            $template = $this->getTemplate('route');
-            $template = strtr($template, $this->findAndReplace);
-            if (strlen($directories) > 0 && !file_exists($basePath . $directories)) {
-                mkdir($basePath . $directories, 0755, true);
-            }
-
-            if (!write_file($basePath . $route, $template)) {
-                throw new Exception('Couldn\'t write Route.');
-            }
-
-            echo self::FORMAT_ENTER . 'Route ' . $className . ' has been created inside ' . $basePath . $directories . '.';
             echo self::FORMAT_ENTER;
         } catch (\Throwable $th) {
             echo $th->getMessage();

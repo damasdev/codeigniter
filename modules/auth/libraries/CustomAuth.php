@@ -1,6 +1,6 @@
 <?php
 
-class Auth
+class CustomAuth
 {
     const SESSION_KEY = 'user';
 
@@ -38,8 +38,9 @@ class Auth
             $this->session->set_userdata([
                 self::SESSION_KEY => [
                     'id' => $user->id,
-                    'name' => "$user->name",
+                    'name' => $user->name,
                     'email' => $user->email,
+                    'role' => $user->role
                 ]
             ]);
 

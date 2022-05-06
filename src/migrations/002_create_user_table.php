@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Migration_Create_table_user extends CI_Migration
+class Migration_Create_user_table extends CI_Migration
 {
     public function __construct()
     {
@@ -29,18 +29,26 @@ class Migration_Create_table_user extends CI_Migration
             'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255
-            ]
+            ],
+            'role_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => TRUE
+            ],
         ];
 
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('id', TRUE);
+        $this->dbforge->add_key('role_id');
         $this->dbforge->create_table('users', TRUE);
 
         // Dumping data for table 'users'
         $data = [
+            'id' => 1,
             'name' => 'Damas Amirul Karim',
-            'password' => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
+            'password' => password_hash('rahasia', PASSWORD_BCRYPT),
             'email' => 'damas@kodedasar.com',
+            'role_id' => 1
         ];
 
         $this->db->insert('users', $data);
