@@ -5,10 +5,24 @@ require APPPATH . 'third_party/MX/Controller.php';
 
 class MY_Controller extends MX_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
         $this->hmvc();
+    }
+
+    /**
+     * initializeMenu
+     *
+     * @return string
+     */
+    private function initializeMenu()
+    {
+        $items = $this->menuModel->all();
+        $this->custom_menu->set_items($items);
+
+        return $this->custom_menu->render();
     }
 
     /**
@@ -31,6 +45,9 @@ class MY_Controller extends MX_Controller
      */
     protected function render($view, $vars = [])
     {
+        // Initialize menu configuration
+        $vars['menu'] = $this->initializeMenu();
+
         return $this->twig->display($view, $vars);
     }
 

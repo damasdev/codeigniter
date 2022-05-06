@@ -1,11 +1,15 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class RoleModel extends CI_Model
+class Menu extends MY_Controller
 {
-	const TABLE_NAME = "roles";
-
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('MenuModel', 'menuModel');
+	}
+	
+	public function index()
+	{
+		$this->render('menu');
 	}
 }
