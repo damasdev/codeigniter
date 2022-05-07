@@ -12,9 +12,10 @@ class Role extends MY_Controller
 	{
 		$roles = $this->roleModel->all();
 
-		$this->render('role', [
-			'roles' => $roles
-		]);
+		$data['title'] = 'Role';
+		$data['roles'] = $roles;
+
+		$this->render('role', $data);
 	}
 
 	public function store()

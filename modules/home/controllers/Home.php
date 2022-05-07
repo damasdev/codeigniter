@@ -4,6 +4,8 @@ class Home extends MY_Controller
 {
 	public function index()
 	{
-		$this->render('home');
+		$data['title'] = 'Dashboard';
+
+		$this->render('home', $data);
 	}
 }

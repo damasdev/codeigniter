@@ -10,16 +10,13 @@ class User extends MY_Controller
 
 	public function index()
 	{
-
 		$this->load->model('role/RoleModel', 'roleModel');
 
-		$users = $this->userModel->all();
-		$roles = $this->roleModel->role();
+		$data['title'] = "User";
+		$data['users'] = $this->userModel->all();
+		$data['roles'] = $this->roleModel->role();
 
-		$this->render('user', [
-			'roles' => $roles,
-			'users' => $users,
-		]);
+		$this->render('user', $data);
 	}
 
 	public function store()

@@ -2,8 +2,6 @@
 
 class Login extends MY_Controller
 {
-    private $data = [];
-
     public function __construct()
     {
         parent::__construct();
@@ -16,9 +14,11 @@ class Login extends MY_Controller
      */
     public function index()
     {
-        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+        $data['title'] = "Login";
 
-        $this->data['email'] = [
+        $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+        $data['email'] = [
             'name' => 'email',
             'id' => 'email',
             'class' => 'form-control',
@@ -27,7 +27,7 @@ class Login extends MY_Controller
             'value' => $this->form_validation->set_value('email'),
         ];
 
-        $this->data['password'] = [
+        $data['password'] = [
             'name' => 'password',
             'id' => 'password',
             'class' => 'form-control',
@@ -35,7 +35,7 @@ class Login extends MY_Controller
             'type' => 'password',
         ];
 
-        $this->render('login', $this->data);
+        $this->render('login', $data);
     }
 
     /**

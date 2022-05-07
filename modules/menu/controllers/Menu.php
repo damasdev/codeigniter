@@ -10,13 +10,12 @@ class Menu extends MY_Controller
 
 	public function index()
 	{
-		$menus = $this->menuModel->all();
-		$parents = $this->menuModel->parent();
+		$data['title'] = 'Menu';
 
-		$this->render('menu', [
-			'menus' => $menus,
-			'parents' => $parents,
-		]);
+		$data['menus'] = $this->menuModel->all();
+		$data['parents'] = $this->menuModel->parent();
+
+		$this->render('menu', $data);
 	}
 
 	public function store()
