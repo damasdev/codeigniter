@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
 
     <title>
-        {% block title %}{% endblock %}
+        {{ block("title") | default("CODEIGNITER") }}
     </title>
 
     <link href="{{ base_url ('/css/app.min.css')}}" rel="stylesheet" />
@@ -19,19 +19,19 @@
         <div class="page-wrapper">
             <div class="container-fluid">
                 <div class="page-header d-print-none">
-                    {% block header %}{% endblock %}
+                    {{ block("header") }}
                 </div>
             </div>
             <div class="page-body">
                 <div class="container-fluid">
-                    {% block body %}{% endblock %}
+                    {{ block("body") }}
                 </div>
             </div>
             </footer>
         </div>
     </div>
 
-    <script src="{{ base_url ('/js/app.min.js')}}"></script>
+    <script src="{{ base_url ('/js/app.min.js')}}" defer></script>
 </body>
 
 </html>

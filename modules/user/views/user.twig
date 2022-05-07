@@ -1,56 +1,112 @@
 {% extends 'layouts/app.twig' %}
 
 {% block title %}
-User
+	User
 {% endblock %}
 
 {% block header %}
-<div class="row align-items-center">
-  <div class="col">
-    <div class="page-pretitle">
-      <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="/home">Home</a></li>
-      </ol>
-    </div>
-    <h2 class="page-title">
-      User
-    </h2>
-  </div>
-  <div class="col-auto ms-auto d-print-none">
-    <div class="btn-list">
-      <a href="#" class="btn btn-primary d-none d-sm-inline-block">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        Create Data
-      </a>
-    </div>
-  </div>
-</div>
+	<div class="row align-items-center">
+		<div class="col">
+			<div class="page-pretitle">
+				<ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
+					<li class="breadcrumb-item">
+						<a href="/">Home</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="/user">User</a>
+					</li>
+				</ol>
+			</div>
+			<h2 class="page-title">User</h2>
+		</div>
+		<div class="col-auto ms-auto d-print-none">
+			<div class="btn-list">
+				<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#createUser" user="button" aria-controls="createUser">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+					Create
+				</a>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title">User</h3>
-  </div>
-  <div class="card-body">
-    <p>
-      The page you are looking at is being generated dynamically by
-      CodeIgniter.
-    </p>
+	<div class="card">
+		<div class="table-responsive">
+			<table class="table table-vcenter card-table table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Role</th>
+						<th class="w-25">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+							<td class="text-muted">{{ user.id | capitalize }}</td>
+							<td class="text-muted">{{ user.name }}</td>
+							<td class="text-muted">{{ user.email }}</td>
+							<td class="text-muted">{{ user.role }}</td>
+							<td class="text-muted">
+								<a href="#" class="text-primary">
+									<i class="ti ti-edit"></i>
+									Edit
+								</a>
+								|
+								<a href="#" class="text-danger">
+									<i class="ti ti-trash"></i>
+									Delete
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-    <p>If you would like to edit this page you'll find it located at:</p>
-    <pre><code>modules/user/views/user.twig</code></pre>
-
-    <p>
-      If you are exploring CodeIgniter for the very first time, you should
-      start by reading the <a href="//codeigniter.com/userguide3/">User Guide</a>.
-    </p>
-  </div>
-</div>
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="createUser" aria-labelledby="canvasLabel">
+		<div class="offcanvas-header">
+			<h2 class="offcanvas-title" id="canvasLabel">Create User</h2>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		{{ form_open ('user') }}
+		<div class="offcanvas-body">
+			<div>
+				<div class="form-group mb-3">
+					<label for="name">Name</label>
+					<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+				</div>
+				<div class="form-group mb-3">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" name="email" id="email" placeholder="Email">
+				</div>
+				<div class="form-group mb-3">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" name="password" id="password" placeholder="Password">
+				</div>
+				<div class="form-group mb-3">
+					<label for="role">Role</label>
+					<select class="form-select" name="role_id" id="role">
+						{% for role in roles %}
+							<option value="{{role.id}}">{{role.name}}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="mt-3">
+				<button class="btn btn-primary" type="submit" data-bs-dismiss="offcanvas">
+					Submit
+				</button>
+			</div>
+		</div>
+		{{ form_close }}
+	</div>
 {% endblock %}

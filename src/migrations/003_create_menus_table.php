@@ -51,7 +51,7 @@ class Migration_Create_menus_table extends CI_Migration
             [
                 'id' => 1,
                 'parent' => NULL,
-                'name' => 'Home',
+                'name' => 'Dashboard',
                 'slug' => 'home',
                 'icon' => 'ti ti-dashboard',
                 'number' => 1
@@ -59,7 +59,7 @@ class Migration_Create_menus_table extends CI_Migration
             [
                 'id' => 2,
                 'parent' => NULL,
-                'name' => 'Setting',
+                'name' => 'Settings',
                 'slug' => NULL,
                 'icon' => 'ti ti-adjustments',
                 'number' => 2
@@ -67,27 +67,27 @@ class Migration_Create_menus_table extends CI_Migration
             [
                 'id' => 3,
                 'parent' => 2,
-                'name' => 'User',
-                'slug' => 'user',
+                'name' => 'Menu',
+                'slug' => 'menu',
                 'icon' => NULL,
                 'number' => 1
             ],
             [
                 'id' => 4,
                 'parent' => 2,
-                'name' => 'Role',
-                'slug' => 'role',
+                'name' => 'User',
+                'slug' => 'user',
                 'icon' => NULL,
                 'number' => 2
             ],
             [
                 'id' => 5,
                 'parent' => 2,
-                'name' => 'Menu',
-                'slug' => 'menu',
+                'name' => 'Role',
+                'slug' => 'role',
                 'icon' => NULL,
                 'number' => 3
-            ]
+            ],
         ];
 
         $this->db->insert_batch('menus', $data);

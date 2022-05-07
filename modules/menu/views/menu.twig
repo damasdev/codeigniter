@@ -1,56 +1,123 @@
 {% extends 'layouts/app.twig' %}
 
 {% block title %}
-Menu
+	Menu
 {% endblock %}
 
 {% block header %}
-<div class="row align-items-center">
-  <div class="col">
-    <div class="page-pretitle">
-      <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="/home">Home</a></li>
-      </ol>
-    </div>
-    <h2 class="page-title">
-      Menu
-    </h2>
-  </div>
-  <div class="col-auto ms-auto d-print-none">
-    <div class="btn-list">
-      <a href="#" class="btn btn-primary d-none d-sm-inline-block">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        Create Data
-      </a>
-    </div>
-  </div>
-</div>
+	<div class="row align-items-center">
+		<div class="col">
+			<div class="page-pretitle">
+				<ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
+					<li class="breadcrumb-item">
+						<a href="/">Home</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="/menu">Menu</a>
+					</li>
+				</ol>
+			</div>
+			<h2 class="page-title">Menu</h2>
+		</div>
+		<div class="col-auto ms-auto d-print-none">
+			<div class="btn-list">
+				<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#createMenu" menu="button" aria-controls="createMenu">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+					Create
+				</a>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title">Menu</h3>
-  </div>
-  <div class="card-body">
-    <p>
-      The page you are looking at is being generated dynamically by
-      CodeIgniter.
-    </p>
+	<div class="card">
+		<div class="table-responsive">
+			<table class="table table-vcenter card-table table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Slug</th>
+						<th>Icon</th>
+						<th class="w-25">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for menu in menus %}
+						<tr>
+							<td class="text-muted">{{ menu.id }}</td>
+							<td class="text-muted">{{ menu.name }}</td>
+							<td class="text-muted">{{ menu.slug ?? "-" }}</td>
+							<td class="text-muted">
+								{% if menu.icon %}
+									<i class='{{ menu.icon }}'></i>
+								{% else %}
+									-
+								{% endif %}
+							</td>
+							<td class="text-muted">
+								<a href="#" class="text-primary">
+									<i class="ti ti-edit"></i>
+									Edit
+								</a>
+								|
+								<a href="#" class="text-danger">
+									<i class="ti ti-trash"></i>
+									Delete
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-    <p>If you would like to edit this page you'll find it located at:</p>
-    <pre><code>modules/menu/views/menu.twig</code></pre>
-
-    <p>
-      If you are exploring CodeIgniter for the very first time, you should
-      start by reading the <a href="//codeigniter.com/userguide3/">User Guide</a>.
-    </p>
-  </div>
-</div>
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="createMenu" aria-labelledby="canvasLabel">
+		<div class="offcanvas-header">
+			<h2 class="offcanvas-title" id="canvasLabel">Create Menu</h2>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		{{ form_open ('menu') }}
+		<div class="offcanvas-body">
+			<div>
+				<div class="form-group mb-3">
+					<label for="name">Name</label>
+					<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+				</div>
+				<div class="form-group mb-3">
+					<label for="slug">Slug</label>
+					<input type="text" class="form-control" name="slug" id="slug" placeholder="Slug">
+				</div>
+        <div class="form-group mb-3">
+					<label for="icon">Icon</label>
+					<input type="text" class="form-control" name="icon" id="icon" placeholder="Icon">
+				</div>
+        <div class="form-group mb-3">
+					<label for="parent">Parent</label>
+					<select class="form-select" name="parent" id="parent">
+            <option value="">-</option>
+						{% for parent in parents %}
+							<option value="{{parent.id}}">{{parent.name}}</option>
+						{% endfor %}
+					</select>
+				</div>
+        <div class="form-group mb-3">
+					<label for="number">Order</label>
+					<input type="number" class="form-control" name="number" id="number" placeholder="Order">
+				</div>
+			</div>
+			<div class="mt-3">
+				<button class="btn btn-primary" type="submit" data-bs-dismiss="offcanvas">
+					Submit
+				</button>
+			</div>
+		</div>
+		{{ form_close }}
+	</div>
 {% endblock %}
