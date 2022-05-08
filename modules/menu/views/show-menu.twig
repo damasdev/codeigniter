@@ -1,0 +1,88 @@
+{% extends 'layouts/app.twig' %}
+
+{% block header %}
+	<div class="row align-items-center">
+		<div class="col">
+			<div class="page-pretitle">
+				<ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
+					<li class="breadcrumb-item">
+						<a href="{{ base_url('/') }}">Home</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="{{ base_url('/menu') }}">Menu</a>
+					</li>
+				</ol>
+			</div>
+			<h2 class="page-title">
+				{{ title | default('Show') }}
+			</h2>
+		</div>
+		<div class="col-auto ms-auto d-print-none">
+			<div class="btn-list">
+				<a href="{{ base_url('menu') }}" class="btn d-none d-sm-inline-block">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<desc>Download more icon variants from https://tabler-icons.io/i/arrow-left</desc>
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+						<line x1="5" y1="12" x2="11" y2="18"></line>
+						<line x1="5" y1="12" x2="11" y2="6"></line>
+					</svg>
+					Back
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+		<div class="table-responsive">
+			<table class="table table-vcenter card-table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-muted">Name</td>
+						<td class="text-muted">{{ menu.name }}</td>
+					</tr>
+					<tr>
+						<td class="text-muted">Slug</td>
+						<td class="text-muted">{{ menu.slug ?? "-" }}</td>
+					</tr>
+					<tr>
+						<td class="text-muted">Icon</td>
+						<td class="text-muted">
+							{% if menu.icon %}
+								<i class="{{ menu.icon }}"></i>
+							{% else %}
+								-
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<td class="text-muted">Menu Ordering</td>
+						<td class="text-muted">{{ menu.number }}</td>
+					</tr>
+					<tr>
+						<td class="text-muted">Parent ID</td>
+						<td class="text-muted">{{ menu.parent ?? "-" }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="card-footer">
+			<a href="{{ base_url('menu') }}/{{menu.id}}/edit" class="btn btn-primary d-none d-sm-inline-block">
+				<i class="ti ti-edit"></i>
+				Edit
+			</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	{# add custom script #}
+{% endblock %}

@@ -18,13 +18,13 @@ class User extends MY_Controller
 
 		$this->render('user', $data);
 	}
-	
+
 	/**
 	 * Store User
 	 *
 	 * @return mixed
 	 */
-	public function store():mixed
+	public function store(): mixed
 	{
 		try {
 
@@ -81,6 +81,81 @@ class User extends MY_Controller
 			return $this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Your data has been deleted.'
+			], 200);
+		} catch (\Throwable $th) {
+			return $this->jsonResponse([
+				'status' => 'error',
+				'message' => $th->getMessage()
+			], 400);
+		}
+	}
+
+	/**
+	 * Show User
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function show(int $id): void
+	{
+		$user = $this->userModel->find($id);
+
+		if (!$user) {
+			show_404();
+		}
+
+		$data['title'] = 'Show User';
+		$data['user'] = $user;
+
+		$this->render('show-user', $data);
+	}
+
+	/**
+	 * Edit User
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function edit(int $id): void
+	{
+		$this->load->model('role/RoleModel', 'roleModel');
+
+		$user = $this->userModel->find($id);
+
+		if (!$user) {
+			show_404();
+		}
+
+		$data['title'] = 'Edit Role';
+		$data['roles'] = $this->roleModel->role($user->is_root);
+		$data['user'] = $user;
+
+		$this->render('edit-user', $data);
+	}
+
+	public function update(int $id)
+	{
+		try {
+
+			$data = [
+				'name' => $this->input->post('name'),
+				'email' => $this->input->post('email'),
+				'password' => $this->input->post('password'),
+				'role_id' => $this->input->post('role_id'),
+			];
+
+			if (!$this->form_validation->run('user')) {
+				$errors = $this->form_validation->error_array();
+				throw new Exception(current($errors));
+			}
+
+			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+
+			$this->userModel->update($id, $data);
+
+			return $this->jsonResponse([
+				'status' => 'success',
+				'message' => 'Data successfuly updated'
 			], 200);
 		} catch (\Throwable $th) {
 			return $this->jsonResponse([

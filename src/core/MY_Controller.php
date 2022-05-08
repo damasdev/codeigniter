@@ -46,7 +46,7 @@ class MY_Controller extends MX_Controller
     protected function render($view, $vars = [])
     {
         // Initialize menu configuration
-        $vars['menu'] = $this->initializeMenu();
+        $vars['sidebar'] = $this->initializeMenu();
 
         return $this->twig->display($view, $vars);
     }

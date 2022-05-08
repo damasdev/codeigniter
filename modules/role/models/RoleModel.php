@@ -22,6 +22,18 @@ class RoleModel extends CI_Model
 	}
 
 	/**
+	 * Update Data
+	 *
+	 * @param  int $id
+	 * @param  array $data
+	 * @return void
+	 */
+	public function update(int $id, array $data): void
+	{
+		$this->db->where('id', $id)->update(self::TABLE_NAME, $data);
+	}
+
+	/**
 	 * Get All Roles
 	 *
 	 * @return array
@@ -35,9 +47,9 @@ class RoleModel extends CI_Model
 	 * Find By ID
 	 *
 	 * @param  int $id
-	 * @return stdClass
+	 * @return ?stdClass
 	 */
-	public function find(int $id): stdClass
+	public function find(int $id): ?stdClass
 	{
 		return $this->db->where('id', $id)->get(self::TABLE_NAME)->row();
 	}
@@ -45,11 +57,12 @@ class RoleModel extends CI_Model
 	/**
 	 * Get Role
 	 *
+	 * @param  int $role
 	 * @return array
 	 */
-	public function role(): array
+	public function role(int $role = 0): array
 	{
-		return $this->db->where('is_root', 0)->get(self::TABLE_NAME)->result();
+		return $this->db->where('is_root', $role)->get(self::TABLE_NAME)->result();
 	}
 
 	/**

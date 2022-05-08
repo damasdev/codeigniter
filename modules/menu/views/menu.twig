@@ -6,14 +6,16 @@
 			<div class="page-pretitle">
 				<ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
 					<li class="breadcrumb-item">
-						<a href="/">Home</a>
+						<a href="{{ base_url('/') }}">Home</a>
 					</li>
 					<li class="breadcrumb-item">
-						<a href="/menu">Menu</a>
+						<a href="{{ base_url('menu') }}">Menu</a>
 					</li>
 				</ol>
 			</div>
-			<h2 class="page-title">Menu</h2>
+			<h2 class="page-title">
+				{{ title | default('Menu') }}
+			</h2>
 		</div>
 		<div class="col-auto ms-auto d-print-none">
 			<div class="btn-list">
@@ -36,7 +38,6 @@
 			<table class="table table-vcenter card-table table-striped">
 				<thead>
 					<tr>
-						<th>ID</th>
 						<th>Name</th>
 						<th>Slug</th>
 						<th>Icon</th>
@@ -46,7 +47,6 @@
 				<tbody>
 					{% for menu in menus %}
 						<tr id="{{ menu.id }}">
-							<td class="text-muted">{{ menu.id }}</td>
 							<td class="text-muted">{{ menu.name }}</td>
 							<td class="text-muted">{{ menu.slug ?? "-" }}</td>
 							<td class="text-muted">
@@ -58,6 +58,11 @@
 							</td>
 							<td class="text-muted">
 								<a href="{{ base_url('menu') }}/{{menu.id}}" class="btn btn-sm text-primary">
+									<i class="ti ti-list-details"></i>
+									Detail
+								</a>
+								|
+								<a href="{{ base_url('menu') }}/{{menu.id}}/edit" class="btn btn-sm text-warning">
 									<i class="ti ti-edit"></i>
 									Edit
 								</a>
@@ -95,7 +100,7 @@
 						<input type="text" class="form-control" name="icon" id="icon" placeholder="Icon">
 					</div>
 					<div class="form-group mb-3">
-						<label for="parent">Parent</label>
+						<label for="parent">Parent Menu</label>
 						<select class="form-select" name="parent" id="parent">
 							<option value="">-</option>
 							{% for parent in parents %}
@@ -104,8 +109,8 @@
 						</select>
 					</div>
 					<div class="form-group mb-3">
-						<label for="number">Order</label>
-						<input type="number" class="form-control" name="number" id="number" placeholder="Order">
+						<label for="number">Menu Ordering</label>
+						<input type="number" class="form-control" name="number" id="number" placeholder="Menu Ordering">
 					</div>
 				</div>
 				<div class="mt-3">

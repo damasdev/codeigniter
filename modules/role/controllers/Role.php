@@ -83,4 +83,72 @@ class Role extends MY_Controller
 			], 400);
 		}
 	}
+
+	/**
+	 * Show Role
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function show(int $id): void
+	{
+		$role = $this->roleModel->find($id);
+
+		if (!$role) {
+			show_404();
+		}
+
+		$data['title'] = 'Show Role';
+		$data['role'] = $role;
+
+		$this->render('show-role', $data);
+	}
+
+	/**
+	 * Edit Role
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function edit(int $id): void
+	{
+		$role = $this->roleModel->find($id);
+
+		if (!$role) {
+			show_404();
+		}
+
+		$data['title'] = 'Edit Role';
+		$data['role'] = $role;
+
+		$this->render('edit-role', $data);
+	}
+
+	public function update(int $id)
+	{
+		try {
+
+			$data = [
+				'name' => $this->input->post('name'),
+				'description' => $this->input->post('description'),
+			];
+
+			if (!$this->form_validation->run('role')) {
+				$errors = $this->form_validation->error_array();
+				throw new Exception(current($errors));
+			}
+
+			$this->roleModel->update($id, $data);
+
+			return $this->jsonResponse([
+				'status' => 'success',
+				'message' => 'Data successfuly updated'
+			], 200);
+		} catch (\Throwable $th) {
+			return $this->jsonResponse([
+				'status' => 'error',
+				'message' => $th->getMessage()
+			], 400);
+		}
+	}
 }

@@ -21,6 +21,29 @@ class MenuModel extends CI_Model
 	}
 
 	/**
+	 * Update Data
+	 *
+	 * @param  int $id
+	 * @param  array $data
+	 * @return void
+	 */
+	public function update(int $id, array $data): void
+	{
+		$this->db->where('id', $id)->update(self::TABLE_NAME, $data);
+	}
+
+	/**
+	 * Find By ID
+	 *
+	 * @param  int $id
+	 * @return ?stdClass
+	 */
+	public function find(int $id): ?stdClass
+	{
+		return $this->db->where('id', $id)->get(self::TABLE_NAME)->row();
+	}
+
+	/**
 	 * Get all menus
 	 *
 	 * @return array

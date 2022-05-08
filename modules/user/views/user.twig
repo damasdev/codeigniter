@@ -6,14 +6,16 @@
 			<div class="page-pretitle">
 				<ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
 					<li class="breadcrumb-item">
-						<a href="/">Home</a>
+						<a href="{{ base_url('/') }}">Home</a>
 					</li>
 					<li class="breadcrumb-item">
-						<a href="/user">User</a>
+						<a href="{{ base_url('user') }}">User</a>
 					</li>
 				</ol>
 			</div>
-			<h2 class="page-title">User</h2>
+			<h2 class="page-title">
+				{{ title | default('User') }}
+			</h2>
 		</div>
 		<div class="col-auto ms-auto d-print-none">
 			<div class="btn-list">
@@ -36,7 +38,6 @@
 			<table class="table table-vcenter card-table table-striped">
 				<thead>
 					<tr>
-						<th>ID</th>
 						<th>Name</th>
 						<th>Email</th>
 						<th>Role</th>
@@ -46,12 +47,16 @@
 				<tbody>
 					{% for user in users %}
 						<tr id="{{ user.id }}">
-							<td class="text-muted">{{ user.id | capitalize }}</td>
 							<td class="text-muted">{{ user.name }}</td>
 							<td class="text-muted">{{ user.email }}</td>
 							<td class="text-muted">{{ user.role }}</td>
 							<td class="text-muted">
 								<a href="{{ base_url('user') }}/{{user.id}}" class="btn btn-sm text-primary">
+									<i class="ti ti-list-details"></i>
+									Detail
+								</a>
+								|
+								<a href="{{ base_url('user') }}/{{user.id}}/edit" class="btn btn-sm text-warning">
 									<i class="ti ti-edit"></i>
 									Edit
 								</a>

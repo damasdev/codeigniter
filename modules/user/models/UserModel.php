@@ -21,15 +21,27 @@ class UserModel extends CI_Model
 	}
 
 	/**
+	 * Update Data
+	 *
+	 * @param  int $id
+	 * @param  array $data
+	 * @return void
+	 */
+	public function update(int $id, array $data): void
+	{
+		$this->db->where('id', $id)->update(self::TABLE_NAME, $data);
+	}
+
+	/**
 	 * Find User By ID
 	 *
 	 * @param  int $id
-	 * @return stdClass
+	 * @return ?stdClass
 	 */
-	public function find(int $id): stdClass
+	public function find(int $id): ?stdClass
 	{
 		$this->db->select([
-			'users.id', 'users.name', 'users.email', 'roles.name as role', 'roles.is_root'
+			'users.id', 'users.name', 'users.email', 'users.role_id', 'roles.name as role', 'roles.is_root'
 		])->join('roles', 'roles.id = users.role_id');
 
 		return $this->db->where('users.id', $id)->get(self::TABLE_NAME)->row();
