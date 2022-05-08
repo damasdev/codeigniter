@@ -18,8 +18,13 @@ class User extends MY_Controller
 
 		$this->render('user', $data);
 	}
-
-	public function store()
+	
+	/**
+	 * Store User
+	 *
+	 * @return mixed
+	 */
+	public function store():mixed
 	{
 		try {
 
@@ -38,17 +43,50 @@ class User extends MY_Controller
 			// Run Password Hash
 			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
 
-			if (!$this->userModel->insert($data)) {
-				throw new Exception("Something wrong");
+			$this->userModel->insert($data);
+
+			return $this->jsonResponse([
+				'status' => 'success',
+				'message' => 'Data successfuly created'
+			], 200);
+		} catch (\Throwable $th) {
+			return $this->jsonResponse([
+				'status' => 'error',
+				'message' => $th->getMessage()
+			], 400);
+		}
+	}
+
+	/**
+	 * Destroy User
+	 *
+	 * @param  int $id
+	 * @return mixed
+	 */
+	public function destroy(int $id): mixed
+	{
+		try {
+
+			$user = $this->userModel->find($id);
+			if (!$user) {
+				throw new Exception("Data not found");
 			}
 
-			redirect('user');
-			die();
-		} catch (\Throwable $th) {
-			$this->session->set_flashdata('message', $th->getMessage());
+			if ($user->is_root) {
+				throw new Exception("Root can't be deleted!");
+			}
 
-			redirect('user', 'refresh');
-			die();
+			$this->userModel->delete($id);
+
+			return $this->jsonResponse([
+				'status' => 'success',
+				'message' => 'Your data has been deleted.'
+			], 200);
+		} catch (\Throwable $th) {
+			return $this->jsonResponse([
+				'status' => 'error',
+				'message' => $th->getMessage()
+			], 400);
 		}
 	}
 }

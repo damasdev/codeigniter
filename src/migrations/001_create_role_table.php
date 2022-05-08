@@ -39,19 +39,19 @@ class Migration_Create_role_table extends CI_Migration
         $data = [
             [
                 'id' => 1,
-                'name' => 'ROOT',
+                'name' => 'Root',
                 'description' => 'Super Administrator',
                 'is_root' => 1
             ],
             [
                 'id' => 2,
-                'name' => 'ADMIN',
+                'name' => 'Admin',
                 'description' => 'Administrator',
                 'is_root' => 0
             ],
             [
                 'id' => 3,
-                'name' => 'USER',
+                'name' => 'User',
                 'description' => 'User',
                 'is_root' => 0
             ]

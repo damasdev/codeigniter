@@ -1,37 +1,43 @@
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
+	<head>
+		<meta charset="utf-8"/>
 
-    <title>
-        {{ title | default("CODEIGNITER") }}
-    </title>
+		<title>
+			{{ title | default("CODEIGNITER") }}
+		</title>
 
-    <link href="{{ base_url ('/css/app.min.css')}}" rel="stylesheet" />
-    <link href="{{ base_url ('/css/app-vendors.min.css')}}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ base_url ('/iconfont/tabler-icons.min.css')}}">
-</head>
+		<link href="{{ base_url ('/css/app.min.css')}}" rel="stylesheet"/>
+		<link href="{{ base_url ('/css/app-vendors.min.css')}}" rel="stylesheet"/>
+		<link href="{{ base_url ('/iconfont/tabler-icons.min.css')}}" rel="stylesheet"/>
 
-<body class="theme-light">
-    <div class="page">
-        {% include "layouts/partials/sidebar.twig" %}
-        {% include "layouts/partials/header.twig" %}
-        <div class="page-wrapper">
-            <div class="container-fluid">
-                <div class="page-header d-print-none">
-                    {{ block("header") }}
-                </div>
-            </div>
-            <div class="page-body">
-                <div class="container-fluid">
-                    {{ block("body") }}
-                </div>
-            </div>
-            </footer>
-        </div>
-    </div>
+		<script>
+			let baseURL = "{{ base_url () }}";
+		</script>
+	</head>
 
-    <script src="{{ base_url ('/js/app.min.js')}}" defer></script>
-</body>
+	<body class="theme-light">
+		<div class="page">
+			{% include "layouts/partials/sidebar.twig" %}
+			{% include "layouts/partials/header.twig" %}
+			<div class="page-wrapper">
+				<div class="container-fluid">
+					<div class="page-header d-print-none">
+						{{ block("header") }}
+					</div>
+				</div>
+				<div class="page-body">
+					<div class="container-fluid">
+						{{ block("body") }}
+					</div>
+				</div>
+			</footer>
+		</div>
 
+		<script src="{{ base_url ('/js/app.min.js')}}"></script>
+		<script src="{{ base_url ('/vendor/jquery/jquery-3.6.0.min.js')}}"></script>
+		<script src="{{ base_url ('/vendor/sweetalert/sweetalert2.all.min.js')}}"></script>
+
+		{{ block("scripts") }}
+	</body>
 </html>

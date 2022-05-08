@@ -18,7 +18,12 @@ class Role extends MY_Controller
 		$this->render('role', $data);
 	}
 
-	public function store()
+	/**
+	 * Store Role
+	 *
+	 * @return mixed
+	 */
+	public function store(): mixed
 	{
 		try {
 
@@ -32,17 +37,50 @@ class Role extends MY_Controller
 				throw new Exception(current($errors));
 			}
 
-			if (!$this->roleModel->insert($data)) {
-				throw new Exception("Something wrong");
+			$this->roleModel->insert($data);
+
+			return $this->jsonResponse([
+				'status' => 'success',
+				'message' => 'Data successfuly created'
+			], 200);
+		} catch (\Throwable $th) {
+			return $this->jsonResponse([
+				'status' => 'error',
+				'message' => $th->getMessage()
+			], 400);
+		}
+	}
+
+	/**
+	 * Destroy Role
+	 *
+	 * @param  int $id
+	 * @return mixed
+	 */
+	public function destroy(int $id): mixed
+	{
+		try {
+
+			$role = $this->roleModel->find($id);
+			if (!$role) {
+				throw new Exception("Data not found");
 			}
 
-			redirect('role');
-			die();
-		} catch (\Throwable $th) {
-			$this->session->set_flashdata('message', $th->getMessage());
+			if ($role->is_root) {
+				throw new Exception("Root can't be deleted!");
+			}
 
-			redirect('role', 'refresh');
-			die();
+			$this->roleModel->delete($id);
+
+			return $this->jsonResponse([
+				'status' => 'success',
+				'message' => 'Your data has been deleted.'
+			], 200);
+		} catch (\Throwable $th) {
+			return $this->jsonResponse([
+				'status' => 'error',
+				'message' => $th->getMessage()
+			], 400);
 		}
 	}
 }

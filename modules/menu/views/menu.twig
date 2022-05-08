@@ -45,7 +45,7 @@
 				</thead>
 				<tbody>
 					{% for menu in menus %}
-						<tr>
+						<tr id="{{ menu.id }}">
 							<td class="text-muted">{{ menu.id }}</td>
 							<td class="text-muted">{{ menu.name }}</td>
 							<td class="text-muted">{{ menu.slug ?? "-" }}</td>
@@ -57,15 +57,15 @@
 								{% endif %}
 							</td>
 							<td class="text-muted">
-								<a href="#" class="text-primary">
+								<a href="{{ base_url('menu') }}/{{menu.id}}" class="btn btn-sm text-primary">
 									<i class="ti ti-edit"></i>
 									Edit
 								</a>
 								|
-								<a href="#" class="text-danger">
+								<span class="btn btn-sm text-danger remove">
 									<i class="ti ti-trash"></i>
 									Delete
-								</a>
+								</span>
 							</td>
 						</tr>
 					{% endfor %}
@@ -79,41 +79,45 @@
 			<h2 class="offcanvas-title" id="canvasLabel">Create Menu</h2>
 			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
-		{{ form_open ('menu') }}
-		<div class="offcanvas-body">
-			<div>
-				<div class="form-group mb-3">
-					<label for="name">Name</label>
-					<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+		<form id="form" method="post">
+			<div class="offcanvas-body">
+				<div>
+					<div class="form-group mb-3">
+						<label for="name">Name</label>
+						<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+					</div>
+					<div class="form-group mb-3">
+						<label for="slug">Slug</label>
+						<input type="text" class="form-control" name="slug" id="slug" placeholder="Slug">
+					</div>
+					<div class="form-group mb-3">
+						<label for="icon">Icon</label>
+						<input type="text" class="form-control" name="icon" id="icon" placeholder="Icon">
+					</div>
+					<div class="form-group mb-3">
+						<label for="parent">Parent</label>
+						<select class="form-select" name="parent" id="parent">
+							<option value="">-</option>
+							{% for parent in parents %}
+								<option value="{{parent.id}}">{{parent.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group mb-3">
+						<label for="number">Order</label>
+						<input type="number" class="form-control" name="number" id="number" placeholder="Order">
+					</div>
 				</div>
-				<div class="form-group mb-3">
-					<label for="slug">Slug</label>
-					<input type="text" class="form-control" name="slug" id="slug" placeholder="Slug">
-				</div>
-        <div class="form-group mb-3">
-					<label for="icon">Icon</label>
-					<input type="text" class="form-control" name="icon" id="icon" placeholder="Icon">
-				</div>
-        <div class="form-group mb-3">
-					<label for="parent">Parent</label>
-					<select class="form-select" name="parent" id="parent">
-            <option value="">-</option>
-						{% for parent in parents %}
-							<option value="{{parent.id}}">{{parent.name}}</option>
-						{% endfor %}
-					</select>
-				</div>
-        <div class="form-group mb-3">
-					<label for="number">Order</label>
-					<input type="number" class="form-control" name="number" id="number" placeholder="Order">
+				<div class="mt-3">
+					<button class="btn btn-primary" id="submit" type="button" data-bs-dismiss="offcanvas">
+						Submit
+					</button>
 				</div>
 			</div>
-			<div class="mt-3">
-				<button class="btn btn-primary" type="submit" data-bs-dismiss="offcanvas">
-					Submit
-				</button>
-			</div>
-		</div>
-		{{ form_close }}
+		</form>
 	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ base_url ('/js/modules/menu/menu.js')}}"></script>
 {% endblock %}

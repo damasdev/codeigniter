@@ -67,7 +67,7 @@ class CustomMenu
      * 
      * @var string
      */
-    private $parent_anchor            = '<a href="%s" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">%s</a>';
+    private $parent_anchor            = '<span data-info="%s" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">%s</span>';
 
     /**
      * Opening tag of the children menu / sub menu.

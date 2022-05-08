@@ -35,17 +35,41 @@ class Menu extends MY_Controller
 				throw new Exception(current($errors));
 			}
 
-			if (!$this->menuModel->insert($data)) {
-				throw new Exception("Something wrong");
-			}
+			$this->menuModel->insert($data);
 
-			redirect('menu');
-			die();
+			return $this->jsonResponse([
+				'status' => 'success',
+				'message' => 'Data successfuly created'
+			], 200);
 		} catch (\Throwable $th) {
-			$this->session->set_flashdata('message', $th->getMessage());
+			return $this->jsonResponse([
+				'status' => 'error',
+				'message' => $th->getMessage()
+			], 400);
+		}
+	}
 
-			redirect('menu', 'refresh');
-			die();
+	/**
+	 * Destroy Menu
+	 *
+	 * @param  int $id
+	 * @return mixed
+	 */
+	public function destroy(int $id): mixed
+	{
+		try {
+
+			$this->menuModel->delete($id);
+
+			return $this->jsonResponse([
+				'status' => 'success',
+				'message' => 'Your data has been deleted.'
+			], 200);
+		} catch (\Throwable $th) {
+			return $this->jsonResponse([
+				'status' => 'error',
+				'message' => $th->getMessage()
+			], 400);
 		}
 	}
 }

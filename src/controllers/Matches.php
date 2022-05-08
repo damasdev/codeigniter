@@ -2,7 +2,7 @@
 #!/usr/bin/php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-if (PHP_SAPI !== 'cli') {
+if (!is_cli()) {
     show_404();
     die();
 }

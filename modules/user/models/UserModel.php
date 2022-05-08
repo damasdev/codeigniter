@@ -12,12 +12,27 @@ class UserModel extends CI_Model
 	/**
 	 * Insert Data
 	 *
-	 * @param  mixed $data
+	 * @param  array $data
 	 * @return void
 	 */
 	public function insert(array $data): void
 	{
 		$this->db->insert(self::TABLE_NAME, $data);
+	}
+
+	/**
+	 * Find User By ID
+	 *
+	 * @param  int $id
+	 * @return stdClass
+	 */
+	public function find(int $id): stdClass
+	{
+		$this->db->select([
+			'users.id', 'users.name', 'users.email', 'roles.name as role', 'roles.is_root'
+		])->join('roles', 'roles.id = users.role_id');
+
+		return $this->db->where('users.id', $id)->get(self::TABLE_NAME)->row();
 	}
 
 	/**
@@ -31,6 +46,17 @@ class UserModel extends CI_Model
 			'users.id', 'users.name', 'users.email', 'roles.name as role'
 		])->join('roles', 'roles.id = users.role_id');
 
-		return $this->db->get(self::TABLE_NAME)->result_array();
+		return $this->db->get(self::TABLE_NAME)->result();
+	}
+
+	/**
+	 * Delete User
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function delete(int $id): void
+	{
+		$this->db->where('id', $id)->delete(self::TABLE_NAME);
 	}
 }

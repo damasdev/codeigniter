@@ -12,7 +12,7 @@ class MenuModel extends CI_Model
 	/**
 	 * Insert Data
 	 *
-	 * @param  mixed $data
+	 * @param  array $data
 	 * @return void
 	 */
 	public function insert(array $data): void
@@ -37,6 +37,17 @@ class MenuModel extends CI_Model
 	 */
 	public function parent(): array
 	{
-		return $this->db->where('parent IS NULL')->get(self::TABLE_NAME)->result_array();
+		return $this->db->where('parent IS NULL')->get(self::TABLE_NAME)->result();
+	}
+
+	/**
+	 * Delete Menu
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function delete(int $id): void
+	{
+		$this->db->where('id', $id)->delete(self::TABLE_NAME);
 	}
 }
