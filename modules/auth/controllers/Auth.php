@@ -20,7 +20,7 @@ class Auth extends MY_Controller
 
 	public function logout()
 	{
-		$this->custom_auth->logout();
+		$this->auth_library->logout();
 		redirect('/auth/login', 'refresh');
 		die();
 	}

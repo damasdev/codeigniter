@@ -58,7 +58,7 @@ $autoload['packages'] = array(APPPATH . 'third_party/DevelBar');
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('twig', 'session', 'database', 'auth/customAuth' => 'custom_auth', 'customMenu' => 'custom_menu');
+$autoload['libraries'] = array('twig', 'session', 'database', 'auth/authLibrary' => 'auth_library', 'menuLibrary' => 'menuLibrary');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url', 'common_helper');
 
 /*
 | -------------------------------------------------------------------

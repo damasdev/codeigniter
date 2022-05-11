@@ -13,16 +13,16 @@ class MY_Controller extends MX_Controller
     }
 
     /**
-     * initializeMenu
+     * Initialize Menu
      *
      * @return string
      */
     private function initializeMenu()
     {
         $items = $this->menuModel->all();
-        $this->custom_menu->set_items($items);
+        $this->menuLibrary->set_items($items);
 
-        return $this->custom_menu->render();
+        return $this->menuLibrary->render();
     }
 
     /**

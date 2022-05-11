@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Migration_Create_menus_table extends CI_Migration
+class Migration_Create_menu_table extends CI_Migration
 {
     public function __construct()
     {
@@ -67,26 +67,34 @@ class Migration_Create_menus_table extends CI_Migration
             [
                 'id' => 3,
                 'parent' => 2,
-                'name' => 'Menu',
-                'slug' => 'menu',
-                'icon' => NULL,
-                'number' => 1
-            ],
-            [
-                'id' => 4,
-                'parent' => 2,
                 'name' => 'User',
                 'slug' => 'user',
                 'icon' => NULL,
                 'number' => 2
             ],
             [
-                'id' => 5,
+                'id' => 4,
                 'parent' => 2,
                 'name' => 'Role',
                 'slug' => 'role',
                 'icon' => NULL,
                 'number' => 3
+            ],
+            [
+                'id' => 5,
+                'parent' => 2,
+                'name' => 'Menu',
+                'slug' => 'menu',
+                'icon' => NULL,
+                'number' => 4
+            ],
+            [
+                'id' => 6,
+                'parent' => 2,
+                'name' => 'Feature',
+                'slug' => 'feature',
+                'icon' => NULL,
+                'number' => 5
             ],
         ];
 

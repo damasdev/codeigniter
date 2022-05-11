@@ -10,6 +10,7 @@ class Menu extends MY_Controller
 
 	public function index()
 	{
+
 		$data['title'] = 'Menu';
 
 		$data['menus'] = $this->menuModel->all();
@@ -20,6 +21,7 @@ class Menu extends MY_Controller
 
 	public function store()
 	{
+		$this->db->trans_start();
 		try {
 
 			$data = [
@@ -35,13 +37,20 @@ class Menu extends MY_Controller
 				throw new Exception(current($errors));
 			}
 
+			$number = $this->menuModel->current($data['parent']);
+
+			$data['number'] = $number++;
+
 			$this->menuModel->insert($data);
+
+			$this->db->trans_complete();
 
 			return $this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly created'
 			], 200);
 		} catch (\Throwable $th) {
+			$this->db->trans_rollback();
 			return $this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()

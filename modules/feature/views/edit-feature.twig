@@ -9,7 +9,7 @@
 						<a href="{{ base_url('/') }}">Home</a>
 					</li>
 					<li class="breadcrumb-item">
-						<a href="{{ base_url('menu') }}">Menu</a>
+						<a href="{{ base_url('/feature') }}">Feature</a>
 					</li>
 				</ol>
 			</div>
@@ -19,7 +19,7 @@
 		</div>
 		<div class="col-auto ms-auto d-print-none">
 			<div class="btn-list">
-				<a href="{{ base_url('menu') }}" class="btn d-none d-sm-inline-block">
+				<a href="{{ base_url('feature') }}" class="btn d-none d-sm-inline-block">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 						<desc>Download more icon variants from https://tabler-icons.io/i/arrow-left</desc>
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -38,29 +38,22 @@
 	<form id="form" method="post" class="card">
 		<div class="card-body">
 			<div class="form-group mb-3">
-				<label for="name">Name</label>
-				<input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{ menu.name }}">
+				<label for="module">Module</label>
+				<input type="text" class="form-control" name="module" id="module" placeholder="Module" value="{{ feature.module }}">
 			</div>
 			<div class="form-group mb-3">
-				<label for="slug">Slug</label>
-				<input type="text" class="form-control" name="slug" id="slug" placeholder="Slug" value="{{ menu.slug }}">
+				<label for="class">Class</label>
+				<input type="text" class="form-control" name="class" id="class" placeholder="Class" value="{{ feature.class }}">
 			</div>
 			<div class="form-group mb-3">
-				<label for="icon">Icon</label>
-				<input type="text" class="form-control" name="icon" id="icon" placeholder="Icon" value="{{ menu.icon }}">
+				<label for="method">Method</label>
+				<input type="text" class="form-control" name="method" id="method" placeholder="Method" value="{{ feature.method }}">
 			</div>
 			<div class="form-group mb-3">
-				<label for="parent">Parent Menu</label>
-				<select class="form-select" name="parent" id="parent">
-					<option value="">-</option>
-					{% for parent in parents %}
-						<option value="{{parent.id}}" {% if parent.id is same as (menu.parent) %}
-							selected
-						{% endif %}>{{parent.name}}</option>
-					{% endfor %}
-				</select>
+				<label for="description">Description</label>
+				<input type="text" class="form-control" name="description" id="description" placeholder="Description" value="{{ feature.description }}">
 			</div>
-			<input type="hidden" name="menu_id" id="menu_id" value="{{ menu.id }}">
+			<input type="hidden" name="feature_id" id="feature_id" value="{{ feature.id }}">
 		</div>
 		<div class="card-footer">
 			<button id="submit" class="btn btn-primary" type="button">
@@ -71,5 +64,5 @@
 {% endblock %}
 
 {% block scripts %}
-	<script src="{{ base_url ('/js/modules/menu/edit-menu.js')}}"></script>
+	<script src="{{ base_url ('/js/modules/feature/edit-feature.js')}}"></script>
 {% endblock %}

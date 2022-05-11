@@ -73,4 +73,19 @@ class MenuModel extends CI_Model
 	{
 		$this->db->where('id', $id)->delete(self::TABLE_NAME);
 	}
+	
+	/**
+	 * current
+	 *
+	 * @param  ?string $parent_id
+	 * @return int
+	 */
+	public function current(?string $parent_id): int
+	{
+		if (is_null($parent_id)) {
+			return $this->db->select_max('number')->where('parent IS NULL', NULL, FALSE)->get(self::TABLE_NAME)->row()->number ?? 0;
+		}
+
+		return $this->db->select_max('number')->where('parent', $parent_id)->get(self::TABLE_NAME)->row()->number ?? 0;
+	}
 }

@@ -9,7 +9,7 @@
 						<a href="{{ base_url('/') }}">Home</a>
 					</li>
 					<li class="breadcrumb-item">
-						<a href="{{ base_url('/menu') }}">Menu</a>
+						<a href="{{ base_url('/feature') }}">Feature</a>
 					</li>
 				</ol>
 			</div>
@@ -19,7 +19,7 @@
 		</div>
 		<div class="col-auto ms-auto d-print-none">
 			<div class="btn-list">
-				<a href="{{ base_url('menu') }}" class="btn d-none d-sm-inline-block">
+				<a href="{{ base_url('feature') }}" class="btn d-none d-sm-inline-block">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 						<desc>Download more icon variants from https://tabler-icons.io/i/arrow-left</desc>
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -46,32 +46,26 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td class="text-muted">Name</td>
-						<td class="text-muted">{{ menu.name }}</td>
+						<td class="text-muted">Module</td>
+						<td class="text-muted">{{ feature.module }}</td>
 					</tr>
 					<tr>
-						<td class="text-muted">Slug</td>
-						<td class="text-muted">{{ menu.slug ?? "-" }}</td>
+						<td class="text-muted">Class</td>
+						<td class="text-muted">{{ feature.class }}</td>
 					</tr>
 					<tr>
-						<td class="text-muted">Icon</td>
-						<td class="text-muted">
-							{% if menu.icon %}
-								<i class="{{ menu.icon }}"></i>
-							{% else %}
-								-
-							{% endif %}
-						</td>
+						<td class="text-muted">Method</td>
+						<td class="text-muted">{{ feature.method }}</td>
 					</tr>
 					<tr>
-						<td class="text-muted">Parent ID</td>
-						<td class="text-muted">{{ menu.parent ?? "-" }}</td>
+						<td class="text-muted">Description</td>
+						<td class="text-muted">{{ feature.description }}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="card-footer">
-			<a href="{{ base_url('menu') }}/{{menu.id}}/edit" class="btn btn-primary d-none d-sm-inline-block">
+			<a href="{{ base_url('feature') }}/{{feature.id}}/edit" class="btn btn-primary d-none d-sm-inline-block">
 				<i class="ti ti-edit"></i>
 				Edit
 			</a>

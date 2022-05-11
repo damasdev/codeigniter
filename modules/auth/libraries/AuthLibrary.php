@@ -1,12 +1,14 @@
 <?php
 
-class CustomAuth
+class AuthLibrary
 {
     const SESSION_KEY = 'user';
+    const FEATURE_KEY = 'features';
 
     public function __construct()
     {
         $this->load->model('auth/AuthModel', 'authModel');
+        $this->load->model('feature/FeatureModel', 'featureModel');
     }
 
     /**
@@ -35,14 +37,18 @@ class CustomAuth
         try {
             $user = $this->authModel->login($email, $password);
 
-            $this->session->set_userdata([
-                self::SESSION_KEY => [
+            // Set
+            $this->setData(
+                self::SESSION_KEY,
+                (object)[
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
-                    'role' => $user->role
+                    'role' => $user->role,
+                    'is_root' => $user->is_root,
+                    'role_id' => $user->role_id,
                 ]
-            ]);
+            );
 
             return $this->session->has_userdata(self::SESSION_KEY);
         } catch (\Throwable $th) {
@@ -59,6 +65,7 @@ class CustomAuth
     public function logout(): bool
     {
         $this->session->unset_userdata(self::SESSION_KEY);
+        $this->session->unset_userdata(self::FEATURE_KEY);
 
         return !$this->session->has_userdata(self::SESSION_KEY);
     }
@@ -71,5 +78,40 @@ class CustomAuth
     public function isLoggedIn(): bool
     {
         return !!$this->session->has_userdata(self::SESSION_KEY);
+    }
+
+    /**
+     * User
+     *
+     * @return stdClass
+     */
+    public function user(): stdClass
+    {
+        return $this->session->userdata(self::SESSION_KEY);
+    }
+
+    /**
+     * Features
+     *
+     * @param  int $roleId
+     * @return array
+     */
+    public function features(int $roleId): array
+    {
+        $features = $this->session->userdata(self::FEATURE_KEY);
+        if (empty($features)) {
+
+            $features = $this->featureModel->role($roleId);
+            $this->setData(self::FEATURE_KEY, $features);
+        }
+
+        return $features;
+    }
+
+    private function setData($key, $data)
+    {
+        $this->session->set_userdata([
+            $key => $data
+        ]);
     }
 }

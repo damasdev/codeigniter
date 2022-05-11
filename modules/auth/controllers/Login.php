@@ -59,7 +59,7 @@ class Login extends MY_Controller
                 throw new Exception(current($errors));
             }
 
-            if (!$this->custom_auth->login($form['email'], $form['password'])) {
+            if (!$this->auth_library->login($form['email'], $form['password'])) {
                 throw new Exception("Wrong Email or Password");
             }
 

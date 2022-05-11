@@ -10,7 +10,7 @@
  * @author			Eding Muhamad Saprudin 
  * @link    		https://github.com/edomaru/codeigniter_multilevel_menu
  */
-class CustomMenu
+class MenuLibrary
 {
 
     /**

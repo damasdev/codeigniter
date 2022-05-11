@@ -73,6 +73,10 @@
 								</span>
 							</td>
 						</tr>
+						{% else %}
+						<tr>
+							<td colspan="4">No Data</td>
+						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
@@ -107,10 +111,6 @@
 								<option value="{{parent.id}}">{{parent.name}}</option>
 							{% endfor %}
 						</select>
-					</div>
-					<div class="form-group mb-3">
-						<label for="number">Menu Ordering</label>
-						<input type="number" class="form-control" name="number" id="number" placeholder="Menu Ordering">
 					</div>
 				</div>
 				<div class="mt-3">

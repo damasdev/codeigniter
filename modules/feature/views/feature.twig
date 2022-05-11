@@ -9,17 +9,17 @@
 						<a href="{{ base_url('/') }}">Home</a>
 					</li>
 					<li class="breadcrumb-item">
-						<a href="{{ base_url('user') }}">User</a>
+						<a href="{{ base_url('feature') }}">Feature</a>
 					</li>
 				</ol>
 			</div>
 			<h2 class="page-title">
-				{{ title | default('User') }}
+				{{ title | default('Feature') }}
 			</h2>
 		</div>
 		<div class="col-auto ms-auto d-print-none">
 			<div class="btn-list">
-				<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#createUser" user="button" aria-controls="createUser">
+				<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#createFeature" feature="button" aria-controls="createFeature">
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 						<line x1="12" y1="5" x2="12" y2="19"></line>
@@ -38,25 +38,27 @@
 			<table class="table table-vcenter card-table table-striped">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Role</th>
+						<th>Module</th>
+						<th>Class</th>
+						<th>Method</th>
+						<th>Description</th>
 						<th class="w-25">Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for user in users %}
-						<tr id="{{ user.id }}">
-							<td class="text-muted">{{ user.name }}</td>
-							<td class="text-muted">{{ user.email }}</td>
-							<td class="text-muted">{{ user.role }}</td>
+					{% for feature in features %}
+						<tr id="{{ feature.id }}">
+							<td class="text-muted">{{ feature.module }}</td>
+							<td class="text-muted">{{ feature.class }}</td>
+							<td class="text-muted">{{ feature.method }}</td>
+							<td class="text-muted">{{ feature.description }}</td>
 							<td class="text-muted">
-								<a href="{{ base_url('user') }}/{{user.id}}" class="btn btn-sm text-primary">
+								<a href="{{ base_url('feature') }}/{{feature.id}}" class="btn btn-sm text-primary">
 									<i class="ti ti-list-details"></i>
 									Detail
 								</a>
 								|
-								<a href="{{ base_url('user') }}/{{user.id}}/edit" class="btn btn-sm text-warning">
+								<a href="{{ base_url('feature') }}/{{feature.id}}/edit" class="btn btn-sm text-warning">
 									<i class="ti ti-edit"></i>
 									Edit
 								</a>
@@ -67,9 +69,9 @@
 								</span>
 							</td>
 						</tr>
-						{% else %}
+					{% else %}
 						<tr>
-							<td colspan="4">No Data</td>
+							<td colspan="5">No Data</td>
 						</tr>
 					{% endfor %}
 				</tbody>
@@ -77,33 +79,29 @@
 		</div>
 	</div>
 
-	<div class="offcanvas offcanvas-end" tabindex="-1" id="createUser" aria-labelledby="canvasLabel">
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="createFeature" aria-labelledby="canvasLabel">
 		<div class="offcanvas-header">
-			<h2 class="offcanvas-title" id="canvasLabel">Create User</h2>
+			<h2 class="offcanvas-title" id="canvasLabel">Create Feature</h2>
 			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
-		<form id="form" method="post">
+		<form method="post" id="form">
 			<div class="offcanvas-body">
 				<div>
 					<div class="form-group mb-3">
-						<label for="name">Name</label>
-						<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+						<label for="module">Module</label>
+						<input type="text" class="form-control" name="module" id="module" placeholder="Module">
 					</div>
 					<div class="form-group mb-3">
-						<label for="email">Email</label>
-						<input type="email" class="form-control" name="email" id="email" placeholder="Email">
+						<label for="class">Class</label>
+						<input type="text" class="form-control" name="class" id="class" placeholder="Class">
 					</div>
 					<div class="form-group mb-3">
-						<label for="password">Password</label>
-						<input type="password" class="form-control" name="password" id="password" placeholder="Password">
+						<label for="method">Method</label>
+						<input type="text" class="form-control" name="method" id="method" placeholder="Method">
 					</div>
 					<div class="form-group mb-3">
-						<label for="role">Role</label>
-						<select class="form-select" name="role_id" id="role">
-							{% for role in roles %}
-								<option value="{{role.id}}">{{role.name}}</option>
-							{% endfor %}
-						</select>
+						<label for="description">Description</label>
+						<input type="text" class="form-control" name="description" id="description" placeholder="Description">
 					</div>
 				</div>
 				<div class="mt-3">
@@ -117,5 +115,5 @@
 {% endblock %}
 
 {% block scripts %}
-	<script src="{{ base_url ('/js/modules/user/user.js')}}"></script>
+	<script src="{{ base_url ('/js/modules/feature/feature.js')}}"></script>
 {% endblock %}
