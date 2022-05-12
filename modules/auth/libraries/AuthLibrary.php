@@ -30,9 +30,9 @@ class AuthLibrary
      *
      * @param  string $email
      * @param  string $password
-     * @return bool
+     * @return ?stdClass
      */
-    public function login(string $email, string $password): bool
+    public function login(string $email, string $password): ?stdClass
     {
         try {
             $user = $this->authModel->login($email, $password);
@@ -46,14 +46,14 @@ class AuthLibrary
                     'email' => $user->email,
                     'role' => $user->role,
                     'is_root' => $user->is_root,
-                    'role_id' => $user->role_id,
+                    'role_id' => $user->role_id
                 ]
             );
 
-            return $this->session->has_userdata(self::SESSION_KEY);
+            return $this->user();
         } catch (\Throwable $th) {
             //throw $th;
-            return FALSE;
+            return NULL;
         }
     }
 
@@ -83,9 +83,9 @@ class AuthLibrary
     /**
      * User
      *
-     * @return stdClass
+     * @return ?stdClass
      */
-    public function user(): stdClass
+    public function user(): ?stdClass
     {
         return $this->session->userdata(self::SESSION_KEY);
     }

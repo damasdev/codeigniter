@@ -9,9 +9,6 @@ src/logs/*
 
 !src/*/.htaccess
 
-composer.lock
-package-lock.json
-
 /vendor/
 /node_modules/
 

@@ -59,7 +59,9 @@ class Login extends MY_Controller
                 throw new Exception(current($errors));
             }
 
-            if (!$this->auth_library->login($form['email'], $form['password'])) {
+            $user = $this->auth_library->login($form['email'], $form['password']);
+
+            if (!$user) {
                 throw new Exception("Wrong Email or Password");
             }
 

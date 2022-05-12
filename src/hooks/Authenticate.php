@@ -16,6 +16,18 @@ class Authenticate extends MY_Controller
         $class = $this->router->fetch_class();
         $method = $this->router->fetch_method();
 
+        // Validate API
+        if ($this->isApiRequest()) {
+
+            if (!$this->jwt_library->validate()) {
+                return $this->jsonResponse([
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
+
+            return;
+        }
+
         // Check Whitelist
         if (in_array($method, $this->data[$module][$class] ?? [])) {
             return;
@@ -60,5 +72,15 @@ class Authenticate extends MY_Controller
         }
 
         return FALSE;
+    }
+
+    /**
+     * isApiRequest
+     *
+     * @return bool
+     */
+    private function isApiRequest(): bool
+    {
+        return $this->uri->segment(1) === 'api';
     }
 }

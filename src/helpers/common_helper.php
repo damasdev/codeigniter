@@ -33,3 +33,15 @@ function toArray(mixed $data): array
 {
     return json_decode(json_encode($data), true);
 }
+
+/**
+ * Var Dump
+ *
+ * @param  $data
+ * @return void
+ */
+function dd($data): void
+{
+    highlight_string("" . var_export($data, true) . "");
+    die();
+}
