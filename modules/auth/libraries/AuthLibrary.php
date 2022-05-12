@@ -9,6 +9,14 @@ class AuthLibrary
     {
         $this->load->model('auth/AuthModel', 'authModel');
         $this->load->model('feature/FeatureModel', 'featureModel');
+
+        $this->load->driver(
+            'cache',
+            [
+                'adapter' => 'apc',
+                'backup' => 'file'
+            ]
+        );
     }
 
     /**
@@ -87,7 +95,7 @@ class AuthLibrary
      */
     public function user(): ?stdClass
     {
-        return $this->session->userdata(self::SESSION_KEY);
+        return $this->getData(self::SESSION_KEY);
     }
 
     /**
@@ -98,20 +106,33 @@ class AuthLibrary
      */
     public function features(int $roleId): array
     {
-        $features = $this->session->userdata(self::FEATURE_KEY);
+        $features = $this->getData(self::FEATURE_KEY, true);
         if (empty($features)) {
 
             $features = $this->featureModel->role($roleId);
-            $this->setData(self::FEATURE_KEY, $features);
+            $this->setData(self::FEATURE_KEY, $features, true);
         }
 
         return $features;
     }
 
-    private function setData($key, $data)
+    public function getData($key, $cache = false)
     {
-        $this->session->set_userdata([
-            $key => $data
-        ]);
+        if ($cache) {
+            return $this->cache->get($key);
+        } else {
+            return $this->session->userdata($key);
+        }
+    }
+
+    private function setData($key, $data, $cache = false): void
+    {
+        if ($cache) {
+            $this->cache->save($key, $data);
+        } else {
+            $this->session->set_userdata([
+                $key => $data
+            ]);
+        }
     }
 }
