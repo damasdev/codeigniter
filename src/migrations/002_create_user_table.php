@@ -39,8 +39,11 @@ class Migration_Create_user_table extends CI_Migration
 
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->add_key('role_id');
         $this->dbforge->create_table('users', TRUE);
+
+        $this->dbforge->add_column('users',[
+            'CONSTRAINT fk_user_role_id FOREIGN KEY(role_id) REFERENCES roles(id)',
+        ]);
 
         // Dumping data for table 'users'
         $data = [
