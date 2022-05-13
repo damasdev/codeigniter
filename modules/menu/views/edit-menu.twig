@@ -1,4 +1,4 @@
-{% extends 'layouts/app.twig' %}
+{% extends 'layouts/app-vertical.twig' %}
 
 {% block header %}
 	<div class="row align-items-center">
@@ -51,7 +51,7 @@
 			</div>
 			<div class="form-group mb-3">
 				<label for="parent">Parent Menu</label>
-				<select class="form-select" name="parent" id="parent">
+				<select class="form-select select2" name="parent" id="parent">
 					<option value="">-</option>
 					{% for parent in parents %}
 						<option value="{{parent.id}}" {% if parent.id is same as (menu.parent) %}

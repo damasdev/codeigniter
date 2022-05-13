@@ -1,4 +1,4 @@
-{% extends 'layouts/app.twig' %}
+{% extends 'layouts/app-vertical.twig' %}
 
 {% block header %}
 	<div class="row align-items-center">
@@ -40,6 +40,7 @@
 					<tr>
 						<th>Name</th>
 						<th>Description</th>
+						<th>Type</th>
 						<th class="w-25">Action</th>
 					</tr>
 				</thead>
@@ -48,6 +49,9 @@
 						<tr id="{{ role.id }}">
 							<td class="text-muted">{{ role.name }}</td>
 							<td class="text-muted">{{ role.description }}</td>
+							<td class="text-muted">
+								<span class="badge badge-primary">{{ role.type }}</span>
+							</td>
 							<td class="text-muted">
 								<a href="{{ base_url('role') }}/{{role.id}}" class="btn btn-sm text-primary">
 									<i class="ti ti-list-details"></i>
@@ -67,7 +71,7 @@
 						</tr>
 					{% else %}
 						<tr>
-							<td colspan="3">No Data</td>
+							<td colspan="4">No Data</td>
 						</tr>
 					{% endfor %}
 				</tbody>

@@ -68,7 +68,7 @@ class Authenticate extends MY_Controller
         $user = $this->auth_library->user();
 
         // Super Administrator
-        if ($user->is_root) {
+        if ($user->type === 'admin') {
             return TRUE;
         }
 

@@ -69,3 +69,5 @@ $("#submit").click(function (e) {
     },
   });
 });
+
+$(".select2").select2({ tags: true, dropdownParent: $("#createMenu") });

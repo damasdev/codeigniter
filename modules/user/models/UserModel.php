@@ -41,7 +41,7 @@ class UserModel extends CI_Model
 	public function find(int $id): ?stdClass
 	{
 		$this->db->select([
-			'users.id', 'users.name', 'users.email', 'users.role_id', 'roles.name as role', 'roles.is_root'
+			'users.id', 'users.name', 'users.email', 'users.role_id', 'roles.name as role', 'roles.type'
 		])->join('roles', 'roles.id = users.role_id');
 
 		return $this->db->where('users.id', $id)->get(self::TABLE_NAME)->row();

@@ -25,10 +25,10 @@ class Migration_Create_role_table extends CI_Migration
                 'type' => 'VARCHAR',
                 'constraint' => 100
             ],
-            'is_root' => [
-                'type' => 'TINYINT',
-                'constraint' => 1,
-                'default' => 0
+            'type' => [
+                'type' => 'ENUM("admin","user")',
+                'default' => 'user',
+                'null' => FALSE
             ],
         ];
 
@@ -41,19 +41,19 @@ class Migration_Create_role_table extends CI_Migration
                 'id' => 1,
                 'name' => 'Root',
                 'description' => 'Super Administrator',
-                'is_root' => 1
+                'type' => 'admin'
             ],
             [
                 'id' => 2,
                 'name' => 'Admin',
                 'description' => 'Administrator',
-                'is_root' => 0
+                'type' => 'user'
             ],
             [
                 'id' => 3,
                 'name' => 'User',
                 'description' => 'User',
-                'is_root' => 0
+                'type' => 'user'
             ]
         ];
 

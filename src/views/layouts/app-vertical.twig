@@ -10,10 +10,7 @@
 		<link href="{{ base_url ('/css/app.min.css')}}" rel="stylesheet"/>
 		<link href="{{ base_url ('/css/app-vendors.min.css')}}" rel="stylesheet"/>
 		<link href="{{ base_url ('/iconfont/tabler-icons.min.css')}}" rel="stylesheet"/>
-
-		<script>
-			let baseURL = "{{ base_url () }}";
-		</script>
+		<link href="{{ base_url ('/vendor/select2/css/select2.min.css')}}" rel="stylesheet"/>
 	</head>
 
 	<body class="theme-light">
@@ -49,4 +46,12 @@
 			</footer>
 		</div>
 	</body>
-</html></div><script src="{{ base_url ('/js/app.min.js')}}"></script><script src="{{ base_url ('/vendor/jquery/jquery-3.6.0.min.js')}}"></script><script src="{{ base_url ('/vendor/sweetalert/sweetalert2.all.min.js')}}"></script>{{ block("scripts") }}</body></html>
+	<script src="{{ base_url ('/js/app.min.js')}}"></script>
+	<script src="{{ base_url ('/vendor/jquery/jquery-3.6.0.min.js')}}"></script>
+	<script src="{{ base_url ('/vendor/sweetalert/sweetalert2.all.min.js')}}"></script>
+	<script src="{{ base_url ('/vendor/select2/js/select2.min.js')}}"></script>
+	{{ block("scripts") }}
+	<script>
+		let baseURL = "{{ base_url () }}";
+	</script>
+</html>
