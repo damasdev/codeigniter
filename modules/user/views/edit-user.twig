@@ -1,4 +1,4 @@
-{% extends 'layouts/app.twig' %}
+{% extends 'layouts/app-vertical.twig' %}
 
 {% block header %}
 	<div class="row align-items-center">
@@ -52,7 +52,7 @@
 
 			<div class="form-group mb-3">
 				<label for="role">Role</label>
-				<select class="form-select" name="role_id" id="role">
+				<select class="form-select select2" name="role_id" id="role">
 					{% for role in roles %}
 						<option value="{{role.id}}" {% if role.id is same as (user.role_id) %} selected {% endif %}>
 							{{role.name}}

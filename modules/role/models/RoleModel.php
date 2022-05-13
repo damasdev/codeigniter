@@ -57,12 +57,12 @@ class RoleModel extends CI_Model
 	/**
 	 * Get Role
 	 *
-	 * @param  int $role
+	 * @param  string $role
 	 * @return array
 	 */
-	public function role(int $role = 0): array
+	public function role(string $role = 'user'): array
 	{
-		return $this->db->where('is_root', $role)->get(self::TABLE_NAME)->result();
+		return $this->db->where('type', $role)->get(self::TABLE_NAME)->result();
 	}
 
 	/**

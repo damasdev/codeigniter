@@ -66,8 +66,8 @@ class Role extends MY_Controller
 				throw new Exception("Data not found");
 			}
 
-			if ($role->is_root) {
-				throw new Exception("Root can't be deleted!");
+			if ($role->type === 'admin') {
+				throw new Exception("Role can't be deleted!");
 			}
 
 			$this->roleModel->delete($id);

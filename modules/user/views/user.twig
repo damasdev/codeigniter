@@ -1,4 +1,4 @@
-{% extends 'layouts/app.twig' %}
+{% extends 'layouts/app-vertical.twig' %}
 
 {% block header %}
 	<div class="row align-items-center">
@@ -49,7 +49,9 @@
 						<tr id="{{ user.id }}">
 							<td class="text-muted">{{ user.name }}</td>
 							<td class="text-muted">{{ user.email }}</td>
-							<td class="text-muted">{{ user.role }}</td>
+							<td class="text-muted">
+								<span class="badge badge-primary">{{ user.role }}</span>
+							</td>
 							<td class="text-muted">
 								<a href="{{ base_url('user') }}/{{user.id}}" class="btn btn-sm text-primary">
 									<i class="ti ti-list-details"></i>
@@ -67,7 +69,7 @@
 								</span>
 							</td>
 						</tr>
-						{% else %}
+					{% else %}
 						<tr>
 							<td colspan="4">No Data</td>
 						</tr>
@@ -99,7 +101,7 @@
 					</div>
 					<div class="form-group mb-3">
 						<label for="role">Role</label>
-						<select class="form-select" name="role_id" id="role">
+						<select class="form-select select2" name="role_id" id="role">
 							{% for role in roles %}
 								<option value="{{role.id}}">{{role.name}}</option>
 							{% endfor %}

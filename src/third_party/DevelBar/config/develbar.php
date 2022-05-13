@@ -8,7 +8,7 @@
 | This option allows you to enable the developer's Toolbar
 |
 */
-$config['enable_develbar'] = TRUE;
+$config['enable_develbar'] = getenv('CI_DEBUG');
 
 /*
 |--------------------------------------------------------------------------
@@ -44,16 +44,16 @@ $config['develbar_download_link'] = 'https://github.com/JCSama/CodeIgniter-devel
 |
 */
 $config['develbar_sections'] = array(
-	'Benchmarks' 		=> TRUE,
-    'Memory Usage'	   	=> TRUE,
-    'Request'   		=> TRUE,
-    'Database'			=> TRUE,
-    'Hooks'				=> TRUE,
-    'Ajax' 			    => TRUE,
-    'Libraries'			=> FALSE,
-    'Helpers' 			=> FALSE,
-    'Views' 			=> FALSE,
-    'Config' 			=> TRUE,
-    'Session' 			=> TRUE,
-    'Models' 			=> TRUE,
+    'Benchmarks'         => TRUE,
+    'Memory Usage'           => TRUE,
+    'Request'           => TRUE,
+    'Database'            => TRUE,
+    'Hooks'                => TRUE,
+    'Ajax'                 => TRUE,
+    'Libraries'            => FALSE,
+    'Helpers'             => FALSE,
+    'Views'             => FALSE,
+    'Config'             => TRUE,
+    'Session'             => TRUE,
+    'Models'             => TRUE,
 );

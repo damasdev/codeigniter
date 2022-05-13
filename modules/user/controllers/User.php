@@ -72,8 +72,8 @@ class User extends MY_Controller
 				throw new Exception("Data not found");
 			}
 
-			if ($user->is_root) {
-				throw new Exception("Root can't be deleted!");
+			if ($user->type === 'admin') {
+				throw new Exception("User can't be deleted!");
 			}
 
 			$this->userModel->delete($id);
@@ -127,7 +127,7 @@ class User extends MY_Controller
 		}
 
 		$data['title'] = 'Edit Role';
-		$data['roles'] = $this->roleModel->role($user->is_root);
+		$data['roles'] = $this->roleModel->role($user->type);
 		$data['user'] = $user;
 
 		$this->render('edit-user', $data);

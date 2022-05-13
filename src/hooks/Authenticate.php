@@ -21,6 +21,7 @@ class Authenticate extends MY_Controller
 
             if (!$this->jwt_library->validate()) {
                 return $this->jsonResponse([
+                    'status' => 'error',
                     'message' => 'Unauthorized'
                 ], 401);
             }
@@ -41,7 +42,16 @@ class Authenticate extends MY_Controller
 
         // Check User Permission
         if (!$this->hasPermission($module, $class, $method)) {
-            show_error('You dont have permission', 401);
+
+            if ($this->input->is_ajax_request()) {
+
+                $this->jsonResponse([
+                    'status' => 'error',
+                    'message' => 'You dont have permission'
+                ], 401);
+            } else {
+                show_error('You dont have permission', 401);
+            }
         }
     }
 
@@ -58,7 +68,7 @@ class Authenticate extends MY_Controller
         $user = $this->auth_library->user();
 
         // Super Administrator
-        if ($user->is_root) {
+        if ($user->type === 'admin') {
             return TRUE;
         }
 
