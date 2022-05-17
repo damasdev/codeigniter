@@ -28,8 +28,7 @@ class Role extends MY_Controller
 		try {
 
 			$data = [
-				'name' => $this->input->post('name'),
-				'description' => $this->input->post('description'),
+				'name' => $this->input->post('name')
 			];
 
 			if (!$this->form_validation->run('role')) {
@@ -129,8 +128,7 @@ class Role extends MY_Controller
 		try {
 
 			$data = [
-				'name' => $this->input->post('name'),
-				'description' => $this->input->post('description'),
+				'name' => $this->input->post('name')
 			];
 
 			if (!$this->form_validation->run('role')) {

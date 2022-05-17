@@ -49,9 +49,7 @@
 						<tr id="{{ user.id }}">
 							<td class="text-muted">{{ user.name }}</td>
 							<td class="text-muted">{{ user.email }}</td>
-							<td class="text-muted">
-								<span class="badge badge-primary">{{ user.role }}</span>
-							</td>
+							<td class="text-muted">{{ user.role }}</td>
 							<td class="text-muted">
 								<a href="{{ base_url('user') }}/{{user.id}}" class="btn btn-sm text-primary">
 									<i class="ti ti-list-details"></i>

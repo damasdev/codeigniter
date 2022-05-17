@@ -60,7 +60,7 @@ $autoload['packages'] = array(APPPATH . 'third_party/DevelBar');
 */
 $autoload['libraries'] = array(
     'twig', 'session', 'database',
-    'menuLibrary' => 'menuLibrary',
+    'menu/menuLibrary' => 'menu_library',
     'auth/authLibrary' => 'auth_library',
     'api/jwtLibrary' => 'jwt_library',
 );
@@ -137,4 +137,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('menu/MenuModel' => 'menuModel');
+$autoload['model'] = array();

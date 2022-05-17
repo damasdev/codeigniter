@@ -19,10 +19,7 @@ class MY_Controller extends MX_Controller
      */
     private function initializeMenu()
     {
-        $items = $this->menuModel->all();
-        $this->menuLibrary->set_items($items);
-
-        return $this->menuLibrary->render();
+        return $this->menu_library->render();
     }
 
     /**

@@ -1,4 +1,6 @@
-$(".remove").click(function () {
+$(".remove").click(function (e) {
+  e.preventDefault();
+
   let id = $(this).parents("tr").attr("id");
 
   Swal.fire({
