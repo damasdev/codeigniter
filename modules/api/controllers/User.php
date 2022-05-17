@@ -9,11 +9,19 @@ class User extends MY_Controller
 
 	public function index()
 	{
-		$this->jsonResponse('index');
+		$this->jsonResponse([
+			'status' => 'success',
+			'message' => 'Data loaded successfully',
+			'data' => []
+		]);
 	}
 
 	public function store()
 	{
-		$this->jsonResponse('store');
+		$this->jsonResponse([
+			'status' => 'success',
+			'message' => 'Data stored successfully',
+			'data' => []
+		]);
 	}
 }
