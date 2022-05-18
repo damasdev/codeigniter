@@ -34,51 +34,16 @@
 
 {% block body %}
 	<div class="card">
-		<div class="table-responsive">
-			<table class="table table-vcenter card-table table-striped">
+		<div class="card-body">
+			<table class="table" id="menu">
 				<thead>
 					<tr>
 						<th>Name</th>
 						<th>Slug</th>
 						<th>Icon</th>
-						<th class="w-25">Action</th>
+						<th>Action</th>
 					</tr>
 				</thead>
-				<tbody>
-					{% for menu in menus %}
-						<tr id="{{ menu.id }}">
-							<td class="text-muted">{{ menu.name }}</td>
-							<td class="text-muted">{{ menu.slug ?? "-" }}</td>
-							<td class="text-muted">
-								{% if menu.icon %}
-									<i class='{{ menu.icon }}'></i>
-								{% else %}
-									-
-								{% endif %}
-							</td>
-							<td class="text-muted">
-								<a href="{{ base_url('menu') }}/{{menu.id}}" class="btn btn-sm text-primary">
-									<i class="ti ti-list-details"></i>
-									Detail
-								</a>
-								|
-								<a href="{{ base_url('menu') }}/{{menu.id}}/edit" class="btn btn-sm text-warning">
-									<i class="ti ti-edit"></i>
-									Edit
-								</a>
-								|
-								<span class="btn btn-sm text-danger remove">
-									<i class="ti ti-trash"></i>
-									Delete
-								</span>
-							</td>
-						</tr>
-					{% else %}
-						<tr>
-							<td colspan="4">No Data</td>
-						</tr>
-					{% endfor %}
-				</tbody>
 			</table>
 		</div>
 	</div>
@@ -124,5 +89,11 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="{{ base_url ('/vendor/datatables/js/datatables.min.js')}}"></script>
 	<script src="{{ base_url ('/js/modules/menu/menu.js')}}"></script>
 {% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ base_url ('/vendor/datatables/css/datatables.min.css')}}">
+{% endblock %}
+

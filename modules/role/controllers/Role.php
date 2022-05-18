@@ -10,10 +10,7 @@ class Role extends MY_Controller
 
 	public function index()
 	{
-		$roles = $this->roleModel->all();
-
 		$data['title'] = 'Role';
-		$data['roles'] = $roles;
 
 		$this->render('role', $data);
 	}
@@ -148,5 +145,12 @@ class Role extends MY_Controller
 				'message' => $th->getMessage()
 			], 400);
 		}
+	}
+
+	public function datatables()
+	{
+		$this->load->library('datatables');
+
+		$this->jsonResponse($this->datatables->table('roles')->draw());
 	}
 }

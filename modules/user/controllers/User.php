@@ -13,7 +13,6 @@ class User extends MY_Controller
 		$this->load->model('role/RoleModel', 'roleModel');
 
 		$data['title'] = "User";
-		$data['users'] = $this->userModel->all();
 		$data['roles'] = $this->roleModel->role();
 
 		$this->render('user', $data);
@@ -163,5 +162,12 @@ class User extends MY_Controller
 				'message' => $th->getMessage()
 			], 400);
 		}
+	}
+
+	public function datatables()
+	{
+		$this->load->library('datatables');
+
+		$this->jsonResponse($this->datatables->table('users')->join('roles', 'roles.id = users.role_id')->draw());
 	}
 }
