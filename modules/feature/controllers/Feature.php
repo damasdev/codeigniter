@@ -10,10 +10,7 @@ class Feature extends MY_Controller
 
 	public function index()
 	{
-		$features = $this->featureModel->all();
-
 		$data['title'] = 'Feature';
-		$data['features'] = $features;
 
 		$this->render('feature', $data);
 	}
