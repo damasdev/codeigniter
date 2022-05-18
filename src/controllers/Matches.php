@@ -195,6 +195,7 @@ class Matches extends MY_Controller
             $extends = in_array(strtolower($extends), array('my', 'ci', 'mx')) ? strtoupper($extends) : ucfirst($extends);
 
             $this->findAndReplace['{{MODEL}}'] = $className;
+            $this->findAndReplace['{{TABLE_NAME}}'] = strtolower($className);
             $this->findAndReplace['{{MODEL_FILE}}'] = $fileName . '.php';
             $this->findAndReplace['{{MO_EXTENDS}}'] = $extends;
 

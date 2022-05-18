@@ -125,7 +125,7 @@ class MenuLibrary
 
     public function initialize()
     {
-        $this->items = $this->menuModel->all();
+        $this->items = toArray($this->menuModel->all());
     }
 
     public function render()

@@ -11,14 +11,7 @@ class MY_Model extends CI_Model
      *
      * @var string
      */
-    protected $table;
-
-    /**
-     * Table Alias
-     *
-     * @var string
-     */
-    protected $alias;
+    public $table;
 
     /**
      * All Result
@@ -26,7 +19,7 @@ class MY_Model extends CI_Model
      * @param  array $conditions
      * @return ?array
      */
-    protected function all(array $conditions = []): ?array
+    public function all(array $conditions = []): ?array
     {
         return $this->db->where($conditions)->get($this->table)->result();
     }
@@ -37,7 +30,7 @@ class MY_Model extends CI_Model
      * @param  array $conditions
      * @return ?stdClass
      */
-    protected function find(array $conditions = []): ?stdClass
+    public function find(array $conditions = []): ?stdClass
     {
         return $this->db->where($conditions)->get($this->table)->row();
     }
@@ -48,24 +41,20 @@ class MY_Model extends CI_Model
      * @param  array $conditions
      * @return ?int
      */
-    protected function count(array $conditions = []): ?int
+    public function count(array $conditions = []): ?int
     {
         return $this->db->where($conditions)->get($this->table)->num_rows();
     }
 
     /**
-     * Insert Data
+     * Store Data
      *
      * @param  array $data
      * @return void
      */
-    protected function insert(array $data): void
+    public function insert(array $data): void
     {
-        if (isBatch($data)) {
-            $this->db->insert_batch($this->table, $data);
-        } else {
-            $this->db->insert($this->table, $data);
-        }
+        $this->db->insert($this->table, $data);
     }
 
     /**
@@ -75,18 +64,18 @@ class MY_Model extends CI_Model
      * @param  array $conditions
      * @return void
      */
-    protected function update(array $data, array $conditions): void
+    public function update(array $data, array $conditions): void
     {
         $this->db->where($conditions)->update($this->table, $data);
     }
 
     /**
-     * Delete Data
+     * Destroy Data
      *
      * @param  array $conditions
      * @return void
      */
-    protected function delete(array $conditions): void
+    public function delete(array $conditions): void
     {
         $this->db->where($conditions)->delete($this->table);
     }
