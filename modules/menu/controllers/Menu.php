@@ -12,8 +12,6 @@ class Menu extends MY_Controller
 	{
 
 		$data['title'] = 'Menu';
-
-		$data['menus'] = $this->menuModel->all();
 		$data['parents'] = $this->menuModel->parent();
 
 		$this->render('menu', $data);
@@ -154,5 +152,12 @@ class Menu extends MY_Controller
 				'message' => $th->getMessage()
 			], 400);
 		}
+	}
+
+	public function datatables()
+	{
+		$this->load->library('datatables');
+
+		$this->jsonResponse($this->datatables->table('menus')->draw());
 	}
 }

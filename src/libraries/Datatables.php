@@ -36,6 +36,13 @@ class Datatables
      */
     protected $keyword;
 
+    /**
+     * Join
+     *
+     * @var array
+     */
+    protected $joins = [];
+
     public function __construct()
     {
         $codeigniter = &get_instance();
@@ -48,11 +55,26 @@ class Datatables
      * Set Table
      *
      * @param  string $table
-     * @return void
+     * @return Datatables
      */
-    public function table(string $table)
+    public function table(string $table): Datatables
     {
         $this->table = $table;
+
+        return $this;
+    }
+
+    /**
+     * Join Table
+     *
+     * @param  string $table
+     * @param  string $key
+     * @param  ?string $type
+     * @return Datatables
+     */
+    public function join(string $table, string $key, ?string $type = 'INNER'): Datatables
+    {
+        $this->joins[] = ['table' => $table, 'key' => $key, 'type' => $type];
 
         return $this;
     }
@@ -81,7 +103,11 @@ class Datatables
         $columns = [];
 
         foreach ($this->columns as $column) {
-            $columns[] = $column['data'];
+
+            $name = empty($column['name']) ? $column['data'] : $column['name'];
+            $alias = $column['data'];
+
+            $columns[] = "{$name} as {$alias}";
         }
 
         $this->db->select($columns);
@@ -99,10 +125,17 @@ class Datatables
 
             $index = 1;
             foreach ($this->columns as $column) {
+
+                if ($column['searchable'] === 'false') {
+                    continue;
+                }
+
+                $search = empty($column['name']) ? $column['data'] : $column['name'];
+
                 if ($index > 1) {
-                    $this->db->or_like($column['data'], $this->keyword);
+                    $this->db->or_like($search, $this->keyword);
                 } else {
-                    $this->db->like($column['data'], $this->keyword);
+                    $this->db->like($search, $this->keyword);
                 }
 
                 $index++;
@@ -131,6 +164,13 @@ class Datatables
         $start = $this->input->post('start', true);
 
         $this->db->limit($limit, $start);
+    }
+
+    private function joinTable()
+    {
+        foreach ($this->joins as $join) {
+            $this->db->join($join['table'], $join['key'], $join['type']);
+        }
     }
 
     /**
@@ -162,6 +202,8 @@ class Datatables
 
         $this->filter();
 
+        $this->joinTable();
+
         $this->limit();
 
         $this->order();
@@ -177,6 +219,8 @@ class Datatables
     private function count(): int
     {
         $this->filter();
+
+        $this->joinTable();
 
         return $this->db->get($this->table)->num_rows();
     }
