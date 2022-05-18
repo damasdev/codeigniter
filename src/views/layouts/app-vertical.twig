@@ -11,6 +11,9 @@
 		<link href="{{ base_url ('/css/app-vendors.min.css')}}" rel="stylesheet"/>
 		<link href="{{ base_url ('/iconfont/tabler-icons.min.css')}}" rel="stylesheet"/>
 		<link href="{{ base_url ('/vendor/select2/css/select2.min.css')}}" rel="stylesheet"/>
+		{% block styles %}
+			<style></style>
+		{% endblock %}
 		<script>
 			let baseURL = "{{ base_url () }}";
 		</script>

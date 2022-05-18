@@ -34,48 +34,21 @@
 
 {% block body %}
 	<div class="card">
-		<div class="table-responsive">
-			<table class="table table-vcenter card-table table-striped">
-				<thead>
-					<tr>
-						<th>Module</th>
-						<th>Class</th>
-						<th>Method</th>
-						<th>Description</th>
-						<th class="w-25">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for feature in features %}
-						<tr id="{{ feature.id }}">
-							<td class="text-muted">{{ feature.module }}</td>
-							<td class="text-muted">{{ feature.class }}</td>
-							<td class="text-muted">{{ feature.method }}</td>
-							<td class="text-muted">{{ feature.description }}</td>
-							<td class="text-muted">
-								<a href="{{ base_url('feature') }}/{{feature.id}}" class="btn btn-sm text-primary">
-									<i class="ti ti-list-details"></i>
-									Detail
-								</a>
-								|
-								<a href="{{ base_url('feature') }}/{{feature.id}}/edit" class="btn btn-sm text-warning">
-									<i class="ti ti-edit"></i>
-									Edit
-								</a>
-								|
-								<span class="btn btn-sm text-danger remove">
-									<i class="ti ti-trash"></i>
-									Delete
-								</span>
-							</td>
-						</tr>
-					{% else %}
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table" id="feature">
+					<thead>
 						<tr>
-							<td colspan="5">No Data</td>
+							<th>Module</th>
+							<th>Class</th>
+							<th>Method</th>
+							<th>Description</th>
+							<th>Action</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 
@@ -115,5 +88,10 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="{{ base_url ('/vendor/datatables/js/datatables.min.js')}}"></script>
 	<script src="{{ base_url ('/js/modules/feature/feature.js')}}"></script>
+{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ base_url ('/vendor/datatables/css/datatables.min.css')}}">
 {% endblock %}

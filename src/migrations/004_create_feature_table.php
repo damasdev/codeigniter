@@ -193,6 +193,14 @@ class Migration_Create_feature_table extends CI_Migration
                 'description' => 'Destroy User'
             ],
 
+            // Dashboard
+            [
+                'module' => 'home',
+                'class' => 'home',
+                'method' => 'index',
+                'description' => 'Dashboard'
+            ],
+
         ];
 
         $this->db->insert_batch('features', $data);

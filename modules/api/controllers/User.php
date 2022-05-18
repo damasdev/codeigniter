@@ -11,7 +11,7 @@ class User extends MY_Controller
 	{
 		$this->jsonResponse([
 			'status' => 'success',
-			'message' => 'Data loaded successfully',
+			'message' => 'Data received successfully',
 			'data' => []
 		]);
 	}
