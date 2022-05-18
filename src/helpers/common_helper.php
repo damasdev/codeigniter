@@ -1,17 +1,6 @@
 <?php
 
 /**
- * Check if batch
- *
- * @param  array $data
- * @return bool
- */
-function isBatch($data): bool
-{
-    return count($data) > 1;
-}
-
-/**
  * Is Equal
  *
  * @param  string $string
@@ -26,10 +15,10 @@ function isEqual(string $string, string $comparator): bool
 /**
  * Convert stdClass to Array
  *
- * @param  mixed $data
+ * @param $data
  * @return array
  */
-function toArray(mixed $data): array
+function toArray($data): array
 {
     return json_decode(json_encode($data), true);
 }

@@ -60,12 +60,12 @@ class Feature extends MY_Controller
 	{
 		try {
 
-			$feature = $this->featureModel->find($id);
+			$feature = $this->featureModel->find(['id' => $id]);
 			if (!$feature) {
 				throw new Exception("Data not found");
 			}
 
-			$this->featureModel->delete($id);
+			$this->featureModel->delete(['id' => $id]);
 
 			return $this->jsonResponse([
 				'status' => 'success',
@@ -87,7 +87,7 @@ class Feature extends MY_Controller
 	 */
 	public function show(int $id): void
 	{
-		$feature = $this->featureModel->find($id);
+		$feature = $this->featureModel->find(['id' => $id]);
 
 		if (!$feature) {
 			show_404();
@@ -107,7 +107,7 @@ class Feature extends MY_Controller
 	 */
 	public function edit(int $id): void
 	{
-		$feature = $this->featureModel->find($id);
+		$feature = $this->featureModel->find(['id' => $id]);
 
 		if (!$feature) {
 			show_404();
@@ -135,7 +135,7 @@ class Feature extends MY_Controller
 				throw new Exception(current($errors));
 			}
 
-			$this->featureModel->update($id, $data);
+			$this->featureModel->update($data, ['id' => $id]);
 
 			return $this->jsonResponse([
 				'status' => 'success',

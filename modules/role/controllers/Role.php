@@ -57,7 +57,7 @@ class Role extends MY_Controller
 	{
 		try {
 
-			$role = $this->roleModel->find($id);
+			$role = $this->roleModel->find(['id' => $id]);
 			if (!$role) {
 				throw new Exception("Data not found");
 			}
@@ -66,7 +66,7 @@ class Role extends MY_Controller
 				throw new Exception("Role can't be deleted!");
 			}
 
-			$this->roleModel->delete($id);
+			$this->roleModel->delete(['id' => $id]);
 
 			return $this->jsonResponse([
 				'status' => 'success',
@@ -88,7 +88,7 @@ class Role extends MY_Controller
 	 */
 	public function show(int $id): void
 	{
-		$role = $this->roleModel->find($id);
+		$role = $this->roleModel->find(['id' => $id]);
 
 		if (!$role) {
 			show_404();
@@ -108,7 +108,7 @@ class Role extends MY_Controller
 	 */
 	public function edit(int $id): void
 	{
-		$role = $this->roleModel->find($id);
+		$role = $this->roleModel->find(['id' => $id]);
 
 		if (!$role) {
 			show_404();
@@ -133,7 +133,9 @@ class Role extends MY_Controller
 				throw new Exception(current($errors));
 			}
 
-			$this->roleModel->update($id, $data);
+			$this->roleModel->update($data, [
+				'id' => $id
+			]);
 
 			return $this->jsonResponse([
 				'status' => 'success',

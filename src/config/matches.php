@@ -19,7 +19,7 @@ $config['controller'] = 'MY';
 /**
  * Tell the Matches what model to extend
  */
-$config['model'] = 'CI';
+$config['model'] = 'MY';
 
 /**
  * Tell the Matches what Migration to extend

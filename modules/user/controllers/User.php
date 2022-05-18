@@ -66,16 +66,12 @@ class User extends MY_Controller
 	{
 		try {
 
-			$user = $this->userModel->find($id);
+			$user = $this->userModel->find(['id' => $id]);
 			if (!$user) {
 				throw new Exception("Data not found");
 			}
 
-			if ($user->type === 'admin') {
-				throw new Exception("User can't be deleted!");
-			}
-
-			$this->userModel->delete($id);
+			$this->userModel->delete(['id' => $id]);
 
 			return $this->jsonResponse([
 				'status' => 'success',
@@ -97,7 +93,7 @@ class User extends MY_Controller
 	 */
 	public function show(int $id): void
 	{
-		$user = $this->userModel->find($id);
+		$user = $this->userModel->find(['id' => $id]);
 
 		if (!$user) {
 			show_404();
@@ -119,14 +115,14 @@ class User extends MY_Controller
 	{
 		$this->load->model('role/RoleModel', 'roleModel');
 
-		$user = $this->userModel->find($id);
+		$user = $this->userModel->find(['id' => $id]);
 
 		if (!$user) {
 			show_404();
 		}
 
 		$data['title'] = 'Edit Role';
-		$data['roles'] = $this->roleModel->role($user->type);
+		$data['roles'] = $this->roleModel->role();
 		$data['user'] = $user;
 
 		$this->render('edit-user', $data);
@@ -150,7 +146,7 @@ class User extends MY_Controller
 
 			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
 
-			$this->userModel->update($id, $data);
+			$this->userModel->update($data, ['id' => $id]);
 
 			return $this->jsonResponse([
 				'status' => 'success',

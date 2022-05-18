@@ -2,6 +2,9 @@
 
 class {{MODEL}}Model extends {{MO_EXTENDS}}_Model
 {
+
+	public $table = "{{TABLE_NAME}}";
+
 	public function __construct()
 	{
 		parent::__construct();

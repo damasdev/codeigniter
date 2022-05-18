@@ -66,7 +66,7 @@ class Menu extends MY_Controller
 	{
 		try {
 
-			$this->menuModel->delete($id);
+			$this->menuModel->delete(['id' => $id]);
 
 			return $this->jsonResponse([
 				'status' => 'success',
@@ -88,7 +88,7 @@ class Menu extends MY_Controller
 	 */
 	public function show(int $id): void
 	{
-		$menu = $this->menuModel->find($id);
+		$menu = $this->menuModel->find(['id' => $id]);
 
 		if (!$menu) {
 			show_404();
@@ -108,7 +108,7 @@ class Menu extends MY_Controller
 	 */
 	public function edit(int $id): void
 	{
-		$menu = $this->menuModel->find($id);
+		$menu = $this->menuModel->find(['id' => $id]);
 
 		if (!$menu) {
 			show_404();
@@ -140,7 +140,7 @@ class Menu extends MY_Controller
 
 			$data['parent'] = $data['parent'] > 0 ? $data['parent'] : NULL;
 
-			$this->menuModel->update($id, $data);
+			$this->menuModel->update($data, ['id' => $id]);
 
 			return $this->jsonResponse([
 				'status' => 'success',

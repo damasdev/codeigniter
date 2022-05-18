@@ -60,8 +60,7 @@ class AuthLibrary
 
             return $this->user();
         } catch (\Throwable $th) {
-            //throw $th;
-            return NULL;
+            throw $th;
         }
     }
 
