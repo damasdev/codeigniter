@@ -21,10 +21,6 @@ class Migration_Create_role_table extends CI_Migration
                 'type' => 'VARCHAR',
                 'constraint' => 50
             ],
-            'description' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100
-            ],
             'type' => [
                 'type' => 'ENUM("admin","user")',
                 'default' => 'user',
@@ -39,20 +35,17 @@ class Migration_Create_role_table extends CI_Migration
         $data = [
             [
                 'id' => 1,
-                'name' => 'Root',
-                'description' => 'Super Administrator',
+                'name' => 'Super Administrator',
                 'type' => 'admin'
             ],
             [
                 'id' => 2,
-                'name' => 'Admin',
-                'description' => 'Administrator',
+                'name' => 'Administrator',
                 'type' => 'user'
             ],
             [
                 'id' => 3,
                 'name' => 'User',
-                'description' => 'User',
                 'type' => 'user'
             ]
         ];

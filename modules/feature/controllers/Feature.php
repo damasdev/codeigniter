@@ -151,4 +151,11 @@ class Feature extends MY_Controller
 			], 400);
 		}
 	}
+
+	public function datatables()
+	{
+		$this->load->library('datatables');
+
+		$this->jsonResponse($this->datatables->table('features')->draw());
+	}
 }
