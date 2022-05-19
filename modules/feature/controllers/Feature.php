@@ -8,7 +8,12 @@ class Feature extends MY_Controller
 		$this->load->model('FeatureModel', 'featureModel');
 	}
 
-	public function index()
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
+	public function index(): void
 	{
 		$data['title'] = 'Feature';
 
@@ -18,9 +23,9 @@ class Feature extends MY_Controller
 	/**
 	 * Store Feature
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function store(): mixed
+	public function store(): void
 	{
 		try {
 
@@ -38,12 +43,12 @@ class Feature extends MY_Controller
 
 			$this->featureModel->insert($data);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly created'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
@@ -54,9 +59,9 @@ class Feature extends MY_Controller
 	 * Destroy Feature
 	 *
 	 * @param  int $id
-	 * @return mixed
+	 * @return void
 	 */
-	public function destroy(int $id): mixed
+	public function destroy(int $id): void
 	{
 		try {
 
@@ -67,12 +72,12 @@ class Feature extends MY_Controller
 
 			$this->featureModel->delete(['id' => $id]);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Your data has been deleted.'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
@@ -119,7 +124,13 @@ class Feature extends MY_Controller
 		$this->render('edit-feature', $data);
 	}
 
-	public function update(int $id)
+	/**
+	 * Update Data
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function update(int $id): void
 	{
 		try {
 
@@ -137,19 +148,24 @@ class Feature extends MY_Controller
 
 			$this->featureModel->update($data, ['id' => $id]);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly updated'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
 		}
 	}
 
-	public function datatables()
+	/**
+	 * Datatables
+	 *
+	 * @return void
+	 */
+	public function datatables(): void
 	{
 		$this->load->library('datatables');
 

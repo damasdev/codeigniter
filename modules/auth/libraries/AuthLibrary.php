@@ -7,7 +7,7 @@ class AuthLibrary
 
     public function __construct()
     {
-        $this->load->model('auth/AuthModel', 'authModel');
+        $this->load->model('user/UserModel', 'userModel');
         $this->load->model('feature/FeatureModel', 'featureModel');
 
         $this->load->driver(
@@ -43,7 +43,17 @@ class AuthLibrary
     public function login(string $email, string $password): ?stdClass
     {
         try {
-            $user = $this->authModel->login($email, $password);
+            $user = $this->userModel->findWithRole([
+                'users.email' => $email
+            ]);
+
+            if (!$user) {
+                throw new Exception("Email is not registered yet");
+            }
+
+            if (!password_verify($password, $user->password)) {
+                throw new Exception("Password did not match");
+            }
 
             // Set
             $this->setData(

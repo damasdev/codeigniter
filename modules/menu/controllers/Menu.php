@@ -8,16 +8,25 @@ class Menu extends MY_Controller
 		$this->load->model('MenuModel', 'menuModel');
 	}
 
-	public function index()
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
+	public function index(): void
 	{
-
 		$data['title'] = 'Menu';
 		$data['parents'] = $this->menuModel->parent();
 
 		$this->render('menu', $data);
 	}
 
-	public function store()
+	/**
+	 * Store Data
+	 *
+	 * @return void
+	 */
+	public function store(): void
 	{
 		$this->db->trans_start();
 		try {
@@ -43,13 +52,13 @@ class Menu extends MY_Controller
 
 			$this->db->trans_complete();
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly created'
 			], 200);
 		} catch (\Throwable $th) {
 			$this->db->trans_rollback();
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
@@ -60,20 +69,20 @@ class Menu extends MY_Controller
 	 * Destroy Menu
 	 *
 	 * @param  int $id
-	 * @return mixed
+	 * @return void
 	 */
-	public function destroy(int $id): mixed
+	public function destroy(int $id): void
 	{
 		try {
 
 			$this->menuModel->delete(['id' => $id]);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Your data has been deleted.'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
@@ -121,7 +130,13 @@ class Menu extends MY_Controller
 		$this->render('edit-menu', $data);
 	}
 
-	public function update(int $id)
+	/**
+	 * Update Data
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function update(int $id): void
 	{
 		try {
 
@@ -142,19 +157,24 @@ class Menu extends MY_Controller
 
 			$this->menuModel->update($data, ['id' => $id]);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly updated'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
 		}
 	}
 
-	public function datatables()
+	/**
+	 * Datatables
+	 *
+	 * @return void
+	 */
+	public function datatables(): void
 	{
 		$this->load->library('datatables');
 

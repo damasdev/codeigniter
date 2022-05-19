@@ -8,7 +8,12 @@ class User extends MY_Controller
 		$this->load->model('UserModel', 'userModel');
 	}
 
-	public function index()
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
+	public function index(): void
 	{
 		$this->load->model('role/RoleModel', 'roleModel');
 
@@ -21,9 +26,9 @@ class User extends MY_Controller
 	/**
 	 * Store User
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function store(): mixed
+	public function store(): void
 	{
 		try {
 
@@ -44,12 +49,12 @@ class User extends MY_Controller
 
 			$this->userModel->insert($data);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly created'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
@@ -60,25 +65,29 @@ class User extends MY_Controller
 	 * Destroy User
 	 *
 	 * @param  int $id
-	 * @return mixed
+	 * @return void
 	 */
-	public function destroy(int $id): mixed
+	public function destroy(int $id): void
 	{
 		try {
 
-			$user = $this->userModel->find(['id' => $id]);
+			$user = $this->userModel->findWithRole(['users.id' => $id]);
 			if (!$user) {
 				throw new Exception("Data not found");
 			}
 
+			if ($user->type === 'admin') {
+				throw new Exception("User can't be deleted!");
+			}
+
 			$this->userModel->delete(['id' => $id]);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Your data has been deleted.'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
@@ -128,7 +137,13 @@ class User extends MY_Controller
 		$this->render('edit-user', $data);
 	}
 
-	public function update(int $id)
+	/**
+	 * Update Data
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function update(int $id): void
 	{
 		try {
 
@@ -148,19 +163,24 @@ class User extends MY_Controller
 
 			$this->userModel->update($data, ['id' => $id]);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly updated'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
 		}
 	}
 
-	public function datatables()
+	/**
+	 * Datatables
+	 *
+	 * @return void
+	 */
+	public function datatables(): void
 	{
 		$this->load->library('datatables');
 

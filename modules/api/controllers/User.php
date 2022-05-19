@@ -7,7 +7,12 @@ class User extends MY_Controller
 		parent::__construct();
 	}
 
-	public function index()
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
+	public function index(): void
 	{
 		$this->jsonResponse([
 			'status' => 'success',
@@ -16,7 +21,12 @@ class User extends MY_Controller
 		]);
 	}
 
-	public function store()
+	/**
+	 * Store Data
+	 *
+	 * @return void
+	 */
+	public function store(): void
 	{
 		$this->jsonResponse([
 			'status' => 'success',
