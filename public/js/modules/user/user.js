@@ -6,6 +6,7 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     stateSave: true,
+    autoWidth: false,
     ajax: {
       url: `${baseURL}user/datatables`,
       method: "POST",
