@@ -118,7 +118,7 @@ class AuthLibrary
         $features = $this->getData(self::FEATURE_KEY, true);
         if (empty($features)) {
 
-            $features = $this->featureModel->role($roleId);
+            $features = $this->featureModel->allWithAcl(['role_id' => $roleId]);
             $this->setData(self::FEATURE_KEY, $features, true);
         }
 

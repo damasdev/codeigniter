@@ -106,6 +106,7 @@ $(document).ready(function () {
           icon: data.status,
         }).then(() => {
           $("#feature").DataTable().ajax.reload();
+          $("#form").trigger("reset");
         });
       },
     });

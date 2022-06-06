@@ -35,7 +35,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="card">
+	<div class="card mb-4">
 		<div class="table-responsive">
 			<table class="table table-vcenter card-table">
 				<thead>
@@ -71,8 +71,33 @@
 			</a>
 		</div>
 	</div>
+
+	<div class="card">
+		<div class="table-responsive">
+			<table class="table table-vcenter card-table">
+				<thead>
+					<tr>
+						<th>Role</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for role in roles %}
+						<tr>
+							<td class="text-muted">{{role.name}}</td>
+							<td class="text-muted">
+								<div class="form-switch">
+									<input type="checkbox" name="{{role.code}}" class="form-check-input" data-role="{{role.id}}" data-feature="{{feature.id}}" {% if role.is_active is same as '1' %} checked {% endif %}>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}
 
 {% block scripts %}
-	{# add custom script #}
+	<script src="{{ base_url ('/js/modules/feature/show-feature.js')}}"></script>
 {% endblock %}

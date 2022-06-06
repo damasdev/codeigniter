@@ -27,6 +27,10 @@ class Migration_Create_feature_acl extends CI_Migration
                 'constraint' => 11,
                 'unsigned' => TRUE
             ],
+            'is_active' => [
+                'type' => 'TINYINT',
+                'constraint' => 1
+            ],
         ];
 
         $this->dbforge->add_field($fields);

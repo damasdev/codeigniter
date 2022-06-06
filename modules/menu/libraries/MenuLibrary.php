@@ -125,7 +125,17 @@ class MenuLibrary
 
     public function initialize()
     {
-        $this->items = toArray($this->menuModel->all());
+        $conditions = [];
+        $user = $this->session->userdata('user') ?? NULL;
+        if ($user) {
+            $conditions = $user->type === 'admin' ? [] : [
+                'role_id' => $user->role_id
+            ];
+        }
+
+        $result = $this->menuModel->allWithAcl($conditions);
+
+        $this->items = toArray($result);
     }
 
     public function render()

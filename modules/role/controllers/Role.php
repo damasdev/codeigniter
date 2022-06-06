@@ -30,7 +30,8 @@ class Role extends MY_Controller
 		try {
 
 			$data = [
-				'name' => $this->input->post('name')
+				'name' => $this->input->post('name'),
+				'code' => $this->input->post('code')
 			];
 
 			if (!$this->form_validation->run('role')) {
@@ -136,7 +137,8 @@ class Role extends MY_Controller
 		try {
 
 			$data = [
-				'name' => $this->input->post('name')
+				'name' => $this->input->post('name'),
+				'code' => $this->input->post('code')
 			];
 
 			if (!$this->form_validation->run('role')) {
@@ -168,7 +170,8 @@ class Role extends MY_Controller
 	public function datatables(): void
 	{
 		$this->load->library('datatables');
+		$data = $this->datatables->table('roles')->where('type', 'user')->draw();
 
-		$this->jsonResponse($this->datatables->table('roles')->draw());
+		$this->jsonResponse($data);
 	}
 }

@@ -118,6 +118,7 @@ $(document).ready(function () {
           icon: data.status,
         }).then(() => {
           $("#user").DataTable().ajax.reload();
+          $("#form").trigger("reset");
         });
       },
     });

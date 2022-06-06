@@ -13,7 +13,7 @@ $(document).ready(function () {
     },
     columns: [
       { data: "name" },
-      { data: "type" },
+      { data: "code" },
       {
         data: "id",
         render: function (id) {
@@ -104,6 +104,7 @@ $(document).ready(function () {
           icon: data.status,
         }).then(() => {
           $("#role").DataTable().ajax.reload();
+          $("#form").trigger("reset");
         });
       },
     });

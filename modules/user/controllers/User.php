@@ -18,7 +18,7 @@ class User extends MY_Controller
 		$this->load->model('role/RoleModel', 'roleModel');
 
 		$data['title'] = "User";
-		$data['roles'] = $this->roleModel->role();
+		$data['roles'] = $this->roleModel->all(['type' => 'user']);
 
 		$this->render('user', $data);
 	}
@@ -131,7 +131,7 @@ class User extends MY_Controller
 		}
 
 		$data['title'] = 'Edit Role';
-		$data['roles'] = $this->roleModel->role();
+		$data['roles'] = $this->roleModel->all(['type' => 'user']);
 		$data['user'] = $user;
 
 		$this->render('edit-user', $data);
@@ -183,7 +183,8 @@ class User extends MY_Controller
 	public function datatables(): void
 	{
 		$this->load->library('datatables');
+		$data = $this->datatables->table('users')->join('roles', 'roles.id = users.role_id')->where('roles.type', 'user')->draw();
 
-		$this->jsonResponse($this->datatables->table('users')->join('roles', 'roles.id = users.role_id')->draw());
+		$this->jsonResponse($data);
 	}
 }

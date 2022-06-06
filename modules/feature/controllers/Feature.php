@@ -92,6 +92,7 @@ class Feature extends MY_Controller
 	 */
 	public function show(int $id): void
 	{
+		$this->load->model('role/RoleModel', 'roleModel');
 		$feature = $this->featureModel->find(['id' => $id]);
 
 		if (!$feature) {
@@ -100,6 +101,10 @@ class Feature extends MY_Controller
 
 		$data['title'] = 'Show Feature';
 		$data['feature'] = $feature;
+		$data['roles'] = $this->roleModel->allWithFeature([
+			'type' => 'user',
+			'feature_id' => $id,
+		]);
 
 		$this->render('show-feature', $data);
 	}

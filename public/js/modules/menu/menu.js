@@ -123,6 +123,7 @@ $(document).ready(function () {
           icon: data.status,
         }).then(() => {
           $("#menu").DataTable().ajax.reload();
+          $("#form").trigger("reset");
         });
       },
     });

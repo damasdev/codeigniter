@@ -97,6 +97,7 @@ class Menu extends MY_Controller
 	 */
 	public function show(int $id): void
 	{
+		$this->load->model('role/RoleModel', 'roleModel');
 		$menu = $this->menuModel->find(['id' => $id]);
 
 		if (!$menu) {
@@ -105,6 +106,11 @@ class Menu extends MY_Controller
 
 		$data['title'] = 'Show Menu';
 		$data['menu'] = $menu;
+
+		$data['roles'] = $this->roleModel->allWithMenu([
+			'type' => 'user',
+			'menu_id' => $id
+		]);
 
 		$this->render('show-menu', $data);
 	}
