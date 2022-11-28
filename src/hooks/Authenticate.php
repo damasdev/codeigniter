@@ -2,25 +2,27 @@
 
 class Authenticate extends MY_Controller
 {
-    private $data = [];
+    private $whitelist = [];
+    private $basic = [];
 
     public function __construct()
     {
-        $this->data = $this->config->item('modules');
+        $this->whitelist = $this->config->item('whitelist');
+        $this->basic = $this->config->item('basic_feature');
     }
 
     public function init()
     {
         // Init Data
-        $module = $this->router->fetch_module() ?? '';
-        $class = $this->router->fetch_class();
-        $method = $this->router->fetch_method();
+        $module = strtolower($this->router->fetch_module() ?? '');
+        $class = strtolower($this->router->fetch_class());
+        $method = strtolower($this->router->fetch_method());
 
         // Validate API
         if ($this->isApiRequest()) {
 
             if (!$this->jwt_library->validate()) {
-                return $this->jsonResponse([
+                $this->jsonResponse([
                     'message' => 'Unauthorized'
                 ], 401);
             }
@@ -29,7 +31,7 @@ class Authenticate extends MY_Controller
         }
 
         // Check Whitelist
-        if (in_array($method, $this->data[$module][$class] ?? [])) {
+        if (in_array($method, $this->whitelist[$module][$class] ?? [])) {
             return;
         }
 
@@ -37,6 +39,11 @@ class Authenticate extends MY_Controller
         if (!$this->auth_library->isLoggedIn()) {
             redirect('auth/login', 'refresh');
             die();
+        }
+
+        // Check Basic Feature
+        if (in_array($method, $this->basic[$module][$class] ?? [])) {
+            return;
         }
 
         // Check User Permission

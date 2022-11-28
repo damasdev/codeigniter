@@ -12,13 +12,18 @@ class Auth extends MY_Controller
 	 *
 	 * @return void
 	 */
-	public function index()
+	public function index(): void
 	{
 		redirect('/home', 'refresh', 301);
 		die();
 	}
-
-	public function logout()
+	
+	/**
+	 * Logout
+	 *
+	 * @return void
+	 */
+	public function logout(): void
 	{
 		$this->auth_library->logout();
 		redirect('/auth/login', 'refresh');

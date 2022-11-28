@@ -35,15 +35,18 @@
 {% block body %}
 	<div class="card">
 		<div class="card-body">
-			<table class="table" id="role">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Type</th>
-						<th class="w-25">Action</th>
-					</tr>
-				</thead>
-			</table>
+			<div class="table-responsive">
+				<table class="table table-striped nowrap border" id="role">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Code</th>
+							<th class="w-25">Action</th>
+						</tr>
+					</thead>
+					<tbody class="table-tbody"></tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 
@@ -58,6 +61,10 @@
 					<div class="form-group mb-3">
 						<label for="name">Name</label>
 						<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+					</div>
+					<div class="form-group mb-3">
+						<label for="code">Code</label>
+						<input type="text" class="form-control" name="code" id="code" placeholder="Code">
 					</div>
 				</div>
 				<div class="mt-3">

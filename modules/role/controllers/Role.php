@@ -8,7 +8,12 @@ class Role extends MY_Controller
 		$this->load->model('RoleModel', 'roleModel');
 	}
 
-	public function index()
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
+	public function index(): void
 	{
 		$data['title'] = 'Role';
 
@@ -18,14 +23,15 @@ class Role extends MY_Controller
 	/**
 	 * Store Role
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function store(): mixed
+	public function store(): void
 	{
 		try {
 
 			$data = [
-				'name' => $this->input->post('name')
+				'name' => $this->input->post('name'),
+				'code' => $this->input->post('code')
 			];
 
 			if (!$this->form_validation->run('role')) {
@@ -35,12 +41,12 @@ class Role extends MY_Controller
 
 			$this->roleModel->insert($data);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly created'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
@@ -51,9 +57,9 @@ class Role extends MY_Controller
 	 * Destroy Role
 	 *
 	 * @param  int $id
-	 * @return mixed
+	 * @return void
 	 */
-	public function destroy(int $id): mixed
+	public function destroy(int $id): void
 	{
 		try {
 
@@ -68,12 +74,12 @@ class Role extends MY_Controller
 
 			$this->roleModel->delete(['id' => $id]);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Your data has been deleted.'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
@@ -120,12 +126,19 @@ class Role extends MY_Controller
 		$this->render('edit-role', $data);
 	}
 
-	public function update(int $id)
+	/**
+	 * Update Data
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function update(int $id): void
 	{
 		try {
 
 			$data = [
-				'name' => $this->input->post('name')
+				'name' => $this->input->post('name'),
+				'code' => $this->input->post('code')
 			];
 
 			if (!$this->form_validation->run('role')) {
@@ -137,22 +150,28 @@ class Role extends MY_Controller
 				'id' => $id
 			]);
 
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'success',
 				'message' => 'Data successfuly updated'
 			], 200);
 		} catch (\Throwable $th) {
-			return $this->jsonResponse([
+			$this->jsonResponse([
 				'status' => 'error',
 				'message' => $th->getMessage()
 			], 400);
 		}
 	}
 
-	public function datatables()
+	/**
+	 * Datatables
+	 *
+	 * @return void
+	 */
+	public function datatables(): void
 	{
 		$this->load->library('datatables');
+		$data = $this->datatables->table('roles')->where('type', 'user')->draw();
 
-		$this->jsonResponse($this->datatables->table('roles')->draw());
+		$this->jsonResponse($data);
 	}
 }

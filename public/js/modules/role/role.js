@@ -6,13 +6,14 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     stateSave: true,
+    autoWidth: false,
     ajax: {
       url: `${baseURL}role/datatables`,
       method: "POST",
     },
     columns: [
       { data: "name" },
-      { data: "type" },
+      { data: "code" },
       {
         data: "id",
         render: function (id) {
@@ -103,6 +104,7 @@ $(document).ready(function () {
           icon: data.status,
         }).then(() => {
           $("#role").DataTable().ajax.reload();
+          $("#form").trigger("reset");
         });
       },
     });

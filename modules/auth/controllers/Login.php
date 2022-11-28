@@ -12,7 +12,7 @@ class Login extends MY_Controller
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $data['title'] = "Login";
 
@@ -24,7 +24,7 @@ class Login extends MY_Controller
      *
      * @return void
      */
-    public function store()
+    public function store(): void
     {
         try {
             $form = [
@@ -46,12 +46,12 @@ class Login extends MY_Controller
                 throw new Exception("Wrong Email or Password");
             }
 
-            return $this->jsonResponse([
+            $this->jsonResponse([
                 'status' => 'success',
                 'message' => 'Login Successfuly'
             ], 200);
         } catch (\Throwable $th) {
-            return $this->jsonResponse([
+            $this->jsonResponse([
                 'status' => 'error',
                 'message' => $th->getMessage()
             ], 400);

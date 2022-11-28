@@ -6,6 +6,7 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     stateSave: true,
+    autoWidth: false,
     ajax: {
       url: `${baseURL}menu/datatables`,
       method: "POST",
@@ -122,6 +123,7 @@ $(document).ready(function () {
           icon: data.status,
         }).then(() => {
           $("#menu").DataTable().ajax.reload();
+          $("#form").trigger("reset");
         });
       },
     });

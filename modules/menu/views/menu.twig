@@ -35,16 +35,18 @@
 {% block body %}
 	<div class="card">
 		<div class="card-body">
-			<table class="table" id="menu">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Slug</th>
-						<th>Icon</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-			</table>
+			<div class="table-responsive">
+				<table class="table table-striped nowrap border" id="menu">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Slug</th>
+							<th>Icon</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
 		</div>
 	</div>
 
@@ -96,4 +98,3 @@
 {% block styles %}
 	<link rel="stylesheet" href="{{ base_url ('/vendor/datatables/css/datatables.min.css')}}">
 {% endblock %}
-

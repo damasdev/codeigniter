@@ -42,7 +42,7 @@ class Migration_Create_user_table extends CI_Migration
         $this->dbforge->create_table('users', TRUE);
 
         $this->dbforge->add_column('users',[
-            'CONSTRAINT fk_user_role_id FOREIGN KEY(role_id) REFERENCES roles(id)',
+            'CONSTRAINT fk_user_role_id FOREIGN KEY(role_id) REFERENCES roles(id) ON DELETE CASCADE',
         ]);
 
         // Dumping data for table 'users'
@@ -50,7 +50,7 @@ class Migration_Create_user_table extends CI_Migration
             'id' => 1,
             'name' => 'Damas Amirul Karim',
             'password' => password_hash('rahasia', PASSWORD_BCRYPT),
-            'email' => 'damas@kodedasar.com',
+            'email' => 'codewithdamas@gmail.com',
             'role_id' => 1
         ];
 

@@ -43,6 +43,13 @@ class Datatables
      */
     protected $joins = [];
 
+    /**
+     * Where
+     *
+     * @var array
+     */
+    protected $conditions = [];
+
     public function __construct()
     {
         $codeigniter = &get_instance();
@@ -75,6 +82,20 @@ class Datatables
     public function join(string $table, string $key, ?string $type = 'INNER'): Datatables
     {
         $this->joins[] = ['table' => $table, 'key' => $key, 'type' => $type];
+
+        return $this;
+    }
+
+    /**
+     * Where
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return Datatables
+     */
+    public function where(string $key, string $value): Datatables
+    {
+        $this->conditions[] = ['key' => $key, 'value' => $value];
 
         return $this;
     }
@@ -143,13 +164,23 @@ class Datatables
 
             $this->db->group_end();
         }
+
+        foreach ($this->conditions as $condition) {
+            $this->db->where($condition['key'], $condition['value']);
+        }
     }
 
-    private function order()
+    /**
+     * Order Row
+     *
+     * @return void
+     */
+    private function order(): void
     {
         $direction = $this->input->post('order')[0]['dir'];
         $index = $this->input->post('order')[0]['column'];
         $column = $this->input->post('columns')[$index]['data'];
+
         $this->db->order_by($column, $direction);
     }
 
@@ -166,7 +197,7 @@ class Datatables
         $this->db->limit($limit, $start);
     }
 
-    private function joinTable()
+    private function joinTable(): void
     {
         foreach ($this->joins as $join) {
             $this->db->join($join['table'], $join['key'], $join['type']);

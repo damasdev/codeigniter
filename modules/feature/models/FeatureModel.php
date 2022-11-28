@@ -10,22 +10,17 @@ class FeatureModel extends MY_Model
 	}
 
 	/**
-	 * Get All Feature
+	 * All Feature With Alc
 	 *
-	 * @param  int $role_id
-	 * @return array
+	 * @param  array $conditions
+	 * @return ?array
 	 */
-	public function role(int $role_id): array
+	public function allWithAcl(array $conditions = []): ?array
 	{
 		$this->db->select([
-			'features.id',
-			'features.module',
-			'features.class',
-			'features.method',
-		]);
+			'features.id', 'features.class', 'features.method', 'features.module'
+		])->join('features_acl', 'features_acl.feature_id = features.id');
 
-		$this->db->join('features_acl', 'features.id = features_acl.feature_id');
-
-		return $this->db->where('features_acl.role_id', $role_id)->get($this->table)->result();
+		return $this->all($conditions);
 	}
 }
