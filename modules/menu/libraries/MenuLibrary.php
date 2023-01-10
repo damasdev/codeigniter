@@ -8,7 +8,7 @@ class MenuLibrary
      *
      * @var string
      */
-    private $nav_tag_open = '<ul class="navbar-nav pt-lg-3">';
+    private $navTagOpen = '<ul class="navbar-nav pt-lg-3">';
 
     /**
      * Closing tag of the navigation menu
@@ -16,7 +16,7 @@ class MenuLibrary
      *
      * @var string
      */
-    private $nav_tag_close = '</ul>';
+    private $navTagClose = '</ul>';
 
     /**
      * Tag opening tag of the menu item
@@ -24,7 +24,7 @@ class MenuLibrary
      *
      * @var string
      */
-    private $item_tag_open = '';
+    private $itemTagOpen = '';
 
     /**
      * Closing tag of the menu item
@@ -32,7 +32,7 @@ class MenuLibrary
      *
      * @var string
      */
-    private $item_tag_close = '';
+    private $itemTagClose = '';
 
     /**
      * Opening tag of the menu item that has children
@@ -40,7 +40,7 @@ class MenuLibrary
      *
      * @var string
      */
-    private $parent_tag_open = '<li class="nav-item">';
+    private $parentTagOpen = '<li class="nav-item">';
 
     /**
      * Closing tag of the menu item that has children
@@ -48,7 +48,7 @@ class MenuLibrary
      *
      * @var string
      */
-    private $parent_tag_close = '</li>';
+    private $parentTagClose = '</li>';
 
     /**
      * Anchor tag of the menu item that has children
@@ -56,7 +56,7 @@ class MenuLibrary
      *
      * @var string
      */
-    private $parent_anchor = '<span data-info="%s" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">%s</span>';
+    private $parentAnchor = '<span data-info="%s" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">%s</span>';
 
     /**
      * Opening tag of the children menu / sub menu.
@@ -64,7 +64,7 @@ class MenuLibrary
      *
      * @var string
      */
-    private $children_tag_open = '<div class="dropdown-menu"><div class="dropdown-menu-columns">';
+    private $childrenTagOpen = '<div class="dropdown-menu"><div class="dropdown-menu-columns">';
 
     /**
      * Closing tag of the children menu / sub menu.
@@ -72,21 +72,21 @@ class MenuLibrary
      *
      * @var string
      */
-    private $children_tag_close = '</div></div>';
+    private $childrenTagClose = '</div></div>';
 
     /**
-     * icon_tag_open
+     * iconTagOpen
      *
      * @var string
      */
-    private $icon_tag_open = '<span class="nav-link-icon d-md-none d-lg-inline-block">';
+    private $iconTagOpen = '<span class="nav-link-icon d-md-none d-lg-inline-block">';
 
     /**
-     * icon_tag_close
+     * iconTagClose
      *
      * @var string
      */
-    private $icon_tag_close = '</span>';
+    private $iconTagClose = '</span>';
 
     /**
      * Anchor tag of the menu item.
@@ -94,14 +94,21 @@ class MenuLibrary
      *
      * @var string
      */
-    private $item_anchor = '<a href="%s" class="nav-link">%s</a>';
+    private $itemAnchor = '<a href="%s" class="nav-link">%s</a>';
 
     /**
-     * children_item_anchor
+     * childrenItemAnchor
      *
      * @var string
      */
-    private $children_item_anchor = '<a href="%s" class="dropdown-item">%s</a>';
+    private $childrenItemAnchor = '<a href="%s" class="dropdown-item">%s</a>';
+
+    /**
+     * items
+     *
+     * @var array
+     */
+    private $items = [];
 
     public function __construct()
     {
@@ -175,10 +182,10 @@ class MenuLibrary
     private function renderItem($items, &$html = '')
     {
         if (empty($html)) {
-            $nav_tag_opened = true;
-            $html .= $this->nav_tag_open;
+            $navTagOpened = true;
+            $html .= $this->navTagOpen;
         } else {
-            $html .= $this->children_tag_open;
+            $html .= $this->childrenTagOpen;
         }
 
         foreach ($items as $item) {
@@ -191,41 +198,41 @@ class MenuLibrary
             $has_parent = !empty($item['parent']);
 
             if ($icon) {
-                $icon = "{$this->icon_tag_open}<i class='icon {$icon}'></i>{$this->icon_tag_close}";
+                $icon = "{$this->iconTagOpen}<i class='icon {$icon}'></i>{$this->iconTagClose}";
                 $label = trim($icon . "<span class='nav-link-title'>{$label}</span>");
             }
 
             if ($has_children) {
-                $tag_open     = $this->parent_tag_open;
-                $item_anchor = $this->parent_anchor;
+                $tag_open     = $this->parentTagOpen;
+                $itemAnchor = $this->parentAnchor;
                 $href  = '#';
             } else {
-                $tag_open    = $has_parent ? $this->item_tag_open : $this->parent_tag_open;
+                $tag_open    = $has_parent ? $this->itemTagOpen : $this->parentTagOpen;
                 $href        = site_url($slug);
-                $item_anchor = $has_parent ? $this->children_item_anchor : $this->item_anchor;
+                $itemAnchor = $has_parent ? $this->childrenItemAnchor : $this->itemAnchor;
             }
 
             $html  .= $tag_open ? $this->setActive($tag_open, $slug) : $tag_open;
-            $item_anchor = $this->setActive($item_anchor, $slug);
+            $itemAnchor = $this->setActive($itemAnchor, $slug);
 
-            if (substr_count($item_anchor, '%s') == 2) {
-                $html .= sprintf($item_anchor, $href, $label);
+            if (substr_count($itemAnchor, '%s') == 2) {
+                $html .= sprintf($itemAnchor, $href, $label);
             } else {
-                $html .= sprintf($item_anchor, $label);
+                $html .= sprintf($itemAnchor, $label);
             }
 
             if ($has_children) {
                 $this->renderItem($item['children'], $html);
-                $html  .= $this->parent_tag_close;
+                $html  .= $this->parentTagClose;
             } else {
-                $html .= $this->item_tag_close;
+                $html .= $this->itemTagClose;
             }
         }
 
-        if (isset($nav_tag_opened)) {
-            $html .= $this->nav_tag_close;
+        if (isset($navTagOpened)) {
+            $html .= $this->navTagClose;
         } else {
-            $html  .= $this->children_tag_close;
+            $html  .= $this->childrenTagClose;
         }
     }
 
