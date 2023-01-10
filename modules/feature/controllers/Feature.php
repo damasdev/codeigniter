@@ -4,7 +4,7 @@ class Feature extends MY_Controller
 {
     public function __construct()
     {
-        parent::__construct();
+
         $this->load->model('Feature_model', 'featureModel');
     }
 

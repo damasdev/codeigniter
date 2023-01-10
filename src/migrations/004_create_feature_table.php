@@ -4,7 +4,7 @@ class Migration_Create_feature_table extends CI_Migration
 {
     public function __construct()
     {
-        parent::__construct();
+
         $this->load->dbforge();
     }
 

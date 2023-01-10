@@ -4,7 +4,7 @@ class Migration_Create_menu_acl extends CI_Migration
 {
     public function __construct()
     {
-        parent::__construct();
+
         $this->load->dbforge();
     }
 

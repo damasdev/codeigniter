@@ -33,7 +33,7 @@ class Matches extends MY_Controller
      */
     public function __construct()
     {
-        parent::__construct();
+
 
         $this->config->load('matches', true);
         $this->baseLocation = APPPATH . $this->config->item('templates', 'matches');

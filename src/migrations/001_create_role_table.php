@@ -4,7 +4,6 @@ class Migration_Create_role_table extends CI_Migration
 {
     public function __construct()
     {
-        parent::__construct();
         $this->load->dbforge();
     }
 

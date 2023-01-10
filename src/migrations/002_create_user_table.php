@@ -4,7 +4,7 @@ class Migration_Create_user_table extends CI_Migration
 {
     public function __construct()
     {
-        parent::__construct();
+
         $this->load->dbforge();
     }
 
