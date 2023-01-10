@@ -5,7 +5,7 @@ class Feature extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('FeatureModel', 'featureModel');
+		$this->load->model('Feature_model', 'featureModel');
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Feature extends MY_Controller
 	 */
 	public function show(int $id): void
 	{
-		$this->load->model('role/RoleModel', 'roleModel');
+		$this->load->model('role/Role_model', 'roleModel');
 		$feature = $this->featureModel->find(['id' => $id]);
 
 		if (!$feature) {

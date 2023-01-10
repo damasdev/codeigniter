@@ -5,7 +5,7 @@ class Role extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('RoleModel', 'roleModel');
+		$this->load->model('Role_model', 'roleModel');
 	}
 
 	/**

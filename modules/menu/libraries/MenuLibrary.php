@@ -106,7 +106,7 @@ class MenuLibrary
 
     public function __construct()
     {
-        $this->load->model('menu/MenuModel', 'menuModel');
+        $this->load->model('menu/Menu_model', 'menuModel');
     }
 
     /**

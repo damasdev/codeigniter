@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class FeatureModel extends MY_Model
+class Feature_model extends MY_Model
 {
 	public $table = "features";
 

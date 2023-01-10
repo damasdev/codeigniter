@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class MenuModel extends MY_Model
+class Menu_model extends MY_Model
 {
 	public $table = 'menus';
 

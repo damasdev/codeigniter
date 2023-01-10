@@ -5,7 +5,7 @@ class Menu extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('MenuModel', 'menuModel');
+		$this->load->model('Menu_model', 'menuModel');
 	}
 
 	/**
@@ -97,7 +97,7 @@ class Menu extends MY_Controller
 	 */
 	public function show(int $id): void
 	{
-		$this->load->model('role/RoleModel', 'roleModel');
+		$this->load->model('role/Role_model', 'roleModel');
 		$menu = $this->menuModel->find(['id' => $id]);
 
 		if (!$menu) {

@@ -7,8 +7,8 @@ class AuthLibrary
 
     public function __construct()
     {
-        $this->load->model('user/UserModel', 'userModel');
-        $this->load->model('feature/FeatureModel', 'featureModel');
+        $this->load->model('user/User_model', 'userModel');
+        $this->load->model('feature/Feature_model', 'featureModel');
 
         $this->load->driver(
             'cache',

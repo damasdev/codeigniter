@@ -5,7 +5,7 @@ class User extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('UserModel', 'userModel');
+		$this->load->model('User_model', 'userModel');
 	}
 
 	/**
@@ -15,7 +15,7 @@ class User extends MY_Controller
 	 */
 	public function index(): void
 	{
-		$this->load->model('role/RoleModel', 'roleModel');
+		$this->load->model('role/Role_model', 'roleModel');
 
 		$data['title'] = "User";
 		$data['roles'] = $this->roleModel->all(['type' => 'user']);
@@ -122,7 +122,7 @@ class User extends MY_Controller
 	 */
 	public function edit(int $id): void
 	{
-		$this->load->model('role/RoleModel', 'roleModel');
+		$this->load->model('role/Role_model', 'roleModel');
 
 		$user = $this->userModel->find(['id' => $id]);
 
