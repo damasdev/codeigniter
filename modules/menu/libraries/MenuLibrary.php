@@ -146,7 +146,7 @@ class MenuLibrary
 
     public function render()
     {
-        $html  = "";
+        $html = "";
         $this->initialize();
 
         if (count($this->items)) {
@@ -163,7 +163,7 @@ class MenuLibrary
         $items = [];
 
         foreach ($data as $item) {
-            if ($item['parent'] == $parent) {
+            if ($item['parent'] === $parent) {
                 $items[$item['id']] = $item;
                 $items[$item['id']]['children'] = $this->prepareItems($data, $item['id']);
             }
@@ -189,41 +189,41 @@ class MenuLibrary
         }
 
         foreach ($items as $item) {
-            $slug  = $item['slug'] ?? null;
-            $icon  = $item['icon'] ?? '';
-            $label  = $item['name'] ?? '';
+            $slug = $item['slug'] ?? null;
+            $icon = $item['icon'] ?? '';
+            $label = $item['name'] ?? '';
 
             // has children or not
-            $has_children = !empty($item['children']);
-            $has_parent = !empty($item['parent']);
+            $hasChildren = !empty($item['children']);
+            $hasParent = !empty($item['parent']);
 
             if ($icon) {
                 $icon = "{$this->iconTagOpen}<i class='icon {$icon}'></i>{$this->iconTagClose}";
                 $label = trim($icon . "<span class='nav-link-title'>{$label}</span>");
             }
 
-            if ($has_children) {
-                $tag_open     = $this->parentTagOpen;
+            if ($hasChildren) {
+                $tagOpen = $this->parentTagOpen;
                 $itemAnchor = $this->parentAnchor;
-                $href  = '#';
+                $href = '#';
             } else {
-                $tag_open    = $has_parent ? $this->itemTagOpen : $this->parentTagOpen;
-                $href        = site_url($slug);
-                $itemAnchor = $has_parent ? $this->childrenItemAnchor : $this->itemAnchor;
+                $tagOpen = $hasParent ? $this->itemTagOpen : $this->parentTagOpen;
+                $href = site_url($slug);
+                $itemAnchor = $hasParent ? $this->childrenItemAnchor : $this->itemAnchor;
             }
 
-            $html  .= $tag_open ? $this->setActive($tag_open, $slug) : $tag_open;
+            $html .= $tagOpen ? $this->setActive($tagOpen, $slug) : $tagOpen;
             $itemAnchor = $this->setActive($itemAnchor, $slug);
 
-            if (substr_count($itemAnchor, '%s') == 2) {
+            if (substr_count($itemAnchor, '%s') === 2) {
                 $html .= sprintf($itemAnchor, $href, $label);
             } else {
                 $html .= sprintf($itemAnchor, $label);
             }
 
-            if ($has_children) {
+            if ($hasChildren) {
                 $this->renderItem($item['children'], $html);
-                $html  .= $this->parentTagClose;
+                $html .= $this->parentTagClose;
             } else {
                 $html .= $this->itemTagClose;
             }
@@ -232,7 +232,7 @@ class MenuLibrary
         if (isset($navTagOpened)) {
             $html .= $this->navTagClose;
         } else {
-            $html  .= $this->childrenTagClose;
+            $html .= $this->childrenTagClose;
         }
     }
 
@@ -240,7 +240,7 @@ class MenuLibrary
     {
         $segment = $this->uri->segment(1);
 
-        if ($slug == $segment) {
+        if ($slug === $segment) {
             $doc = new DOMDocument();
             $doc->loadHTML($html);
 
