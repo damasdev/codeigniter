@@ -10,7 +10,7 @@
         <li class="none" onclick="HideDevelBar()"><img src="<?php echo $logo ?>" alt="CodeIgniter" />
             <div class="detail">
                 <p><?php echo sprintf(lang('ci_version'), $ci_version) ?></p>
-                <?php if($ci_new_version !== FALSE): ?>
+                <?php if($ci_new_version !== false): ?>
                     <p>
                     <span class="label warning"><?php echo lang('info') ?></span>
                         <?php echo sprintf(lang('update_message'), anchor($config['ci_download_link'], $ci_new_version, 'target="_blank"')) ?>
@@ -18,7 +18,7 @@
                 <?php endif ?>
                 <p><?php echo anchor($config['documentation_link'], 'CodeIgniter documentation', 'target="_blank"') ?></p>
                 <p><?php echo sprintf(lang('develbar_version'), $develBar_version) ?></p>
-                <?php if($develbar_new_version !== FALSE): ?>
+                <?php if($develbar_new_version !== false): ?>
                     <p>
                     <span class="label warning"><?php echo lang('info') ?></span>
                         <?php echo sprintf(lang('update_message'), anchor($config['develbar_download_link'], $develbar_new_version, 'target="_blank"')) ?>

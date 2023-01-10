@@ -42,36 +42,32 @@ class AuthLibrary
      */
     public function login(string $email, string $password): ?stdClass
     {
-        try {
-            $user = $this->userModel->findWithRole([
-                'users.email' => $email
-            ]);
+        $user = $this->userModel->findWithRole([
+            'users.email' => $email
+        ]);
 
-            if (!$user) {
-                throw new Exception("Email is not registered yet");
-            }
-
-            if (!password_verify($password, $user->password)) {
-                throw new Exception("Password did not match");
-            }
-
-            // Set
-            $this->setData(
-                self::SESSION_KEY,
-                (object)[
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'role_id' => $user->role_id,
-                    'role' => $user->role,
-                    'type' => $user->type,
-                ]
-            );
-
-            return $this->user();
-        } catch (\Throwable $th) {
-            throw $th;
+        if (!$user) {
+            throw new Exception("Email is not registered yet");
         }
+
+        if (!password_verify($password, $user->password)) {
+            throw new Exception("Password did not match");
+        }
+
+        // Set
+        $this->setData(
+            self::SESSION_KEY,
+            (object)[
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role_id' => $user->role_id,
+                'role' => $user->role,
+                'type' => $user->type,
+            ]
+        );
+
+        return $this->user();
     }
 
     /**
@@ -94,7 +90,7 @@ class AuthLibrary
      */
     public function isLoggedIn(): bool
     {
-        return !!$this->session->has_userdata(self::SESSION_KEY);
+        return (bool) $this->session->has_userdata(self::SESSION_KEY);
     }
 
     /**
@@ -117,7 +113,6 @@ class AuthLibrary
     {
         $features = $this->getData(self::FEATURE_KEY, true);
         if (empty($features)) {
-
             $features = $this->featureModel->allWithAcl(['role_id' => $roleId]);
             $this->setData(self::FEATURE_KEY, $features, true);
         }
@@ -125,7 +120,14 @@ class AuthLibrary
         return $features;
     }
 
-    public function getData($key, $cache = false)
+    /**
+     * Get Data
+     *
+     * @param  string $key
+     * @param  bool $cache
+     * @return ?stdClass
+     */
+    private function getData(string $key, bool $cache = false)
     {
         if ($cache) {
             return $this->cache->get($key);
@@ -134,7 +136,15 @@ class AuthLibrary
         }
     }
 
-    private function setData($key, $data, $cache = false): void
+    /**
+     * Set Data
+     *
+     * @param  string $key
+     * @param  stdClass $data
+     * @param  bool $cache
+     * @return void
+     */
+    private function setData(string $key, stdClass $data, bool $cache = false): void
     {
         if ($cache) {
             $this->cache->save($key, $data);

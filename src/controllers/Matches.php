@@ -161,7 +161,6 @@ class Matches extends MY_Controller
     public function create_model()
     {
         try {
-
             $available = array('extend' => 'extend', 'e' => 'extend');
             $params = func_get_args();
             $arguments = array();
@@ -226,7 +225,6 @@ class Matches extends MY_Controller
      */
     public function create_view($view = null)
     {
-
         try {
             $available = array();
             $params = func_get_args();
@@ -287,7 +285,6 @@ class Matches extends MY_Controller
     public function do_migration(?string $version = null): void
     {
         try {
-
             $this->load->library('migration');
 
             $check = $version ? $this->migration->version($version) : $this->migration->latest();
@@ -446,11 +443,11 @@ class Matches extends MY_Controller
             $structure = explode('.', $str);
             array_unshift($structure, 'modules');
             $className = array_pop($structure);
-            $isModule = TRUE;
+            $isModule = true;
         } else {
             $structure = array();
             $className = $str;
-            $isModule = FALSE;
+            $isModule = false;
         }
 
         if ($type) {

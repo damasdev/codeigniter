@@ -29,7 +29,7 @@ if (!function_exists('check_ci_version')) {
             return $matches[1];
         }
 
-        return FALSE;
+        return false;
     }
 }
 
@@ -39,14 +39,14 @@ if (!function_exists('check_develbar_version')) {
     function check_develbar_version($url)
     {
         if(!$develbar = @file_get_contents($url))
-            return FALSE;
+            return false;
 
-        $develbar = json_decode($develbar, TRUE);
+        $develbar = json_decode($develbar, true);
 
         if(version_compare($develbar['version'], DevelBar::VERSION, '>')) {
             return $develbar['version'];
         }
 
-        return FALSE;
+        return false;
     }
 }

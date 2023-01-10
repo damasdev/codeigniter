@@ -16,10 +16,10 @@ $config['enable_develbar'] = getenv('CI_DEBUG');
 |--------------------------------------------------------------------------
 |
 | This option allows you to check if there is any new version for CodeIgniter
-| if this option is set to TRUE, it will slow down the page loading
+| if this option is set to true, it will slow down the page loading
 |
 */
-$config['check_update'] = FALSE;
+$config['check_update'] = false;
 
 $config['profiler_key_expiration_time'] = 1800; // sec
 
@@ -44,16 +44,16 @@ $config['develbar_download_link'] = 'https://github.com/JCSama/CodeIgniter-devel
 |
 */
 $config['develbar_sections'] = array(
-    'Benchmarks'         => TRUE,
-    'Memory Usage'           => TRUE,
-    'Request'           => TRUE,
-    'Database'            => TRUE,
-    'Hooks'                => TRUE,
-    'Ajax'                 => TRUE,
-    'Libraries'            => FALSE,
-    'Helpers'             => FALSE,
-    'Views'             => FALSE,
-    'Config'             => TRUE,
-    'Session'             => TRUE,
-    'Models'             => TRUE,
+    'Benchmarks'         => true,
+    'Memory Usage'           => true,
+    'Request'           => true,
+    'Database'            => true,
+    'Hooks'                => true,
+    'Ajax'                 => true,
+    'Libraries'            => false,
+    'Helpers'             => false,
+    'Views'             => false,
+    'Config'             => true,
+    'Session'             => true,
+    'Models'             => true,
 );

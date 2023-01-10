@@ -1,4 +1,4 @@
-<?php (defined('BASEPATH')) or exit('No direct script access allowed');
+<?php
 
 /* load the MX_Loader class */
 require APPPATH . "third_party/MX/Loader.php";
@@ -6,7 +6,6 @@ require APPPATH . "third_party/MX/Loader.php";
 
 class MY_Loader extends MX_Loader
 {
-
     /**
      * List of loaded views
      *
@@ -75,7 +74,6 @@ class MY_Loader extends MX_Loader
                 if (!$cascade) break;
             }
         } elseif (isset($_ci_path)) {
-
             $_ci_file = basename($_ci_path);
             if (!file_exists($_ci_path)) $_ci_path = '';
         }
@@ -90,7 +88,7 @@ class MY_Loader extends MX_Loader
 
         ob_start();
 
-        if ((bool) @ini_get('short_open_tag') === FALSE && CI::$APP->config->item('rewrite_short_tags') == TRUE) {
+        if ((bool) @ini_get('short_open_tag') === false && CI::$APP->config->item('rewrite_short_tags') == true) {
             echo eval('?>' . preg_replace("/;*\s*\?>/", "; ?>", str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
         } else {
             include($_ci_path);
@@ -101,7 +99,7 @@ class MY_Loader extends MX_Loader
 
         log_message('debug', 'File loaded: ' . $_ci_path);
 
-        if ($_ci_return == TRUE) return ob_get_clean();
+        if ($_ci_return == true) return ob_get_clean();
 
         if (ob_get_level() > $this->_ci_ob_level + 1) {
             ob_end_flush();

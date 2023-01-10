@@ -1,13 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Menu_model extends MY_Model
 {
 	public $table = 'menus';
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
 
 	/**
 	 * Get Parent Menu
@@ -16,7 +12,7 @@ class Menu_model extends MY_Model
 	 */
 	public function parent(): array
 	{
-		return $this->db->where('parent IS NULL')->get($this->table)->result();
+		return $this->db->where('parent IS null')->get($this->table)->result();
 	}
 
 	/**
@@ -28,7 +24,7 @@ class Menu_model extends MY_Model
 	public function current(?string $parent_id): int
 	{
 		if (is_null($parent_id)) {
-			return $this->db->select_max('number')->where('parent IS NULL', NULL, FALSE)->get($this->table)->row()->number ?? 0;
+			return $this->db->select_max('number')->where('parent IS null', null, false)->get($this->table)->row()->number ?? 0;
 		}
 
 		return $this->db->select_max('number')->where('parent', $parent_id)->get($this->table)->row()->number ?? 0;

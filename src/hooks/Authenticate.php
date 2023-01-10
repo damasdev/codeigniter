@@ -20,7 +20,6 @@ class Authenticate extends MY_Controller
 
         // Validate API
         if ($this->isApiRequest()) {
-
             if (!$this->jwt_library->validate()) {
                 $this->jsonResponse([
                     'message' => 'Unauthorized'
@@ -48,9 +47,7 @@ class Authenticate extends MY_Controller
 
         // Check User Permission
         if (!$this->hasPermission($module, $class, $method)) {
-
             if ($this->input->is_ajax_request()) {
-
                 $this->jsonResponse([
                     'status' => 'error',
                     'message' => 'You dont have permission'
@@ -75,7 +72,7 @@ class Authenticate extends MY_Controller
 
         // Super Administrator
         if ($user->type === 'admin') {
-            return TRUE;
+            return true;
         }
 
         // Load Features
@@ -83,11 +80,11 @@ class Authenticate extends MY_Controller
         foreach ($features as $feature) {
             // Check Permission
             if (isEqual($module, (string) $feature->module) && isEqual($class, (string) $feature->class) && isEqual($method, (string) $feature->method)) {
-                return TRUE;
+                return true;
             }
         }
 
-        return FALSE;
+        return false;
     }
 
     /**

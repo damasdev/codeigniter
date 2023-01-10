@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Migration_Create_role_table extends CI_Migration
 {
@@ -14,8 +14,8 @@ class Migration_Create_role_table extends CI_Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ],
             'name' => [
                 'type' => 'VARCHAR',
@@ -28,13 +28,13 @@ class Migration_Create_role_table extends CI_Migration
             'type' => [
                 'type' => 'ENUM("admin","user")',
                 'default' => 'user',
-                'null' => FALSE
+                'null' => false
             ],
         ];
 
         $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('roles', TRUE);
+        $this->dbforge->add_key('id', true);
+        $this->dbforge->create_table('roles', true);
 
         $data = [
             [
@@ -56,6 +56,6 @@ class Migration_Create_role_table extends CI_Migration
 
     public function down()
     {
-        $this->dbforge->drop_table('roles', TRUE);
+        $this->dbforge->drop_table('roles', true);
     }
 }

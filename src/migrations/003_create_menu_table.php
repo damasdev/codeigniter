@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Migration_Create_menu_table extends CI_Migration
 {
@@ -14,13 +14,13 @@ class Migration_Create_menu_table extends CI_Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ],
             'parent' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'default' => NULL
+                'default' => null
             ],
             'name' => [
                 'type' => 'VARCHAR',
@@ -29,12 +29,12 @@ class Migration_Create_menu_table extends CI_Migration
             'icon' => [
                 'type' => 'VARCHAR',
                 'constraint' => 30,
-                'default' => NULL
+                'default' => null
             ],
             'slug' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
-                'default' => NULL
+                'default' => null
             ],
             'number' => [
                 'type' => 'INT',
@@ -43,14 +43,14 @@ class Migration_Create_menu_table extends CI_Migration
         ];
 
         $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('id', TRUE);
+        $this->dbforge->add_key('id', true);
         $this->dbforge->add_key('parent');
-        $this->dbforge->create_table('menus', TRUE);
+        $this->dbforge->create_table('menus', true);
 
         $data = [
             [
                 'id' => 1,
-                'parent' => NULL,
+                'parent' => null,
                 'name' => 'Dashboard',
                 'slug' => 'home',
                 'icon' => 'ti ti-dashboard',
@@ -58,9 +58,9 @@ class Migration_Create_menu_table extends CI_Migration
             ],
             [
                 'id' => 2,
-                'parent' => NULL,
+                'parent' => null,
                 'name' => 'Settings',
-                'slug' => NULL,
+                'slug' => null,
                 'icon' => 'ti ti-adjustments',
                 'number' => 2
             ],
@@ -69,7 +69,7 @@ class Migration_Create_menu_table extends CI_Migration
                 'parent' => 2,
                 'name' => 'User',
                 'slug' => 'user',
-                'icon' => NULL,
+                'icon' => null,
                 'number' => 2
             ],
             [
@@ -77,7 +77,7 @@ class Migration_Create_menu_table extends CI_Migration
                 'parent' => 2,
                 'name' => 'Role',
                 'slug' => 'role',
-                'icon' => NULL,
+                'icon' => null,
                 'number' => 3
             ],
             [
@@ -85,7 +85,7 @@ class Migration_Create_menu_table extends CI_Migration
                 'parent' => 2,
                 'name' => 'Menu',
                 'slug' => 'menu',
-                'icon' => NULL,
+                'icon' => null,
                 'number' => 4
             ],
             [
@@ -93,7 +93,7 @@ class Migration_Create_menu_table extends CI_Migration
                 'parent' => 2,
                 'name' => 'Feature',
                 'slug' => 'feature',
-                'icon' => NULL,
+                'icon' => null,
                 'number' => 5
             ],
         ];
@@ -103,6 +103,6 @@ class Migration_Create_menu_table extends CI_Migration
 
     public function down()
     {
-        $this->dbforge->drop_table('menus', TRUE);
+        $this->dbforge->drop_table('menus', true);
     }
 }

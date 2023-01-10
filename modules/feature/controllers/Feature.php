@@ -1,179 +1,176 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Feature extends MY_Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model('Feature_model', 'featureModel');
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Feature_model', 'featureModel');
+    }
 
-	/**
-	 * Index
-	 *
-	 * @return void
-	 */
-	public function index(): void
-	{
-		$data['title'] = 'Feature';
+    /**
+     * Index
+     *
+     * @return void
+     */
+    public function index(): void
+    {
+        $data['title'] = 'Feature';
 
-		$this->render('feature', $data);
-	}
+        $this->render('feature', $data);
+    }
 
-	/**
-	 * Store Feature
-	 *
-	 * @return void
-	 */
-	public function store(): void
-	{
-		try {
+    /**
+     * Store Feature
+     *
+     * @return void
+     */
+    public function store(): void
+    {
+        try {
+            $data = [
+                'module' => $this->input->post('module'),
+                'class' => $this->input->post('class'),
+                'method' => $this->input->post('method'),
+                'description' => $this->input->post('description'),
+            ];
 
-			$data = [
-				'module' => $this->input->post('module'),
-				'class' => $this->input->post('class'),
-				'method' => $this->input->post('method'),
-				'description' => $this->input->post('description'),
-			];
+            if (!$this->form_validation->run('feature')) {
+                $errors = $this->form_validation->error_array();
+                throw new Exception(current($errors));
+            }
 
-			if (!$this->form_validation->run('feature')) {
-				$errors = $this->form_validation->error_array();
-				throw new Exception(current($errors));
-			}
+            $this->featureModel->insert($data);
 
-			$this->featureModel->insert($data);
+            $this->jsonResponse([
+                'status' => 'success',
+                'message' => 'Data successfuly created'
+            ], 200);
+        } catch (\Throwable $th) {
+            $this->jsonResponse([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 400);
+        }
+    }
 
-			$this->jsonResponse([
-				'status' => 'success',
-				'message' => 'Data successfuly created'
-			], 200);
-		} catch (\Throwable $th) {
-			$this->jsonResponse([
-				'status' => 'error',
-				'message' => $th->getMessage()
-			], 400);
-		}
-	}
+    /**
+     * Destroy Feature
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function destroy(int $id): void
+    {
+        try {
+            $feature = $this->featureModel->find(['id' => $id]);
+            if (!$feature) {
+                throw new Exception("Data not found");
+            }
 
-	/**
-	 * Destroy Feature
-	 *
-	 * @param  int $id
-	 * @return void
-	 */
-	public function destroy(int $id): void
-	{
-		try {
+            $this->featureModel->delete(['id' => $id]);
 
-			$feature = $this->featureModel->find(['id' => $id]);
-			if (!$feature) {
-				throw new Exception("Data not found");
-			}
+            $this->jsonResponse([
+                'status' => 'success',
+                'message' => 'Your data has been deleted.'
+            ], 200);
+        } catch (\Throwable $th) {
+            $this->jsonResponse([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 400);
+        }
+    }
 
-			$this->featureModel->delete(['id' => $id]);
+    /**
+     * Show Feature
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function show(int $id): void
+    {
+        $this->load->model('role/Role_model', 'roleModel');
+        $feature = $this->featureModel->find(['id' => $id]);
 
-			$this->jsonResponse([
-				'status' => 'success',
-				'message' => 'Your data has been deleted.'
-			], 200);
-		} catch (\Throwable $th) {
-			$this->jsonResponse([
-				'status' => 'error',
-				'message' => $th->getMessage()
-			], 400);
-		}
-	}
+        if (!$feature) {
+            show_404();
+        }
 
-	/**
-	 * Show Feature
-	 *
-	 * @param  int $id
-	 * @return void
-	 */
-	public function show(int $id): void
-	{
-		$this->load->model('role/Role_model', 'roleModel');
-		$feature = $this->featureModel->find(['id' => $id]);
+        $data['title'] = 'Show Feature';
+        $data['feature'] = $feature;
+        $data['roles'] = $this->roleModel->allWithFeature([
+            'type' => 'user',
+            'feature_id' => $id,
+        ]);
 
-		if (!$feature) {
-			show_404();
-		}
+        $this->render('show-feature', $data);
+    }
 
-		$data['title'] = 'Show Feature';
-		$data['feature'] = $feature;
-		$data['roles'] = $this->roleModel->allWithFeature([
-			'type' => 'user',
-			'feature_id' => $id,
-		]);
+    /**
+     * Edit Feature
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function edit(int $id): void
+    {
+        $feature = $this->featureModel->find(['id' => $id]);
 
-		$this->render('show-feature', $data);
-	}
+        if (!$feature) {
+            show_404();
+        }
 
-	/**
-	 * Edit Feature
-	 *
-	 * @param  int $id
-	 * @return void
-	 */
-	public function edit(int $id): void
-	{
-		$feature = $this->featureModel->find(['id' => $id]);
+        $data['title'] = 'Edit Feature';
+        $data['feature'] = $feature;
 
-		if (!$feature) {
-			show_404();
-		}
+        $this->render('edit-feature', $data);
+    }
 
-		$data['title'] = 'Edit Feature';
-		$data['feature'] = $feature;
+    /**
+     * Update Data
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function update(int $id): void
+    {
+        try {
+            $data = [
+                'module' => $this->input->post('module'),
+                'class' => $this->input->post('class'),
+                'method' => $this->input->post('method'),
+                'description' => $this->input->post('description'),
+            ];
 
-		$this->render('edit-feature', $data);
-	}
+            if (!$this->form_validation->run('feature')) {
+                $errors = $this->form_validation->error_array();
+                throw new Exception(current($errors));
+            }
 
-	/**
-	 * Update Data
-	 *
-	 * @param  int $id
-	 * @return void
-	 */
-	public function update(int $id): void
-	{
-		try {
+            $this->featureModel->update($data, ['id' => $id]);
 
-			$data = [
-				'module' => $this->input->post('module'),
-				'class' => $this->input->post('class'),
-				'method' => $this->input->post('method'),
-				'description' => $this->input->post('description'),
-			];
+            $this->jsonResponse([
+                'status' => 'success',
+                'message' => 'Data successfuly updated'
+            ], 200);
+        } catch (\Throwable $th) {
+            $this->jsonResponse([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 400);
+        }
+    }
 
-			if (!$this->form_validation->run('feature')) {
-				$errors = $this->form_validation->error_array();
-				throw new Exception(current($errors));
-			}
+    /**
+     * Datatables
+     *
+     * @return void
+     */
+    public function datatables(): void
+    {
+        $this->load->library('datatables');
 
-			$this->featureModel->update($data, ['id' => $id]);
-
-			$this->jsonResponse([
-				'status' => 'success',
-				'message' => 'Data successfuly updated'
-			], 200);
-		} catch (\Throwable $th) {
-			$this->jsonResponse([
-				'status' => 'error',
-				'message' => $th->getMessage()
-			], 400);
-		}
-	}
-
-	/**
-	 * Datatables
-	 *
-	 * @return void
-	 */
-	public function datatables(): void
-	{
-		$this->load->library('datatables');
-
-		$this->jsonResponse($this->datatables->table('features')->draw());
-	}
+        $this->jsonResponse($this->datatables->table('features')->draw());
+    }
 }

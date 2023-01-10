@@ -11,7 +11,6 @@ defined('BASEPATH') or die('No direct script access.');
 
 class Develbar
 {
-
     /**
      * DevelBar version
      */
@@ -271,7 +270,6 @@ class Develbar
                 if (isset($this->CI->benchmark->marker[$end]) AND
                     isset($this->CI->benchmark->marker[$start])
                 ) {
-
                     $profile = ucwords(str_replace(array('_', '-'), ' ', $matches[1]));
                     $data['benchmarks']['profiles'][] = array(
                         'profile' => $profile,

@@ -1,4 +1,4 @@
-<?php (defined('BASEPATH')) or exit('No direct script access allowed');
+<?php
 
 /* load MX core classes */
 require_once dirname(__FILE__) . '/Lang.php';
@@ -42,7 +42,6 @@ class CI
 
 	public function __construct()
 	{
-
 		/* assign the application instance */
 		self::$APP = CI_Controller::get_instance();
 

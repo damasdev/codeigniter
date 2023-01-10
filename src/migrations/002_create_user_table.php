@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Migration_Create_user_table extends CI_Migration
 {
@@ -14,8 +14,8 @@ class Migration_Create_user_table extends CI_Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ],
             'name' => [
                 'type' => 'VARCHAR',
@@ -24,7 +24,7 @@ class Migration_Create_user_table extends CI_Migration
             'email' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
-                'unique' => TRUE
+                'unique' => true
             ],
             'password' => [
                 'type' => 'VARCHAR',
@@ -33,13 +33,13 @@ class Migration_Create_user_table extends CI_Migration
             'role_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE
+                'unsigned' => true
             ],
         ];
 
         $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('users', TRUE);
+        $this->dbforge->add_key('id', true);
+        $this->dbforge->create_table('users', true);
 
         $this->dbforge->add_column('users',[
             'CONSTRAINT fk_user_role_id FOREIGN KEY(role_id) REFERENCES roles(id) ON DELETE CASCADE',
@@ -59,6 +59,6 @@ class Migration_Create_user_table extends CI_Migration
 
     public function down()
     {
-        $this->dbforge->drop_table('users', TRUE);
+        $this->dbforge->drop_table('users', true);
     }
 }

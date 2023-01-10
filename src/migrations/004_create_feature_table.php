@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Migration_Create_feature_table extends CI_Migration
 {
@@ -14,13 +14,13 @@ class Migration_Create_feature_table extends CI_Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ],
             'module' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,
-                'default' => NULL
+                'default' => null
             ],
             'class' => [
                 'type' => 'VARCHAR',
@@ -37,8 +37,8 @@ class Migration_Create_feature_table extends CI_Migration
         ];
 
         $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('features', TRUE);
+        $this->dbforge->add_key('id', true);
+        $this->dbforge->create_table('features', true);
 
         $data = [
             // Feature Module
@@ -199,6 +199,6 @@ class Migration_Create_feature_table extends CI_Migration
 
     public function down()
     {
-        $this->dbforge->drop_table('features', TRUE);
+        $this->dbforge->drop_table('features', true);
     }
 }

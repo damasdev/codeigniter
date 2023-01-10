@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Migration_Create_menu_acl extends CI_Migration
 {
@@ -14,18 +14,18 @@ class Migration_Create_menu_acl extends CI_Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ],
             'menu_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE
+                'unsigned' => true
             ],
             'role_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE
+                'unsigned' => true
             ],
             'is_active' => [
                 'type' => 'TINYINT',
@@ -34,8 +34,8 @@ class Migration_Create_menu_acl extends CI_Migration
         ];
 
         $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('menus_acl', TRUE);
+        $this->dbforge->add_key('id', true);
+        $this->dbforge->create_table('menus_acl', true);
 
         $this->dbforge->add_column('menus_acl',[
             'CONSTRAINT fk_menu_acl_menu_id FOREIGN KEY(menu_id) REFERENCES menus(id)',
@@ -45,6 +45,6 @@ class Migration_Create_menu_acl extends CI_Migration
 
     public function down()
     {
-        $this->dbforge->drop_table('menus_acl', TRUE);
+        $this->dbforge->drop_table('menus_acl', true);
     }
 }

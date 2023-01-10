@@ -1,17 +1,15 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Menu extends MY_Controller
 {
 	public function __construct()
 	{
-		parent::__construct();
 		$this->load->model('MenuAclModel', 'menuAclModel');
 	}
 
 	public function store()
 	{
 		try {
-
 			$data = [
 				'is_active' => $this->input->post('is_active')
 			];

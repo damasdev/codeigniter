@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Migration_Create_feature_acl extends CI_Migration
 {
@@ -14,18 +14,18 @@ class Migration_Create_feature_acl extends CI_Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ],
             'feature_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE
+                'unsigned' => true
             ],
             'role_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE
+                'unsigned' => true
             ],
             'is_active' => [
                 'type' => 'TINYINT',
@@ -34,8 +34,8 @@ class Migration_Create_feature_acl extends CI_Migration
         ];
 
         $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('features_acl', TRUE);
+        $this->dbforge->add_key('id', true);
+        $this->dbforge->create_table('features_acl', true);
 
         $this->dbforge->add_column('features_acl',[
             'CONSTRAINT fk_feature_acl_feature_id FOREIGN KEY(feature_id) REFERENCES features(id)',
@@ -45,6 +45,6 @@ class Migration_Create_feature_acl extends CI_Migration
 
     public function down()
     {
-        $this->dbforge->drop_table('features_acl', TRUE);
+        $this->dbforge->drop_table('features_acl', true);
     }
 }

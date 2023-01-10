@@ -1,5 +1,4 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
 
 $route['feature']['GET'] = 'Feature/index';
 $route['feature']['POST'] = 'Feature/store';

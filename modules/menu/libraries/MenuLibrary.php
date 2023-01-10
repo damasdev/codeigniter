@@ -1,108 +1,107 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 class MenuLibrary
 {
-
     /**
      * Tag opener of the navigation menu
      * default is '<ul>' tag
-     * 
+     *
      * @var string
      */
-    private $nav_tag_open             = '<ul class="navbar-nav pt-lg-3">';
+    private $nav_tag_open = '<ul class="navbar-nav pt-lg-3">';
 
     /**
      * Closing tag of the navigation menu
      * default is '</ul>'
-     * 
+     *
      * @var string
      */
-    private $nav_tag_close            = '</ul>';
+    private $nav_tag_close = '</ul>';
 
     /**
      * Tag opening tag of the menu item
      * default is '<div>'
-     * 
+     *
      * @var string
      */
-    private $item_tag_open            = '';
+    private $item_tag_open = '';
 
     /**
      * Closing tag of the menu item
      * default is '</li>'
-     * 
+     *
      * @var string
      */
-    private $item_tag_close           = '';
+    private $item_tag_close = '';
 
     /**
      * Opening tag of the menu item that has children
      * default is '</li>'
-     * 
+     *
      * @var string
      */
-    private $parent_tag_open          = '<li class="nav-item">';
+    private $parent_tag_open = '<li class="nav-item">';
 
     /**
      * Closing tag of the menu item that has children
      * default is '</li>'
-     * 
+     *
      * @var string
      */
-    private $parent_tag_close         = '</li>';
+    private $parent_tag_close = '</li>';
 
     /**
      * Anchor tag of the menu item that has children
      * default is '<a href="%s">%s</a>'
-     * 
+     *
      * @var string
      */
-    private $parent_anchor            = '<span data-info="%s" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">%s</span>';
+    private $parent_anchor = '<span data-info="%s" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">%s</span>';
 
     /**
      * Opening tag of the children menu / sub menu.
      * Default is '<ul>'
-     * 
+     *
      * @var string
      */
-    private $children_tag_open        = '<div class="dropdown-menu"><div class="dropdown-menu-columns">';
+    private $children_tag_open = '<div class="dropdown-menu"><div class="dropdown-menu-columns">';
 
     /**
      * Closing tag of the children menu / sub menu.
      * Default is '<div>'
-     * 
+     *
      * @var string
      */
-    private $children_tag_close       = '</div></div>';
+    private $children_tag_close = '</div></div>';
 
     /**
      * icon_tag_open
      *
      * @var string
      */
-    private $icon_tag_open            = '<span class="nav-link-icon d-md-none d-lg-inline-block">';
+    private $icon_tag_open = '<span class="nav-link-icon d-md-none d-lg-inline-block">';
 
     /**
      * icon_tag_close
      *
      * @var string
      */
-    private $icon_tag_close           = '</span>';
+    private $icon_tag_close = '</span>';
 
     /**
      * Anchor tag of the menu item.
      * Default is '<a href="%s">%s</a>'
-     * 
+     *
      * @var string
      */
-    private $item_anchor              = '<a href="%s" class="nav-link">%s</a>';
+    private $item_anchor = '<a href="%s" class="nav-link">%s</a>';
 
     /**
      * children_item_anchor
      *
      * @var string
      */
-    private $children_item_anchor     = '<a href="%s" class="dropdown-item">%s</a>';
+    private $children_item_anchor = '<a href="%s" class="dropdown-item">%s</a>';
 
     public function __construct()
     {
@@ -126,7 +125,7 @@ class MenuLibrary
     public function initialize()
     {
         $conditions = [];
-        $user = $this->session->userdata('user') ?? NULL;
+        $user = $this->session->userdata('user') ?? null;
         if ($user) {
             $conditions = $user->type === 'admin' ? [] : [
                 'role_id' => $user->role_id
@@ -183,8 +182,7 @@ class MenuLibrary
         }
 
         foreach ($items as $item) {
-
-            $slug  = $item['slug'] ?? NULL;
+            $slug  = $item['slug'] ?? null;
             $icon  = $item['icon'] ?? '';
             $label  = $item['name'] ?? '';
 
@@ -236,7 +234,6 @@ class MenuLibrary
         $segment = $this->uri->segment(1);
 
         if ($slug == $segment) {
-
             $doc = new DOMDocument();
             $doc->loadHTML($html);
 
