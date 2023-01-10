@@ -9,6 +9,19 @@ class Authenticate extends MY_Controller
     {
         $this->whitelist = $this->config->item('whitelist');
         $this->basic = $this->config->item('basic_feature');
+        $this->hmvc();
+    }
+
+    /**
+     * HMVC : fix callback form_validation
+     * https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc.
+     *
+     * @return void
+     */
+    private function hmvc()
+    {
+        $this->load->library('form_validation');
+        $this->form_validation->CI = &$this;
     }
 
     public function init()
@@ -60,7 +73,7 @@ class Authenticate extends MY_Controller
 
     /**
      * Check Permission
-     * 
+     *
      * @param string $class
      * @param string $method
      * @return boolean
