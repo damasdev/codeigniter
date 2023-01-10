@@ -37,7 +37,7 @@ class Migration_Create_feature_acl extends CI_Migration
         $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('features_acl', true);
 
-        $this->dbforge->add_column('features_acl',[
+        $this->dbforge->add_column('features_acl', [
             'CONSTRAINT fk_feature_acl_feature_id FOREIGN KEY(feature_id) REFERENCES features(id)',
             'CONSTRAINT fk_feature_acl_role_id FOREIGN KEY(role_id) REFERENCES roles(id)',
         ]);

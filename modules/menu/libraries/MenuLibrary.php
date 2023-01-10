@@ -153,7 +153,7 @@ class MenuLibrary
 
     private function prepareItems(array $data, $parent = null)
     {
-        $items = array();
+        $items = [];
 
         foreach ($data as $item) {
             if ($item['parent'] == $parent) {

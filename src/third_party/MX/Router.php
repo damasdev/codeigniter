@@ -1,7 +1,7 @@
 <?php
 
 /* load the MX core module class */
-require dirname(__FILE__) . '/Modules.php';
+require_once dirname(__FILE__) . '/Modules.php';
 
 /**
  * Modular Extensions - HMVC
@@ -45,7 +45,7 @@ class MX_Router extends CI_Router
 		return $this->module;
 	}
 
-	protected function _set_request($segments = array())
+	protected function _set_request($segments = [])
 	{
 		if ($this->translate_uri_dashes === true) {
 			foreach (range(0, 2) as $v) {

@@ -37,7 +37,7 @@ class Migration_Create_menu_acl extends CI_Migration
         $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('menus_acl', true);
 
-        $this->dbforge->add_column('menus_acl',[
+        $this->dbforge->add_column('menus_acl', [
             'CONSTRAINT fk_menu_acl_menu_id FOREIGN KEY(menu_id) REFERENCES menus(id)',
             'CONSTRAINT fk_menu_acl_role_id FOREIGN KEY(role_id) REFERENCES roles(id)',
         ]);

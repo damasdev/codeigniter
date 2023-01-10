@@ -41,7 +41,7 @@ class Migration_Create_user_table extends CI_Migration
         $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('users', true);
 
-        $this->dbforge->add_column('users',[
+        $this->dbforge->add_column('users', [
             'CONSTRAINT fk_user_role_id FOREIGN KEY(role_id) REFERENCES roles(id) ON DELETE CASCADE',
         ]);
 

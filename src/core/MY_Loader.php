@@ -1,7 +1,7 @@
 <?php
 
 /* load the MX_Loader class */
-require APPPATH . "third_party/MX/Loader.php";
+require_once APPPATH . "third_party/MX/Loader.php";
 
 
 class MY_Loader extends MX_Loader
@@ -11,7 +11,7 @@ class MY_Loader extends MX_Loader
      *
      * @return array
      */
-    protected $_ci_views = array();
+    protected $_ci_views = [];
 
     /**
      * List of loaded helpers
@@ -95,7 +95,7 @@ class MY_Loader extends MX_Loader
         }
 
         // PATCH : Add the the loaded view file to the list
-        $this->_ci_views[$_ci_path] = isset($_ci_vars) ? $_ci_vars : array();
+        $this->_ci_views[$_ci_path] = isset($_ci_vars) ? $_ci_vars : [];
 
         log_message('debug', 'File loaded: ' . $_ci_path);
 
