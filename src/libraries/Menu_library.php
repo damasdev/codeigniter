@@ -1,6 +1,6 @@
 <?php
 
-class MenuLibrary
+class Menu_library
 {
     /**
      * Tag opener of the navigation menu
@@ -110,11 +110,6 @@ class MenuLibrary
      */
     private $items = [];
 
-    public function __construct()
-    {
-        $this->load->model('menu/Menu_model', 'menuModel');
-    }
-
     /**
      * __get
      *
@@ -131,17 +126,7 @@ class MenuLibrary
 
     public function initialize()
     {
-        $conditions = [];
-        $user = $this->session->userdata('user') ?? null;
-        if ($user) {
-            $conditions = $user->type === 'admin' ? [] : [
-                'role_id' => $user->role_id
-            ];
-        }
-
-        $result = $this->menuModel->allWithAcl($conditions);
-
-        $this->items = toArray($result);
+        $this->items = $this->config->item('menus');
     }
 
     public function render()
@@ -169,14 +154,7 @@ class MenuLibrary
             }
         }
 
-        usort($items, array($this, 'sortByOrder'));
-
         return $items;
-    }
-
-    private function sortByOrder($a, $b)
-    {
-        return $a['number'] - $b['number'];
     }
 
     private function renderItem($items, &$html = '')
@@ -191,7 +169,7 @@ class MenuLibrary
         foreach ($items as $item) {
             $slug = $item['slug'] ?? null;
             $icon = $item['icon'] ?? '';
-            $label = $item['name'] ?? '';
+            $label = $item['title'] ?? '';
 
             // has children or not
             $hasChildren = !empty($item['children']);

@@ -3,12 +3,12 @@
 class Authenticate extends MY_Controller
 {
     private $whitelist = [];
-    private $basic = [];
+    private $permissions = [];
 
     public function __construct()
     {
         $this->whitelist = $this->config->item('whitelist');
-        $this->basic = $this->config->item('basic_feature');
+        $this->permissions = $this->config->item('permissions');
         $this->hmvc();
     }
 
@@ -54,7 +54,7 @@ class Authenticate extends MY_Controller
         }
 
         // Check Basic Feature
-        if (in_array($method, $this->basic[$module][$class] ?? [])) {
+        if (in_array($method, $this->permissions[$module][$class] ?? [])) {
             return;
         }
 

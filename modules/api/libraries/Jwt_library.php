@@ -3,7 +3,7 @@
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class JwtLibrary
+class Jwt_library
 {
     /**
      * __get

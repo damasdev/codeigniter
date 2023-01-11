@@ -1,14 +1,12 @@
 <?php
 
-class AuthLibrary
+class Auth_library
 {
     const SESSION_KEY = 'user';
-    const FEATURE_KEY = 'features';
 
     public function __construct()
     {
         $this->load->model('user/User_model', 'userModel');
-        $this->load->model('feature/Feature_model', 'featureModel');
 
         $this->load->driver(
             'cache',
@@ -78,7 +76,6 @@ class AuthLibrary
     public function logout(): bool
     {
         $this->session->unset_userdata(self::SESSION_KEY);
-        $this->session->unset_userdata(self::FEATURE_KEY);
 
         return !$this->session->has_userdata(self::SESSION_KEY);
     }
@@ -101,23 +98,6 @@ class AuthLibrary
     public function user(): ?stdClass
     {
         return $this->getData(self::SESSION_KEY);
-    }
-
-    /**
-     * Features
-     *
-     * @param  int $roleId
-     * @return array
-     */
-    public function features(int $roleId): array
-    {
-        $features = $this->getData(self::FEATURE_KEY, true);
-        if (empty($features)) {
-            $features = $this->featureModel->allWithAcl(['role_id' => $roleId]);
-            $this->setData(self::FEATURE_KEY, $features, true);
-        }
-
-        return $features;
     }
 
     /**
