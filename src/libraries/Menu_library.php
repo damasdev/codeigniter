@@ -124,15 +124,17 @@ class Menu_library
         return get_instance()->$var;
     }
 
-    public function initialize()
-    {
-        $this->items = $this->config->item('menus');
-    }
-
-    public function render()
+    public function render(?string $role)
     {
         $html = "";
-        $this->initialize();
+        $items = $this->config->item('menus');
+        foreach ($items as $index => $value) {
+            if (!in_array($role, $value["privileges"])) {
+                unset($items[$index]);
+            }
+        }
+
+        $this->items = $items;
 
         if (count($this->items)) {
             $items = $this->prepareItems($this->items);

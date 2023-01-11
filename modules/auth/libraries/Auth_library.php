@@ -59,7 +59,6 @@ class Auth_library
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'role_id' => $user->role_id,
                 'role' => $user->role,
                 'type' => $user->type,
             ]

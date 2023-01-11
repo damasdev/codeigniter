@@ -12,7 +12,9 @@ class MY_Controller extends MX_Controller
      */
     private function initializeMenu()
     {
-        return $this->menu_library->render();
+        $role = $this->session->user->role ?? null;
+
+        return $this->menu_library->render($role);
     }
 
     /**
