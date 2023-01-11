@@ -3,12 +3,25 @@
 class Authenticate extends MY_Controller
 {
     private $whitelist = [];
-    private $basic = [];
+    private $permissions = [];
 
     public function __construct()
     {
         $this->whitelist = $this->config->item('whitelist');
-        $this->basic = $this->config->item('basic_feature');
+        $this->permissions = $this->config->item('permissions');
+        $this->hmvc();
+    }
+
+    /**
+     * HMVC : fix callback form_validation
+     * https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc.
+     *
+     * @return void
+     */
+    private function hmvc()
+    {
+        $this->load->library('form_validation');
+        $this->form_validation->CI = &$this;
     }
 
     public function init()
@@ -20,7 +33,6 @@ class Authenticate extends MY_Controller
 
         // Validate API
         if ($this->isApiRequest()) {
-
             if (!$this->jwt_library->validate()) {
                 $this->jsonResponse([
                     'message' => 'Unauthorized'
@@ -42,15 +54,13 @@ class Authenticate extends MY_Controller
         }
 
         // Check Basic Feature
-        if (in_array($method, $this->basic[$module][$class] ?? [])) {
+        if (in_array($method, $this->permissions[$module][$class] ?? [])) {
             return;
         }
 
         // Check User Permission
         if (!$this->hasPermission($module, $class, $method)) {
-
             if ($this->input->is_ajax_request()) {
-
                 $this->jsonResponse([
                     'status' => 'error',
                     'message' => 'You dont have permission'
@@ -63,7 +73,7 @@ class Authenticate extends MY_Controller
 
     /**
      * Check Permission
-     * 
+     *
      * @param string $class
      * @param string $method
      * @return boolean
@@ -75,7 +85,7 @@ class Authenticate extends MY_Controller
 
         // Super Administrator
         if ($user->type === 'admin') {
-            return TRUE;
+            return true;
         }
 
         // Load Features
@@ -83,11 +93,11 @@ class Authenticate extends MY_Controller
         foreach ($features as $feature) {
             // Check Permission
             if (isEqual($module, (string) $feature->module) && isEqual($class, (string) $feature->class) && isEqual($method, (string) $feature->method)) {
-                return TRUE;
+                return true;
             }
         }
 
-        return FALSE;
+        return false;
     }
 
     /**

@@ -1,9 +1,8 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Whitelist
- * 
+ *
  * User can access feature without login
  */
 
@@ -20,9 +19,9 @@ $config['whitelist']['']['matches'] = [
 
 /**
  * Basic Feature
- * 
+ *
  * User can access feature without permission
  */
 
-$config['basic_feature']['auth']['auth'] = ['index'];
-$config['basic_feature']['home']['home'] = ['index'];
+$config['permissions']['auth']['auth'] = ['index'];
+$config['permissions']['home']['home'] = ['index'];

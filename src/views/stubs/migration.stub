@@ -1,10 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class {{MIGRATION}} extends {{MI_EXTENDS}}_Migration
 {
     public function __construct()
     {
-        parent::__construct();
         $this->load->dbforge();
     }
 
@@ -14,8 +13,8 @@ class {{MIGRATION}} extends {{MI_EXTENDS}}_Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ],
             'name' => [
                 'type' => 'VARCHAR',
@@ -28,12 +27,12 @@ class {{MIGRATION}} extends {{MI_EXTENDS}}_Migration
         ];
 
         $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('{{TABLE}}', TRUE);
+        $this->dbforge->add_key('id', true);
+        $this->dbforge->create_table('{{TABLE}}', true);
     }
 
     public function down()
     {
-        $this->dbforge->drop_table('{{TABLE}}', TRUE);
+        $this->dbforge->drop_table('{{TABLE}}', true);
     }
 }

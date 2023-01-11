@@ -108,7 +108,7 @@ class Datatables
     public function draw(): array
     {
         // Init Data
-        $this->keyword = $this->input->post('search')['value'] ?? NULL;
+        $this->keyword = $this->input->post('search')['value'] ?? null;
         $this->columns = $this->input->post('columns') ?? [];
 
         return $this->format($this->result(), $this->count());
@@ -124,7 +124,6 @@ class Datatables
         $columns = [];
 
         foreach ($this->columns as $column) {
-
             $name = empty($column['name']) ? $column['data'] : $column['name'];
             $alias = $column['data'];
 
@@ -146,7 +145,6 @@ class Datatables
 
             $index = 1;
             foreach ($this->columns as $column) {
-
                 if ($column['searchable'] === 'false') {
                     continue;
                 }

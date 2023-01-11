@@ -1,7 +1,7 @@
-<?php (defined('BASEPATH')) or exit('No direct script access allowed');
+<?php
 
 /* load the MX core module class */
-require dirname(__FILE__) . '/Modules.php';
+require_once dirname(__FILE__) . '/Modules.php';
 
 /**
  * Modular Extensions - HMVC
@@ -45,9 +45,9 @@ class MX_Router extends CI_Router
 		return $this->module;
 	}
 
-	protected function _set_request($segments = array())
+	protected function _set_request($segments = [])
 	{
-		if ($this->translate_uri_dashes === TRUE) {
+		if ($this->translate_uri_dashes === true) {
 			foreach (range(0, 2) as $v) {
 				isset($segments[$v]) && $segments[$v] = str_replace('-', '_', $segments[$v]);
 			}
@@ -73,7 +73,7 @@ class MX_Router extends CI_Router
 			$segments[1] = 'index';
 		}
 
-		array_unshift($segments, NULL);
+		array_unshift($segments, null);
 		unset($segments[0]);
 		$this->uri->rsegments = $segments;
 	}
@@ -109,7 +109,7 @@ class MX_Router extends CI_Router
 		}
 
 		/* get the segments array elements */
-		list($module, $directory, $controller) = array_pad($segments, 3, NULL);
+		list($module, $directory, $controller) = array_pad($segments, 3, null);
 
 		/* check modules */
 		foreach (Modules::$locations as $location => $offset) {
@@ -210,7 +210,7 @@ class MX_Router extends CI_Router
 	public function set_class($class)
 	{
 		$suffix = $this->config->item('controller_suffix');
-		if (strpos($class, $suffix) === FALSE) {
+		if (strpos($class, $suffix) === false) {
 			$class .= $suffix;
 		}
 		parent::set_class($class);

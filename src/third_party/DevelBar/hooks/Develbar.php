@@ -11,7 +11,6 @@ defined('BASEPATH') or die('No direct script access.');
 
 class Develbar
 {
-
     /**
      * DevelBar version
      */
@@ -40,7 +39,7 @@ class Develbar
     /**
      * @var array
      */
-    private $views = array();
+    private $views = [];
 
     /**
      * List of helpers
@@ -271,7 +270,6 @@ class Develbar
                 if (isset($this->CI->benchmark->marker[$end]) AND
                     isset($this->CI->benchmark->marker[$start])
                 ) {
-
                     $profile = ucwords(str_replace(array('_', '-'), ' ', $matches[1]));
                     $data['benchmarks']['profiles'][] = array(
                         'profile' => $profile,
@@ -334,7 +332,7 @@ class Develbar
      */
     protected function database_section($return_view = true)
     {
-        $dbs = $data = array();
+        $dbs = $data = [];
         $cobjects = get_object_vars($this->CI);
 
         foreach ($cobjects as $name => $cobject) {
@@ -388,7 +386,7 @@ class Develbar
     protected function hooks_section()
     {
         $total_hooks = 0;
-        $hooks = array();
+        $hooks = [];
 
         foreach ($this->CI->hooks->hooks as $hook_point => $_hooks) {
             if (is_callable($_hooks)) {
@@ -497,7 +495,7 @@ class Develbar
         $views = $this->CI->load->get_views();
         $base_path = substr(str_replace(SYSDIR, '', BASEPATH), 0, -1);
 
-        $_views = array();
+        $_views = [];
 
         foreach ($views as $path => $data) {
             if (stripos($path, 'develbar') !== false) {
@@ -545,7 +543,7 @@ class Develbar
     {
         $data = array(
             'icon' => $data['icon'] = image_base64_encode($this->assets_folder . 'images/session.png'),
-            'session' => isset($this->CI->session) ? $this->CI->session->all_userdata() : array()
+            'session' => isset($this->CI->session) ? $this->CI->session->all_userdata() : []
         );
 
         return $this->CI->load->view($this->view_folder . 'session', $data, true);

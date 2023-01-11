@@ -1,17 +1,10 @@
 <?php
 
 /* load the MX_Controller class */
-require APPPATH . 'third_party/MX/Controller.php';
+require_once APPPATH . 'third_party/MX/Controller.php';
 
 class MY_Controller extends MX_Controller
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->hmvc();
-    }
-
     /**
      * Initialize Menu
      *
@@ -19,19 +12,9 @@ class MY_Controller extends MX_Controller
      */
     private function initializeMenu()
     {
-        return $this->menu_library->render();
-    }
+        $role = $this->auth_library->user()->role ?? null;
 
-    /**
-     * HMVC : fix callback form_validation
-     * https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc.
-     *
-     * @return void
-     */
-    private function hmvc()
-    {
-        $this->load->library('form_validation');
-        $this->form_validation->CI = &$this;
+        return $this->menu_library->render($role);
     }
 
     /**
@@ -50,7 +33,7 @@ class MY_Controller extends MX_Controller
 
     /**
      * Return response with json format
-     * 
+     *
      * @param mixed $payload
      * @param int $statusCode
      */
@@ -59,8 +42,12 @@ class MY_Controller extends MX_Controller
         $this->output
             ->set_status_header($statusCode)
             ->set_content_type('application/json', 'utf-8')
-            ->set_output(json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
-            ->_display();
+            ->set_output(
+                json_encode(
+                    $payload,
+                    JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK
+                )
+            )->_display();
         exit;
     }
 }

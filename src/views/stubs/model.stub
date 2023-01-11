@@ -1,12 +1,6 @@
-<?php  if(!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
 
-class {{MODEL}}Model extends {{MO_EXTENDS}}_Model
+class {{MODEL}}_model extends {{MO_EXTENDS}}_Model
 {
-
-	public $table = "{{TABLE_NAME}}";
-
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    public $table = "{{TABLE_NAME}}";
 }

@@ -50,5 +50,5 @@
 {% endblock %}
 
 {% block scripts %}
-	{# add custom script #}
+  {# add custom script #}
 {% endblock %}

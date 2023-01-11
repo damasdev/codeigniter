@@ -1,13 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-class UserModel extends MY_Model
+class User_model extends MY_Model
 {
 	public $table = "users";
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
 
 	/**
 	 * Find User With Role
@@ -18,7 +14,7 @@ class UserModel extends MY_Model
 	public function findWithRole(array $conditions = []): ?stdClass
 	{
 		$this->db->select([
-			'users.id', 'users.name', 'users.email', 'users.password', 'users.role_id', 'roles.name as role', 'roles.type'
+			'users.id', 'users.name', 'users.email', 'users.password', 'roles.code as role', 'roles.type'
 		])->join('roles', 'roles.id = users.role_id');
 
 		return $this->find($conditions);

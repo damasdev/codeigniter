@@ -1,190 +1,186 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class User extends MY_Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model('UserModel', 'userModel');
-	}
+    public function __construct()
+    {
+        $this->load->model('User_model', 'userModel');
+    }
 
-	/**
-	 * Index
-	 *
-	 * @return void
-	 */
-	public function index(): void
-	{
-		$this->load->model('role/RoleModel', 'roleModel');
+    /**
+     * Index
+     *
+     * @return void
+     */
+    public function index(): void
+    {
+        $this->load->model('role/Role_model', 'roleModel');
 
-		$data['title'] = "User";
-		$data['roles'] = $this->roleModel->all(['type' => 'user']);
+        $data['title'] = "User";
+        $data['roles'] = $this->roleModel->all(['type' => 'user']);
 
-		$this->render('user', $data);
-	}
+        $this->render('user', $data);
+    }
 
-	/**
-	 * Store User
-	 *
-	 * @return void
-	 */
-	public function store(): void
-	{
-		try {
+    /**
+     * Store User
+     *
+     * @return void
+     */
+    public function store(): void
+    {
+        try {
+            $data = [
+                'name' => $this->input->post('name'),
+                'email' => $this->input->post('email'),
+                'password' => $this->input->post('password'),
+                'role_id' => $this->input->post('role_id'),
+            ];
 
-			$data = [
-				'name' => $this->input->post('name'),
-				'email' => $this->input->post('email'),
-				'password' => $this->input->post('password'),
-				'role_id' => $this->input->post('role_id'),
-			];
+            if (!$this->form_validation->run('user')) {
+                $errors = $this->form_validation->error_array();
+                throw new Exception(current($errors));
+            }
 
-			if (!$this->form_validation->run('user')) {
-				$errors = $this->form_validation->error_array();
-				throw new Exception(current($errors));
-			}
+            // Run Password Hash
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
 
-			// Run Password Hash
-			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+            $this->userModel->insert($data);
 
-			$this->userModel->insert($data);
+            $this->jsonResponse([
+                'status' => 'success',
+                'message' => 'Data successfuly created'
+            ], 200);
+        } catch (\Throwable $th) {
+            $this->jsonResponse([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 400);
+        }
+    }
 
-			$this->jsonResponse([
-				'status' => 'success',
-				'message' => 'Data successfuly created'
-			], 200);
-		} catch (\Throwable $th) {
-			$this->jsonResponse([
-				'status' => 'error',
-				'message' => $th->getMessage()
-			], 400);
-		}
-	}
+    /**
+     * Destroy User
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function destroy(int $id): void
+    {
+        try {
+            $user = $this->userModel->findWithRole(['users.id' => $id]);
+            if (!$user) {
+                throw new Exception("Data not found");
+            }
 
-	/**
-	 * Destroy User
-	 *
-	 * @param  int $id
-	 * @return void
-	 */
-	public function destroy(int $id): void
-	{
-		try {
+            if ($user->type === 'admin') {
+                throw new Exception("User can't be deleted!");
+            }
 
-			$user = $this->userModel->findWithRole(['users.id' => $id]);
-			if (!$user) {
-				throw new Exception("Data not found");
-			}
+            $this->userModel->delete(['id' => $id]);
 
-			if ($user->type === 'admin') {
-				throw new Exception("User can't be deleted!");
-			}
+            $this->jsonResponse([
+                'status' => 'success',
+                'message' => 'Your data has been deleted.'
+            ], 200);
+        } catch (\Throwable $th) {
+            $this->jsonResponse([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 400);
+        }
+    }
 
-			$this->userModel->delete(['id' => $id]);
+    /**
+     * Show User
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function show(int $id): void
+    {
+        $user = $this->userModel->find(['id' => $id]);
 
-			$this->jsonResponse([
-				'status' => 'success',
-				'message' => 'Your data has been deleted.'
-			], 200);
-		} catch (\Throwable $th) {
-			$this->jsonResponse([
-				'status' => 'error',
-				'message' => $th->getMessage()
-			], 400);
-		}
-	}
+        if (!$user) {
+            show_404();
+        }
 
-	/**
-	 * Show User
-	 *
-	 * @param  int $id
-	 * @return void
-	 */
-	public function show(int $id): void
-	{
-		$user = $this->userModel->find(['id' => $id]);
+        $data['title'] = 'Show User';
+        $data['user'] = $user;
 
-		if (!$user) {
-			show_404();
-		}
+        $this->render('show-user', $data);
+    }
 
-		$data['title'] = 'Show User';
-		$data['user'] = $user;
+    /**
+     * Edit User
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function edit(int $id): void
+    {
+        $this->load->model('role/Role_model', 'roleModel');
 
-		$this->render('show-user', $data);
-	}
+        $user = $this->userModel->find(['id' => $id]);
 
-	/**
-	 * Edit User
-	 *
-	 * @param  int $id
-	 * @return void
-	 */
-	public function edit(int $id): void
-	{
-		$this->load->model('role/RoleModel', 'roleModel');
+        if (!$user) {
+            show_404();
+        }
 
-		$user = $this->userModel->find(['id' => $id]);
+        $data['title'] = 'Edit Role';
+        $data['roles'] = $this->roleModel->all(['type' => 'user']);
+        $data['user'] = $user;
 
-		if (!$user) {
-			show_404();
-		}
+        $this->render('edit-user', $data);
+    }
 
-		$data['title'] = 'Edit Role';
-		$data['roles'] = $this->roleModel->all(['type' => 'user']);
-		$data['user'] = $user;
+    /**
+     * Update Data
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function update(int $id): void
+    {
+        try {
+            $data = [
+                'name' => $this->input->post('name'),
+                'email' => $this->input->post('email'),
+                'password' => $this->input->post('password'),
+                'role_id' => $this->input->post('role_id'),
+            ];
 
-		$this->render('edit-user', $data);
-	}
+            if (!$this->form_validation->run('user')) {
+                $errors = $this->form_validation->error_array();
+                throw new Exception(current($errors));
+            }
 
-	/**
-	 * Update Data
-	 *
-	 * @param  int $id
-	 * @return void
-	 */
-	public function update(int $id): void
-	{
-		try {
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
 
-			$data = [
-				'name' => $this->input->post('name'),
-				'email' => $this->input->post('email'),
-				'password' => $this->input->post('password'),
-				'role_id' => $this->input->post('role_id'),
-			];
+            $this->userModel->update($data, ['id' => $id]);
 
-			if (!$this->form_validation->run('user')) {
-				$errors = $this->form_validation->error_array();
-				throw new Exception(current($errors));
-			}
+            $this->jsonResponse([
+                'status' => 'success',
+                'message' => 'Data successfuly updated'
+            ], 200);
+        } catch (\Throwable $th) {
+            $this->jsonResponse([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 400);
+        }
+    }
 
-			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+    /**
+     * Datatables
+     *
+     * @return void
+     */
+    public function datatables(): void
+    {
+        $this->load->library('datatables');
+        $data = $this->datatables->table('users')->join('roles', 'roles.id = users.role_id')->where('roles.type', 'user')->draw();
 
-			$this->userModel->update($data, ['id' => $id]);
-
-			$this->jsonResponse([
-				'status' => 'success',
-				'message' => 'Data successfuly updated'
-			], 200);
-		} catch (\Throwable $th) {
-			$this->jsonResponse([
-				'status' => 'error',
-				'message' => $th->getMessage()
-			], 400);
-		}
-	}
-
-	/**
-	 * Datatables
-	 *
-	 * @return void
-	 */
-	public function datatables(): void
-	{
-		$this->load->library('datatables');
-		$data = $this->datatables->table('users')->join('roles', 'roles.id = users.role_id')->where('roles.type', 'user')->draw();
-
-		$this->jsonResponse($data);
-	}
+        $this->jsonResponse($data);
+    }
 }

@@ -229,7 +229,6 @@ class Modules
 
 		/* parse module routes */
 		foreach (self::$routes[$module] as $key => $val) {
-
 			$http_verb = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : 'cli';
 
 			if (is_array($val))

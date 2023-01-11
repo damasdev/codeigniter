@@ -3,14 +3,20 @@
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class JwtLibrary
+class Jwt_library
 {
-
-    private $CI;
-
-    public function __construct()
+    /**
+     * __get
+     *
+     * Enables the use of CI super-global without having to define an extra variable.
+     *
+     * @param string $var
+     *
+     * @return mixed
+     */
+    public function __get($var)
     {
-        $this->CI = &get_instance();
+        return get_instance()->$var;
     }
 
     /**
@@ -21,7 +27,7 @@ class JwtLibrary
     public function validate(): bool
     {
         try {
-            $token = $this->CI->input->get_request_header('Authorization');
+            $token = $this->input->get_request_header('Authorization');
             if (!$token) {
                 throw new Exception('Token Not Found');
             }
@@ -35,9 +41,9 @@ class JwtLibrary
                 throw new Exception("Token Expired");
             }
 
-            return TRUE;
+            return true;
         } catch (\Throwable $th) {
-            return FALSE;
+            return false;
         }
     }
 
@@ -52,7 +58,7 @@ class JwtLibrary
         // token will expired in 1 day
         $payload['exp'] = strtotime(date('Y-m-d') . ' +1 days');
 
-        return JWT::encode($payload, $this->CI->input->server('JWT_SECRET_KEY'), 'HS256');
+        return JWT::encode($payload, $this->input->server('JWT_SECRET_KEY'), 'HS256');
     }
 
     /**
@@ -64,9 +70,9 @@ class JwtLibrary
     public function decode(string $token): ?stdClass
     {
         try {
-            return JWT::decode($token, new Key($this->CI->input->server('JWT_SECRET_KEY'), 'HS256'));
+            return JWT::decode($token, new Key($this->input->server('JWT_SECRET_KEY'), 'HS256'));
         } catch (\Throwable $th) {
-            return NULL;
+            return null;
         }
     }
 }

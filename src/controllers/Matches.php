@@ -26,14 +26,14 @@ class Matches extends MY_Controller
     const FORMAT_ENTER = "\n";
     const FORMAT_DOUBLE_ENTER = "\n\n";
 
-    private $findAndReplace = array();
+    private $findAndReplace = [];
 
     /**
      * Matches constructor.
      */
     public function __construct()
     {
-        parent::__construct();
+
 
         $this->config->load('matches', true);
         $this->baseLocation = APPPATH . $this->config->item('templates', 'matches');
@@ -98,7 +98,7 @@ class Matches extends MY_Controller
         try {
             $available = array('extend' => 'extend', 'e' => 'extend');
             $params = func_get_args();
-            $arguments = array();
+            $arguments = [];
 
             foreach ($params as $parameter) {
                 $argument = explode(':', $parameter);
@@ -161,10 +161,9 @@ class Matches extends MY_Controller
     public function create_model()
     {
         try {
-
             $available = array('extend' => 'extend', 'e' => 'extend');
             $params = func_get_args();
-            $arguments = array();
+            $arguments = [];
 
             foreach ($params as $parameter) {
                 $argument = explode(':', $parameter);
@@ -226,11 +225,10 @@ class Matches extends MY_Controller
      */
     public function create_view($view = null)
     {
-
         try {
-            $available = array();
+            $available = [];
             $params = func_get_args();
-            $arguments = array();
+            $arguments = [];
 
             foreach ($params as $parameter) {
                 $argument = explode(':', $parameter);
@@ -287,7 +285,6 @@ class Matches extends MY_Controller
     public function do_migration(?string $version = null): void
     {
         try {
-
             $this->load->library('migration');
 
             $check = $version ? $this->migration->version($version) : $this->migration->latest();
@@ -312,7 +309,7 @@ class Matches extends MY_Controller
     {
         $this->load->library('migration');
         $migrations = $this->migration->find_migrations();
-        $migration_keys = array();
+        $migration_keys = [];
         foreach ($migrations as $key => $migration) {
             $migration_keys[] = $key;
         }
@@ -362,7 +359,7 @@ class Matches extends MY_Controller
 
         try {
             // Mapping Params
-            $arguments = array();
+            $arguments = [];
             foreach ($params as $parameter) {
                 $argument = explode(':', $parameter);
                 if (sizeof($argument) == 1 && !isset($action)) {
@@ -446,11 +443,11 @@ class Matches extends MY_Controller
             $structure = explode('.', $str);
             array_unshift($structure, 'modules');
             $className = array_pop($structure);
-            $isModule = TRUE;
+            $isModule = true;
         } else {
-            $structure = array();
+            $structure = [];
             $className = $str;
-            $isModule = FALSE;
+            $isModule = false;
         }
 
         if ($type) {
@@ -494,7 +491,7 @@ class Matches extends MY_Controller
      *
      * @return mixed|void
      */
-    public function _remap($method, $params = array())
+    public function _remap($method, $params = [])
     {
         if (strpos($method, ':')) {
             $method = str_replace(':', '_', $method);

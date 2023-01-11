@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 class Twig
 {
@@ -32,7 +32,7 @@ class Twig
 	/**
 	 * @var bool Whether functions are added or not
 	 */
-	private $functions_added = FALSE;
+	private $functions_added = false;
 
 	/**
 	 * @var Twig_Environment
@@ -201,7 +201,7 @@ class Twig
 			);
 		}
 
-		$this->functions_added = TRUE;
+		$this->functions_added = true;
 	}
 
 	/**
