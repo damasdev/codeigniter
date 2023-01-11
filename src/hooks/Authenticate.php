@@ -35,7 +35,7 @@ class Authenticate extends MY_Controller
         if ($this->isApiRequest()) {
             if (!$this->jwt_library->validate()) {
                 $this->jsonResponse([
-                    'message' => 'Unauthorized'
+                    'message' => 'Unauthorized',
                 ], 401);
             }
 
@@ -50,7 +50,7 @@ class Authenticate extends MY_Controller
         // Check Login Status
         if (!$this->auth_library->isLoggedIn()) {
             redirect('auth/login', 'refresh');
-            die();
+            exit();
         }
 
         // Check Basic Feature
@@ -62,8 +62,8 @@ class Authenticate extends MY_Controller
         if (!$this->hasPermission($module, $class, $method)) {
             if ($this->input->is_ajax_request()) {
                 $this->jsonResponse([
-                    'status' => 'error',
-                    'message' => 'You dont have permission'
+                    'status'  => 'error',
+                    'message' => 'You dont have permission',
                 ], 401);
             } else {
                 show_error('You dont have permission', 401);
@@ -72,11 +72,12 @@ class Authenticate extends MY_Controller
     }
 
     /**
-     * Check Permission
+     * Check Permission.
      *
      * @param string $class
      * @param string $method
-     * @return boolean
+     *
+     * @return bool
      */
     private function hasPermission(string $module, string $class, string $method): bool
     {
@@ -101,7 +102,7 @@ class Authenticate extends MY_Controller
     }
 
     /**
-     * isApiRequest
+     * isApiRequest.
      *
      * @return bool
      */

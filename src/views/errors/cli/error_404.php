@@ -1,7 +1,7 @@
 <?php
 
 echo "\nERROR: ",
-	$heading,
-	"\n\n",
-	$message,
-	"\n\n";
+    $heading,
+    "\n\n",
+    $message,
+    "\n\n";

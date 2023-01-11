@@ -11,23 +11,23 @@
 |
 */
 
-$hook['pre_system'][] = array(
-    'class' => 'Environment',
+$hook['pre_system'][] = [
+    'class'    => 'Environment',
     'function' => 'init',
     'filename' => 'Environment.php',
-    'filepath' => 'hooks'
-);
+    'filepath' => 'hooks',
+];
 
-$hook['pre_controller'][] = array(
-    'class' => 'Authenticate',
+$hook['pre_controller'][] = [
+    'class'    => 'Authenticate',
     'function' => 'init',
     'filename' => 'Authenticate.php',
-    'filepath' => 'hooks'
-);
+    'filepath' => 'hooks',
+];
 
-$hook['display_override'][] = array(
-    'class' => 'Develbar',
+$hook['display_override'][] = [
+    'class'    => 'Develbar',
     'function' => 'debug',
     'filename' => 'Develbar.php',
-    'filepath' => 'third_party/DevelBar/hooks'
-);
+    'filepath' => 'third_party/DevelBar/hooks',
+];

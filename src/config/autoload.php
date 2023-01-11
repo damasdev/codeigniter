@@ -38,7 +38,7 @@
 |  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
-$autoload['packages'] = array(APPPATH . 'third_party/DevelBar');
+$autoload['packages'] = [APPPATH.'third_party/DevelBar'];
 
 /*
 | -------------------------------------------------------------------
@@ -57,12 +57,12 @@ $autoload['packages'] = array(APPPATH . 'third_party/DevelBar');
 |
 | $autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array(
+$autoload['libraries'] = [
     'twig', 'session', 'database',
-    'menu_library' => 'menu_library',
+    'menu_library'      => 'menu_library',
     'auth/auth_library' => 'auth_library',
-    'api/jwt_library' => 'jwt_library',
-);
+    'api/jwt_library'   => 'jwt_library',
+];
 
 /*
 | -------------------------------------------------------------------
@@ -93,7 +93,7 @@ $autoload['drivers'] = [];
 |
 | $autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'common_helper');
+$autoload['helper'] = ['url', 'common_helper'];
 
 /*
 | -------------------------------------------------------------------
@@ -107,7 +107,7 @@ $autoload['helper'] = array('url', 'common_helper');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('whitelist', 'menus');
+$autoload['config'] = ['whitelist', 'menus'];
 
 /*
 | -------------------------------------------------------------------

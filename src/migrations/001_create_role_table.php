@@ -11,23 +11,23 @@ class Migration_Create_role_table extends CI_Migration
     {
         $fields = [
             'id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-                'auto_increment' => true
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
             ],
             'name' => [
-                'type' => 'VARCHAR',
-                'constraint' => 50
+                'type'       => 'VARCHAR',
+                'constraint' => 50,
             ],
             'code' => [
-                'type' => 'VARCHAR',
-                'constraint' => 10
+                'type'       => 'VARCHAR',
+                'constraint' => 10,
             ],
             'type' => [
-                'type' => 'ENUM("admin","user")',
+                'type'    => 'ENUM("admin","user")',
                 'default' => 'user',
-                'null' => false
+                'null'    => false,
             ],
         ];
 
@@ -37,17 +37,17 @@ class Migration_Create_role_table extends CI_Migration
 
         $data = [
             [
-                'id' => 1,
+                'id'   => 1,
                 'name' => 'Administrator',
                 'code' => 'root',
-                'type' => 'admin'
+                'type' => 'admin',
             ],
             [
-                'id' => 2,
+                'id'   => 2,
                 'name' => 'User',
                 'code' => 'user',
                 'type' => 'user',
-            ]
+            ],
         ];
 
         $this->db->insert_batch('roles', $data);

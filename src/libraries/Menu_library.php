@@ -4,7 +4,7 @@ class Menu_library
 {
     /**
      * Tag opener of the navigation menu
-     * default is '<ul>' tag
+     * default is '<ul>' tag.
      *
      * @var string
      */
@@ -12,7 +12,7 @@ class Menu_library
 
     /**
      * Closing tag of the navigation menu
-     * default is '</ul>'
+     * default is '</ul>'.
      *
      * @var string
      */
@@ -20,7 +20,7 @@ class Menu_library
 
     /**
      * Tag opening tag of the menu item
-     * default is '<div>'
+     * default is '<div>'.
      *
      * @var string
      */
@@ -28,7 +28,7 @@ class Menu_library
 
     /**
      * Closing tag of the menu item
-     * default is '</li>'
+     * default is '</li>'.
      *
      * @var string
      */
@@ -36,7 +36,7 @@ class Menu_library
 
     /**
      * Opening tag of the menu item that has children
-     * default is '</li>'
+     * default is '</li>'.
      *
      * @var string
      */
@@ -44,7 +44,7 @@ class Menu_library
 
     /**
      * Closing tag of the menu item that has children
-     * default is '</li>'
+     * default is '</li>'.
      *
      * @var string
      */
@@ -52,7 +52,7 @@ class Menu_library
 
     /**
      * Anchor tag of the menu item that has children
-     * default is '<a href="%s">%s</a>'
+     * default is '<a href="%s">%s</a>'.
      *
      * @var string
      */
@@ -60,7 +60,7 @@ class Menu_library
 
     /**
      * Opening tag of the children menu / sub menu.
-     * Default is '<ul>'
+     * Default is '<ul>'.
      *
      * @var string
      */
@@ -68,21 +68,21 @@ class Menu_library
 
     /**
      * Closing tag of the children menu / sub menu.
-     * Default is '<div>'
+     * Default is '<div>'.
      *
      * @var string
      */
     private $childrenTagClose = '</div></div>';
 
     /**
-     * iconTagOpen
+     * iconTagOpen.
      *
      * @var string
      */
     private $iconTagOpen = '<span class="nav-link-icon d-md-none d-lg-inline-block">';
 
     /**
-     * iconTagClose
+     * iconTagClose.
      *
      * @var string
      */
@@ -90,28 +90,28 @@ class Menu_library
 
     /**
      * Anchor tag of the menu item.
-     * Default is '<a href="%s">%s</a>'
+     * Default is '<a href="%s">%s</a>'.
      *
      * @var string
      */
     private $itemAnchor = '<a href="%s" class="nav-link">%s</a>';
 
     /**
-     * childrenItemAnchor
+     * childrenItemAnchor.
      *
      * @var string
      */
     private $childrenItemAnchor = '<a href="%s" class="dropdown-item">%s</a>';
 
     /**
-     * items
+     * items.
      *
      * @var array
      */
     private $items = [];
 
     /**
-     * __get
+     * __get.
      *
      * Enables the use of CI super-global without having to define an extra variable.
      *
@@ -126,10 +126,10 @@ class Menu_library
 
     public function render(?string $role)
     {
-        $html = "";
+        $html = '';
         $items = $this->config->item('menus');
         foreach ($items as $index => $value) {
-            if (!in_array($role, $value["privileges"])) {
+            if (!in_array($role, $value['privileges'])) {
                 unset($items[$index]);
             }
         }
@@ -179,7 +179,7 @@ class Menu_library
 
             if ($icon) {
                 $icon = "{$this->iconTagOpen}<i class='icon {$icon}'></i>{$this->iconTagClose}";
-                $label = trim($icon . "<span class='nav-link-title'>{$label}</span>");
+                $label = trim($icon."<span class='nav-link-title'>{$label}</span>");
             }
 
             if ($hasChildren) {
@@ -225,7 +225,7 @@ class Menu_library
             $doc->loadHTML($html);
 
             foreach ($doc->getElementsByTagName('*') as $tag) {
-                $tag->setAttribute('class', $tag->getAttribute('class') . ' active');
+                $tag->setAttribute('class', $tag->getAttribute('class').' active');
             }
 
             $html = $doc->saveHTML();

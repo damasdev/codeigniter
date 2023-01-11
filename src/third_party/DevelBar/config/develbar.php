@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or die('No direct script access.');
+<?php
+
+defined('BASEPATH') or exit('No direct script access.');
 
 /*
 |--------------------------------------------------------------------------
@@ -43,17 +45,17 @@ $config['develbar_download_link'] = 'https://github.com/JCSama/CodeIgniter-devel
 | This option allows you to enable specific sections into the Developer's Toolbar
 |
 */
-$config['develbar_sections'] = array(
-    'Benchmarks'         => true,
+$config['develbar_sections'] = [
+    'Benchmarks'             => true,
     'Memory Usage'           => true,
-    'Request'           => true,
-    'Database'            => true,
-    'Hooks'                => true,
-    'Ajax'                 => true,
-    'Libraries'            => false,
-    'Helpers'             => false,
-    'Views'             => false,
-    'Config'             => true,
-    'Session'             => true,
-    'Models'             => true,
-);
+    'Request'                => true,
+    'Database'               => true,
+    'Hooks'                  => true,
+    'Ajax'                   => true,
+    'Libraries'              => false,
+    'Helpers'                => false,
+    'Views'                  => false,
+    'Config'                 => true,
+    'Session'                => true,
+    'Models'                 => true,
+];

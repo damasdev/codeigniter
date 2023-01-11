@@ -72,25 +72,25 @@
 $active_group = 'default';
 $query_builder = true;
 
-$db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => getenv('DB_HOST') === false ? 'localhost' : getenv('DB_HOST'),
-	'username' => getenv('DB_USER'),
-	'password' => getenv('DB_PASS'),
-	'database' => getenv('DB_NAME'),
-	'port' => getenv('DB_PORT') === false ? 3306 :  getenv('DB_PORT'),
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => false,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => false,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => false,
-	'compress' => false,
-	'stricton' => false,
-	'failover' => [],
-	'save_queries' => true
-);
+$db['default'] = [
+    'dsn'	         => '',
+    'hostname'     => getenv('DB_HOST') === false ? 'localhost' : getenv('DB_HOST'),
+    'username'     => getenv('DB_USER'),
+    'password'     => getenv('DB_PASS'),
+    'database'     => getenv('DB_NAME'),
+    'port'         => getenv('DB_PORT') === false ? 3306 : getenv('DB_PORT'),
+    'dbdriver'     => 'mysqli',
+    'dbprefix'     => '',
+    'pconnect'     => false,
+    'db_debug'     => (ENVIRONMENT !== 'production'),
+    'cache_on'     => false,
+    'cachedir'     => '',
+    'char_set'     => 'utf8',
+    'dbcollat'     => 'utf8_general_ci',
+    'swap_pre'     => '',
+    'encrypt'      => false,
+    'compress'     => false,
+    'stricton'     => false,
+    'failover'     => [],
+    'save_queries' => true,
+];

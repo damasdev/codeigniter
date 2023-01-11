@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Whitelist
+ * Whitelist.
  *
  * User can access feature without login
  */
@@ -14,14 +14,13 @@ $config['whitelist']['auth']['auth'] = ['logout'];
 $config['whitelist']['']['matches'] = [
     'index', 'help',
     'create:app', 'create:model', 'create:view', 'create:controller', 'create:migration',
-    'undo:migration', 'do:migration', 'reset:migration'
+    'undo:migration', 'do:migration', 'reset:migration',
 ];
 
 /**
- * Basic Feature
+ * Basic Feature.
  *
  * User can access feature without permission
  */
-
 $config['permissions']['auth']['auth'] = ['index'];
 $config['permissions']['home']['home'] = ['index'];

@@ -25,7 +25,7 @@
 $config['base_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
 $config['base_url'] = (isset($_SERVER['HTTPS_PROXY']) && $_SERVER['HTTPS_PROXY'] == 'Yes') ? 'https' : $config['base_url'];
 $config['base_url'] = ($_SERVER['FORCE_TO_HTTPS'] ?? 'off') == 'on' ? 'https' : $config['base_url'];
-$config['base_url'] .= '://' . (isset($_SERVER['HTTP_X_FORWARDED_SERVER']) ? $_SERVER['HTTP_X_FORWARDED_SERVER'] : $_SERVER['HTTP_HOST'] ?? 'localhost');
+$config['base_url'] .= '://'.(isset($_SERVER['HTTP_X_FORWARDED_SERVER']) ? $_SERVER['HTTP_X_FORWARDED_SERVER'] : $_SERVER['HTTP_HOST'] ?? 'localhost');
 $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
 /*
@@ -49,9 +49,9 @@ $config['index_page'] = '';
 |
 */
 
-$config['modules_locations'] = array(
+$config['modules_locations'] = [
     '../modules/' => '../../modules/',
-);
+];
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']    = 'english';
+$config['language'] = 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -154,7 +154,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 | autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = realpath(APPPATH . '../vendor/autoload.php');
+$config['composer_autoload'] = realpath(APPPATH.'../vendor/autoload.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -403,7 +403,7 @@ $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_samesite'] = 'Lax';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = APPPATH . '/cache/storage';
+$config['sess_save_path'] = APPPATH.'/cache/storage';
 $config['sess_match_ip'] = false;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = false;

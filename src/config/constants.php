@@ -84,7 +84,7 @@ defined('EXIT__AUTO_MIN') || define('EXIT__AUTO_MIN', 9); // lowest automaticall
 defined('EXIT__AUTO_MAX') || define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 /**
- * Privilege
+ * Privilege.
  */
-defined('PRIVILEGE_ROOT') || define('PRIVILEGE_ROOT', "root");
-defined('PRIVILEGE_USER') || define('PRIVILEGE_USER', "user");
+defined('PRIVILEGE_ROOT') || define('PRIVILEGE_ROOT', 'root');
+defined('PRIVILEGE_USER') || define('PRIVILEGE_USER', 'user');
