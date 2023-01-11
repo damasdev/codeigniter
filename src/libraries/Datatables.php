@@ -1,50 +1,51 @@
 <?php
+
 class Datatables
 {
     /**
-     * DB
+     * DB.
      *
      * @var mixed
      */
     protected $db;
 
     /**
-     * Input
+     * Input.
      *
      * @var mixed
      */
     protected $input;
 
     /**
-     * Table Name
+     * Table Name.
      *
      * @var string
      */
     protected $table;
 
     /**
-     * Columns
+     * Columns.
      *
      * @var array
      */
     protected $columns;
 
     /**
-     * Keyword
+     * Keyword.
      *
      * @var string
      */
     protected $keyword;
 
     /**
-     * Join
+     * Join.
      *
      * @var array
      */
     protected $joins = [];
 
     /**
-     * Where
+     * Where.
      *
      * @var array
      */
@@ -59,9 +60,10 @@ class Datatables
     }
 
     /**
-     * Set Table
+     * Set Table.
      *
-     * @param  string $table
+     * @param string $table
+     *
      * @return Datatables
      */
     public function table(string $table): Datatables
@@ -72,11 +74,12 @@ class Datatables
     }
 
     /**
-     * Join Table
+     * Join Table.
      *
-     * @param  string $table
-     * @param  string $key
-     * @param  ?string $type
+     * @param string  $table
+     * @param string  $key
+     * @param ?string $type
+     *
      * @return Datatables
      */
     public function join(string $table, string $key, ?string $type = 'INNER'): Datatables
@@ -87,10 +90,11 @@ class Datatables
     }
 
     /**
-     * Where
+     * Where.
      *
-     * @param  string $key
-     * @param  string $value
+     * @param string $key
+     * @param string $value
+     *
      * @return Datatables
      */
     public function where(string $key, string $value): Datatables
@@ -101,7 +105,7 @@ class Datatables
     }
 
     /**
-     * Draw
+     * Draw.
      *
      * @return array
      */
@@ -115,7 +119,7 @@ class Datatables
     }
 
     /**
-     * Select
+     * Select.
      *
      * @return void
      */
@@ -134,7 +138,7 @@ class Datatables
     }
 
     /**
-     * Filter
+     * Filter.
      *
      * @return void
      */
@@ -169,7 +173,7 @@ class Datatables
     }
 
     /**
-     * Order Row
+     * Order Row.
      *
      * @return void
      */
@@ -183,7 +187,7 @@ class Datatables
     }
 
     /**
-     * Limit
+     * Limit.
      *
      * @return void
      */
@@ -203,25 +207,26 @@ class Datatables
     }
 
     /**
-     * Format Data
+     * Format Data.
      *
-     * @param  array $rows
+     * @param array $rows
+     *
      * @return array
      */
     private function format(array $rows, int $total): array
     {
         $option = [
-            'draw' => intval($this->input->post('draw') ?? 1),
+            'draw'            => intval($this->input->post('draw') ?? 1),
             'recordsFiltered' => $total,
-            'recordsTotal' => $total,
-            'data' => $rows,
+            'recordsTotal'    => $total,
+            'data'            => $rows,
         ];
 
         return $option;
     }
 
     /**
-     * Result Array
+     * Result Array.
      *
      * @return array
      */
@@ -241,7 +246,7 @@ class Datatables
     }
 
     /**
-     * Count
+     * Count.
      *
      * @return int
      */

@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Is Equal
+ * Is Equal.
  *
- * @param  string $string
- * @param  string $comparator
+ * @param string $string
+ * @param string $comparator
+ *
  * @return bool
  */
 function isEqual(string $string, string $comparator): bool
@@ -13,9 +14,10 @@ function isEqual(string $string, string $comparator): bool
 }
 
 /**
- * Convert stdClass to Array
+ * Convert stdClass to Array.
  *
  * @param $data
+ *
  * @return array
  */
 function toArray($data): array
@@ -24,13 +26,14 @@ function toArray($data): array
 }
 
 /**
- * Var Dump
+ * Var Dump.
  *
- * @param  $data
+ * @param $data
+ *
  * @return void
  */
 function dd($data): void
 {
-    highlight_string("" . var_export($data, true) . "");
-    die();
+    highlight_string(''.var_export($data, true).'');
+    exit();
 }

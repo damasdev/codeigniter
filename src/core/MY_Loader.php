@@ -1,20 +1,19 @@
 <?php
 
 /* load the MX_Loader class */
-require_once APPPATH . "third_party/MX/Loader.php";
-
+require_once APPPATH.'third_party/MX/Loader.php';
 
 class MY_Loader extends MX_Loader
 {
     /**
-     * List of loaded views
+     * List of loaded views.
      *
      * @return array
      */
     protected $_ci_views = [];
 
     /**
-     * List of loaded helpers
+     * List of loaded helpers.
      *
      * @return array
      */
@@ -24,7 +23,7 @@ class MY_Loader extends MX_Loader
     }
 
     /**
-     * List of loaded views
+     * List of loaded views.
      *
      * @return array
      */
@@ -42,7 +41,7 @@ class MY_Loader extends MX_Loader
     }
 
     /**
-     * Internal CI Data Loader
+     * Internal CI Data Loader.
      *
      * Used to load views and files.
      *
@@ -52,9 +51,9 @@ class MY_Loader extends MX_Loader
      * @used-by    CI_Loader::view()
      * @used-by    CI_Loader::file()
      *
-     * @param    array $_ci_data Data to load
+     * @param array $_ci_data Data to load
      *
-     * @return    object
+     * @return object
      */
     public function _ci_load($_ci_data)
     {
@@ -64,42 +63,50 @@ class MY_Loader extends MX_Loader
             $_ci_path = '';
 
             /* add file extension if not provided */
-            $_ci_file = (pathinfo($_ci_view, PATHINFO_EXTENSION)) ? $_ci_view : $_ci_view . EXT;
+            $_ci_file = (pathinfo($_ci_view, PATHINFO_EXTENSION)) ? $_ci_view : $_ci_view.EXT;
 
             foreach ($this->_ci_view_paths as $path => $cascade) {
-                if (file_exists($view = $path . $_ci_file)) {
+                if (file_exists($view = $path.$_ci_file)) {
                     $_ci_path = $view;
                     break;
                 }
-                if (!$cascade) break;
+                if (!$cascade) {
+                    break;
+                }
             }
         } elseif (isset($_ci_path)) {
             $_ci_file = basename($_ci_path);
-            if (!file_exists($_ci_path)) $_ci_path = '';
+            if (!file_exists($_ci_path)) {
+                $_ci_path = '';
+            }
         }
 
-        if (empty($_ci_path))
-            show_error('Unable to load the requested file: ' . $_ci_file);
+        if (empty($_ci_path)) {
+            show_error('Unable to load the requested file: '.$_ci_file);
+        }
 
-        if (isset($_ci_vars))
+        if (isset($_ci_vars)) {
             $this->_ci_cached_vars = array_merge($this->_ci_cached_vars, (array) $_ci_vars);
+        }
 
         extract($this->_ci_cached_vars);
 
         ob_start();
 
         if ((bool) @ini_get('short_open_tag') === false && CI::$APP->config->item('rewrite_short_tags') == true) {
-            echo eval('?>' . preg_replace("/;*\s*\?>/", "; ?>", str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
+            echo eval('?>'.preg_replace("/;*\s*\?>/", '; ?>', str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
         } else {
-            include($_ci_path);
+            include $_ci_path;
         }
 
         // PATCH : Add the the loaded view file to the list
         $this->_ci_views[$_ci_path] = isset($_ci_vars) ? $_ci_vars : [];
 
-        log_message('debug', 'File loaded: ' . $_ci_path);
+        log_message('debug', 'File loaded: '.$_ci_path);
 
-        if ($_ci_return == true) return ob_get_clean();
+        if ($_ci_return == true) {
+            return ob_get_clean();
+        }
 
         if (ob_get_level() > $this->_ci_ob_level + 1) {
             ob_end_flush();

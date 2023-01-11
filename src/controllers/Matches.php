@@ -1,10 +1,11 @@
 <?php
-#!/usr/bin/php
+
+//!/usr/bin/php
 defined('BASEPATH') or exit('No direct script access allowed');
 
 if (!is_cli()) {
     show_404();
-    die();
+    exit();
 }
 
 set_time_limit(0);
@@ -17,7 +18,7 @@ class Matches extends MY_Controller
     private $baseMigration;
 
     /**
-     * Template Location
+     * Template Location.
      *
      * @var string
      */
@@ -33,10 +34,8 @@ class Matches extends MY_Controller
      */
     public function __construct()
     {
-
-
         $this->config->load('matches', true);
-        $this->baseLocation = APPPATH . $this->config->item('templates', 'matches');
+        $this->baseLocation = APPPATH.$this->config->item('templates', 'matches');
 
         // Init Config
         $this->baseController = $this->config->item('controller', 'matches');
@@ -47,29 +46,28 @@ class Matches extends MY_Controller
     }
 
     /**
-     *
-     * return string
+     * return string.
      */
     public function index()
     {
-        echo 'Hello. Need help to ignite somethin\'?' . self::FORMAT_ENTER;
+        echo 'Hello. Need help to ignite somethin\'?'.self::FORMAT_ENTER;
     }
 
     /**
-     * List the available commands
+     * List the available commands.
      *
      * @return void
      */
     public function help(): void
     {
-        echo self::FORMAT_ENTER . "Available commands:";
+        echo self::FORMAT_ENTER.'Available commands:';
 
-        echo self::FORMAT_DOUBLE_ENTER . "GENERATOR";
-        echo self::FORMAT_ENTER . "- create:app {name of app}";
-        echo self::FORMAT_ENTER . "- create:controller {name of controller}";
-        echo self::FORMAT_ENTER . "- create:migration {name of migration} {name of table - opsional}";
-        echo self::FORMAT_ENTER . "- create:model {name of model}";
-        echo self::FORMAT_ENTER . "- create:view {name of view}";
+        echo self::FORMAT_DOUBLE_ENTER.'GENERATOR';
+        echo self::FORMAT_ENTER.'- create:app {name of app}';
+        echo self::FORMAT_ENTER.'- create:controller {name of controller}';
+        echo self::FORMAT_ENTER.'- create:migration {name of migration} {name of table - opsional}';
+        echo self::FORMAT_ENTER.'- create:model {name of model}';
+        echo self::FORMAT_ENTER.'- create:view {name of view}';
         echo self::FORMAT_ENTER;
     }
 
@@ -83,20 +81,20 @@ class Matches extends MY_Controller
             $this->create_model($app);
             $this->create_view($app);
         } else {
-            echo self::FORMAT_ENTER . 'You need to provide a name for the app';
+            echo self::FORMAT_ENTER.'You need to provide a name for the app';
         }
     }
 
     /**
      * create controller
-     * returns boolean true
+     * returns boolean true.
      *
      * @return bool|void
      */
     public function create_controller()
     {
         try {
-            $available = array('extend' => 'extend', 'e' => 'extend');
+            $available = ['extend' => 'extend', 'e' => 'extend'];
             $params = func_get_args();
             $arguments = [];
 
@@ -119,32 +117,32 @@ class Matches extends MY_Controller
             $directories = $names['directories'];
             $is_module = $names['is_module'];
 
-            $basePath = $is_module ? FCPATH . "../" : APPPATH;
+            $basePath = $is_module ? FCPATH.'../' : APPPATH;
 
-            if (file_exists($basePath . $fileName . '.php')) {
-                throw new Exception($className . ' Controller already exists in the ' . $directories . ' directory.');
+            if (file_exists($basePath.$fileName.'.php')) {
+                throw new Exception($className.' Controller already exists in the '.$directories.' directory.');
             }
 
             $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseController;
-            $extends = in_array(strtolower($extends), array('my', 'ci', 'mx')) ? strtoupper($extends) : ucfirst($extends);
+            $extends = in_array(strtolower($extends), ['my', 'ci', 'mx']) ? strtoupper($extends) : ucfirst($extends);
 
             $this->findAndReplace['{{CONTROLLER}}'] = $className;
-            $this->findAndReplace['{{CONTROLLER_FILE}}'] = $fileName . '.php';
+            $this->findAndReplace['{{CONTROLLER_FILE}}'] = $fileName.'.php';
             $this->findAndReplace['{{MODEL}}'] = $className;
             $this->findAndReplace['{{MODEL_ALIAS}}'] = strtolower($className);
             $this->findAndReplace['{{C_EXTENDS}}'] = $extends;
 
             $template = $this->getTemplate('controller');
             $template = strtr($template, $this->findAndReplace);
-            if (strlen($directories) > 0 && !file_exists($basePath . $directories)) {
-                mkdir($basePath . $directories, 0755, true);
+            if (strlen($directories) > 0 && !file_exists($basePath.$directories)) {
+                mkdir($basePath.$directories, 0755, true);
             }
 
-            if (!write_file($basePath . $fileName . '.php', $template)) {
+            if (!write_file($basePath.$fileName.'.php', $template)) {
                 throw new Exception('Couldn\'t write Controller.');
             }
 
-            echo self::FORMAT_ENTER . 'Controller ' . $className . ' has been created inside ' . $basePath . $directories . '.';
+            echo self::FORMAT_ENTER.'Controller '.$className.' has been created inside '.$basePath.$directories.'.';
             echo self::FORMAT_ENTER;
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -154,14 +152,14 @@ class Matches extends MY_Controller
 
     /**
      * create model
-     * returns boolean true
+     * returns boolean true.
      *
      * @return bool|void
      */
     public function create_model()
     {
         try {
-            $available = array('extend' => 'extend', 'e' => 'extend');
+            $available = ['extend' => 'extend', 'e' => 'extend'];
             $params = func_get_args();
             $arguments = [];
 
@@ -180,35 +178,35 @@ class Matches extends MY_Controller
 
             $names = $this->setName($model, 'models');
             $className = $names['class'];
-            $fileName = $names['file'] . 'Model';
+            $fileName = $names['file'].'Model';
             $directories = $names['directories'];
             $is_module = $names['is_module'];
 
-            $basePath = $is_module ? FCPATH . "../" : APPPATH;
+            $basePath = $is_module ? FCPATH.'../' : APPPATH;
 
-            if (file_exists($basePath . $fileName . '.php')) {
-                throw new Exception($className . ' Model already exists in the ' . $directories . ' directory.');
+            if (file_exists($basePath.$fileName.'.php')) {
+                throw new Exception($className.' Model already exists in the '.$directories.' directory.');
             }
 
             $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseModel;
-            $extends = in_array(strtolower($extends), array('my', 'ci', 'mx')) ? strtoupper($extends) : ucfirst($extends);
+            $extends = in_array(strtolower($extends), ['my', 'ci', 'mx']) ? strtoupper($extends) : ucfirst($extends);
 
             $this->findAndReplace['{{MODEL}}'] = $className;
             $this->findAndReplace['{{TABLE_NAME}}'] = strtolower($className);
-            $this->findAndReplace['{{MODEL_FILE}}'] = $fileName . '.php';
+            $this->findAndReplace['{{MODEL_FILE}}'] = $fileName.'.php';
             $this->findAndReplace['{{MO_EXTENDS}}'] = $extends;
 
             $template = $this->getTemplate('model');
             $template = strtr($template, $this->findAndReplace);
-            if (strlen($directories) > 0 && !file_exists($basePath . $directories)) {
-                mkdir($basePath . $directories, 0755, true);
+            if (strlen($directories) > 0 && !file_exists($basePath.$directories)) {
+                mkdir($basePath.$directories, 0755, true);
             }
 
-            if (!write_file($basePath . $fileName . '.php', $template)) {
+            if (!write_file($basePath.$fileName.'.php', $template)) {
                 throw new Exception('Couldn\'t write Model.');
             }
 
-            echo self::FORMAT_ENTER . 'Model ' . $className . ' has been created inside ' . $basePath . $directories . '.';
+            echo self::FORMAT_ENTER.'Model '.$className.' has been created inside '.$basePath.$directories.'.';
             echo self::FORMAT_ENTER;
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -217,7 +215,7 @@ class Matches extends MY_Controller
     }
 
     /**
-     * create view
+     * create view.
      *
      * @param null $view
      *
@@ -249,25 +247,25 @@ class Matches extends MY_Controller
             $directories = $names['directories'];
             $is_module = $names['is_module'];
 
-            $basePath = $is_module ? FCPATH . "../" : APPPATH;
-            if (file_exists($basePath . $fileName . '.twig')) {
-                throw new Exception($className . ' View already exists in the ' . $directories . ' directory.');
+            $basePath = $is_module ? FCPATH.'../' : APPPATH;
+            if (file_exists($basePath.$fileName.'.twig')) {
+                throw new Exception($className.' View already exists in the '.$directories.' directory.');
             }
 
             $this->findAndReplace['{{VIEW}}'] = ucfirst($className);
-            $this->findAndReplace['{{VIEW_FILE}}'] =  $fileName . '.twig';
+            $this->findAndReplace['{{VIEW_FILE}}'] = $fileName.'.twig';
             $template = $this->getTemplate('view');
             $template = strtr($template, $this->findAndReplace);
 
-            if (strlen($directories) > 0 && !file_exists($basePath . $directories)) {
-                mkdir($basePath . $directories, 0755, true);
+            if (strlen($directories) > 0 && !file_exists($basePath.$directories)) {
+                mkdir($basePath.$directories, 0755, true);
             }
 
-            if (!write_file($basePath . $fileName . '.twig', $template)) {
+            if (!write_file($basePath.$fileName.'.twig', $template)) {
                 throw new Exception('Couldn\'t write View.');
             }
 
-            echo self::FORMAT_ENTER . 'View ' . $className . ' has been created inside ' . $basePath . $directories . '.';
+            echo self::FORMAT_ENTER.'View '.$className.' has been created inside '.$basePath.$directories.'.';
             echo self::FORMAT_ENTER;
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -275,11 +273,11 @@ class Matches extends MY_Controller
         }
     }
 
-
     /**
-     * do_migration
+     * do_migration.
      *
-     * @param  mixed $version
+     * @param mixed $version
+     *
      * @return void
      */
     public function do_migration(?string $version = null): void
@@ -315,17 +313,20 @@ class Matches extends MY_Controller
         }
 
         if (isset($version) && array_key_exists($version, $migrations) && $this->migration->version($version)) {
-            echo self::FORMAT_ENTER . 'The migration was reset to the version: ' . $version;
+            echo self::FORMAT_ENTER.'The migration was reset to the version: '.$version;
+
             return true;
         } elseif (isset($version) && !array_key_exists($version, $migrations)) {
-            echo self::FORMAT_ENTER . 'The migration with version number ' . $version . ' doesn\'t exist.';
+            echo self::FORMAT_ENTER.'The migration with version number '.$version.' doesn\'t exist.';
         } else {
             $penultimate = (sizeof($migration_keys) == 1) ? 0 : $migration_keys[sizeof($migration_keys) - 2];
             if ($this->migration->version($penultimate)) {
-                echo self::FORMAT_ENTER . 'The migration has been rolled back successfully.';
+                echo self::FORMAT_ENTER.'The migration has been rolled back successfully.';
+
                 return true;
             } else {
-                echo self::FORMAT_ENTER . 'Couldn\'t roll back the migration.';
+                echo self::FORMAT_ENTER.'Couldn\'t roll back the migration.';
+
                 return false;
             }
         }
@@ -340,11 +341,13 @@ class Matches extends MY_Controller
     {
         $this->load->library('migration');
         if ($this->migration->current() !== false) {
-            echo self::FORMAT_ENTER . 'The migration was reset to the version set in the config file.';
+            echo self::FORMAT_ENTER.'The migration was reset to the version set in the config file.';
+
             return true;
         } else {
-            echo self::FORMAT_ENTER . 'Couldn\'t reset migration.';
+            echo self::FORMAT_ENTER.'Couldn\'t reset migration.';
             show_error($this->migration->error_string());
+
             return false;
         }
     }
@@ -354,7 +357,7 @@ class Matches extends MY_Controller
      */
     public function create_migration()
     {
-        $available = array('extend' => 'extend', 'e' => 'extend', 'table' => 'table', 't' => 'table');
+        $available = ['extend' => 'extend', 'e' => 'extend', 'table' => 'table', 't' => 'table'];
         $params = func_get_args();
 
         try {
@@ -377,29 +380,29 @@ class Matches extends MY_Controller
             $this->config->load('migration', true);
             $migrationPath = $this->config->item('migration_path', 'migration');
             $migrationType = $this->config->item('migration_type', 'migration') ?? 'sequential';
-            $className = 'Migration_' . ucfirst($action);
+            $className = 'Migration_'.ucfirst($action);
 
             if ($migrationType == 'timestamp') {
-                $fileName = date('YmdHis') . '_' . strtolower($action);
+                $fileName = date('YmdHis').'_'.strtolower($action);
             } else {
                 $latest_migration = 0;
-                foreach (glob($migrationPath . '*.php') as $migration) {
+                foreach (glob($migrationPath.'*.php') as $migration) {
                     $pattern = '/[0-9]{3}/';
                     if (preg_match($pattern, $migration, $matches)) {
                         $migration_version = intval($matches[0]);
                         $latest_migration = ($migration_version > $latest_migration) ? $migration_version : $latest_migration;
                     }
                 }
-                $latest_migration = (string)++$latest_migration;
-                $fileName = str_pad($latest_migration, 3, '0', STR_PAD_LEFT) . '_' . strtolower($action);
+                $latest_migration = (string) ++$latest_migration;
+                $fileName = str_pad($latest_migration, 3, '0', STR_PAD_LEFT).'_'.strtolower($action);
             }
 
-            if (file_exists($migrationPath . $fileName) or (class_exists($className))) {
-                throw new Exception($className . ' Migration already exists.');
+            if (file_exists($migrationPath.$fileName) or (class_exists($className))) {
+                throw new Exception($className.' Migration already exists.');
             }
 
             $extends = array_key_exists('extend', $arguments) ? $arguments['extend'] : $this->baseMigration;
-            $extends = in_array(strtolower($extends), array('my', 'ci', 'mx')) ? strtoupper($extends) : ucfirst($extends);
+            $extends = in_array(strtolower($extends), ['my', 'ci', 'mx']) ? strtoupper($extends) : ucfirst($extends);
 
             $table = 'SET_YOUR_TABLE_HERE';
             if (array_key_exists('table', $arguments)) {
@@ -416,11 +419,11 @@ class Matches extends MY_Controller
             // Replace
             $template = $this->getTemplate('migration');
             $template = strtr($template, $this->findAndReplace);
-            if (!write_file($migrationPath . $fileName . '.php', $template)) {
+            if (!write_file($migrationPath.$fileName.'.php', $template)) {
                 throw new Exception('Couldn\'t write Migration.');
             }
 
-            echo self::FORMAT_ENTER . 'Migration ' . $className . ' has been created.';
+            echo self::FORMAT_ENTER.'Migration '.$className.' has been created.';
             echo self::FORMAT_ENTER;
         } catch (\Throwable $th) {
             echo $th->getMessage();
@@ -429,10 +432,11 @@ class Matches extends MY_Controller
     }
 
     /**
-     * setName
+     * setName.
      *
-     * @param  string $str
-     * @param  ?string $type
+     * @param string  $str
+     * @param ?string $type
+     *
      * @return array
      */
     private function setName(string $str, ?string $type = null): array
@@ -456,14 +460,14 @@ class Matches extends MY_Controller
 
         $className = ucfirst($className);
         $directories = implode('/', $structure);
-        $file = $directories . '/' . $className;
+        $file = $directories.'/'.$className;
 
-        return array(
-            'file' => $file,
-            'class' => $className,
+        return [
+            'file'        => $file,
+            'class'       => $className,
             'directories' => $directories,
-            'is_module' => $isModule
-        );
+            'is_module'   => $isModule,
+        ];
     }
 
     /**
@@ -474,9 +478,9 @@ class Matches extends MY_Controller
     private function getTemplate($type)
     {
         try {
-            $templateLocation = $this->baseLocation . $type . '.stub';
+            $templateLocation = $this->baseLocation.$type.'.stub';
             if (!file_exists($templateLocation)) {
-                throw new Exception('Couldn\'t find ' . $type . ' template.');
+                throw new Exception('Couldn\'t find '.$type.' template.');
             }
 
             return file_get_contents($templateLocation);
@@ -498,7 +502,7 @@ class Matches extends MY_Controller
         }
 
         if (method_exists($this, $method)) {
-            return call_user_func_array(array($this, $method), $params);
+            return call_user_func_array([$this, $method], $params);
         }
     }
 }

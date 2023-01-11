@@ -1,21 +1,22 @@
 <?php
 
 /**
- * MY_Model
+ * MY_Model.
  */
 class MY_Model extends CI_Model
 {
     /**
-     * Table Name
+     * Table Name.
      *
      * @var string
      */
     public $table;
 
     /**
-     * All Result
+     * All Result.
      *
-     * @param  array $conditions
+     * @param array $conditions
+     *
      * @return ?array
      */
     public function all(array $conditions = []): ?array
@@ -24,9 +25,10 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Find One
+     * Find One.
      *
-     * @param  array $conditions
+     * @param array $conditions
+     *
      * @return ?stdClass
      */
     public function find(array $conditions = []): ?stdClass
@@ -35,9 +37,10 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Count Data
+     * Count Data.
      *
-     * @param  array $conditions
+     * @param array $conditions
+     *
      * @return ?int
      */
     public function count(array $conditions = []): ?int
@@ -46,9 +49,10 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Store Data
+     * Store Data.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return void
      */
     public function insert(array $data): void
@@ -57,10 +61,11 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Update Data
+     * Update Data.
      *
-     * @param  array $data
-     * @param  array $conditions
+     * @param array $data
+     * @param array $conditions
+     *
      * @return void
      */
     public function update(array $data, array $conditions): void
@@ -69,9 +74,10 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Destroy Data
+     * Destroy Data.
      *
-     * @param  array $conditions
+     * @param array $conditions
+     *
      * @return void
      */
     public function delete(array $conditions): void

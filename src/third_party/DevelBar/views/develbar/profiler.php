@@ -36,18 +36,18 @@
 </style>
 </head>
 <body>
-<?php if(empty($profiler)): ?>
+<?php if (empty($profiler)) { ?>
     <p style="background:#f03900;color:#FFF;text-align: center;padding: 20px"><?php echo lang('profiler_key_has_expired') ?></p>
-<?php else: ?>
+<?php } else { ?>
 <div class="ci-toolbar-tabs">
     <ul>
         <li class="active"><a href="#" class="ajax"><?php echo lang('ajax_requests') ?></a></li>
-        <?php if(isset($profiler['database'])) : ?>
-            <li><a href="#" class="database"><?php echo lang('database') . ' <span id="count_db_queries"></span>' ?></a></li>
-        <?php endif; ?>
-        <li><a href="#" class="models"><?php echo lang('models') . ' ('.count($profiler['models']['models']).')' ?></a></li>
-        <li><a href="#" class="helpers"><?php echo lang('helpers') . ' ('.count($profiler['helpers']['helpers']).')' ?></a></li>
-        <li><a href="#" class="libraries"><?php echo lang('libraries') . ' ('.count($profiler['libraries']['loaded_libraries']).')' ?></a></li>
+        <?php if (isset($profiler['database'])) { ?>
+            <li><a href="#" class="database"><?php echo lang('database').' <span id="count_db_queries"></span>' ?></a></li>
+        <?php } ?>
+        <li><a href="#" class="models"><?php echo lang('models').' ('.count($profiler['models']['models']).')' ?></a></li>
+        <li><a href="#" class="helpers"><?php echo lang('helpers').' ('.count($profiler['helpers']['helpers']).')' ?></a></li>
+        <li><a href="#" class="libraries"><?php echo lang('libraries').' ('.count($profiler['libraries']['loaded_libraries']).')' ?></a></li>
         <li><a href="#" class="configuration"><?php echo lang('config') ?></a></li>
     </ul>
 </div>
@@ -82,24 +82,24 @@
                 <td><?php echo lang('server') ?></td>
                 <td><?php echo lang('database') ?></td>
                 <td><?php echo lang('queries') ?></td>
-                <td style="text-align:right"><?php echo lang('time') .' ('. lang('sec').')' ?></td>
+                <td style="text-align:right"><?php echo lang('time').' ('.lang('sec').')' ?></td>
             </tr>
             </thead>
             <tbody>
-            <?php if(isset($profiler['database'])): ?>
+            <?php if (isset($profiler['database'])) { ?>
             <?php $dbs = $profiler['database']['dbs']; ?>
-            <?php if(count($dbs)): ?>
+            <?php if (count($dbs)) { ?>
                 <?php
                 $global_execution_time = 0;
                 $count_queries = 0;
-                foreach ($dbs as $name => $db):?>
+                foreach ($dbs as $name => $db) { ?>
                     <tr>
-                    <?php if (count($db['queries'])): ?>
+                    <?php if (count($db['queries'])) { ?>
                         <?php
                         $total_execution_time = 0;
                         foreach ($db['queries'] as $key => $query) {
                             $time = number_format($db['query_times'][$key], 4);
-                            $highlight = array('SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')');
+                            $highlight = ['SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')'];
                             foreach ($highlight as $bold) {
                                 $query = str_replace($bold, '<strong style="color:#e0e0e0">'.$bold.'</strong>', $query);
                             }
@@ -107,24 +107,24 @@
                             <td>'.$db['hostname'].'</td>
                             <td>'.$db['database'].'</td>
                             <td>'.$query.'</td>
-                            <td style="text-align:right">' . $time . '</td>';
+                            <td style="text-align:right">'.$time.'</td>';
                             $total_execution_time = array_sum($db['query_times']);
                             $global_execution_time += $total_execution_time;
-                            ++$count_queries;
+                            $count_queries++;
                         }
                         ?>
-                    <?php else: ?>
+                    <?php } else { ?>
                         <td><?php echo $db['hostname'] ?></td>
                         <td><?php echo $db['database'] ?></td>
                         <td><?php echo lang('no_queries') ?></td>
                         <td style="text-align:right"></td>
-                    <?php endif ?>
+                    <?php } ?>
                     </tr>
-                <?php endforeach ?>
+                <?php } ?>
                 <span style="display: none;" id="count_queries"><?php echo $count_queries ?></span>
-            <?php endif; ?>
+            <?php } ?>
             </tbody>
-            <?php if ($global_execution_time > 0): ?>
+            <?php if ($global_execution_time > 0) { ?>
                 <tfoot>
                 <tr style="background:#f03900;color:#FFF; text-align:right ">
                     <td colspan="3"><?php echo lang('total_execution_time') ?></td>
@@ -133,8 +133,8 @@
                     </td>
                 </tr>
                 </tfoot>
-            <?php endif ?>
-        <?php endif; ?>
+            <?php } ?>
+        <?php } ?>
         </table>
     </div>
     <div class="helpers">
@@ -143,7 +143,7 @@
         $helpers = $profiler['helpers'];
         foreach ($helpers['helpers'] as $helper) {
             echo '
-            <p class="list">' . ucfirst($helper) . '</p>';
+            <p class="list">'.ucfirst($helper).'</p>';
         }
         ?>
     </div>
@@ -153,7 +153,7 @@
         $models = $profiler['models'];
         foreach ($models['models'] as $model) {
             echo '
-            <p class="list">' . $model . '</p>';
+            <p class="list">'.$model.'</p>';
         }
         ?>
     </div>
@@ -163,7 +163,7 @@
         $libraries = $profiler['libraries'];
         foreach ($libraries['loaded_libraries'] as $library) {
             echo '
-            <p class="list">' . $library . '</p>';
+            <p class="list">'.$library.'</p>';
         }
         ?>
     </div>
@@ -180,12 +180,12 @@
             <?php
             $configuration = $profiler['config'];
             foreach ($configuration['configuration'] as $config => $val) {
-                if (is_array($val) OR is_object($val)) {
+                if (is_array($val) or is_object($val)) {
                     $val = print_r($val, true);
                 }
                 echo '<tr>';
-                echo '<td>' .$config . '</td>';
-                echo '<td>' .htmlentities($val) . '</td>';
+                echo '<td>'.$config.'</td>';
+                echo '<td>'.htmlentities($val).'</td>';
                 echo '</tr>';
             }
             ?>
@@ -222,6 +222,6 @@
         var dbQueries = document.getElementById('count_queries').textContent;
         document.getElementById('count_db_queries').textContent = ' ('+ dbQueries + ')';
     </script>
-<?php endif; ?>
+<?php } ?>
 </body>
 </html>

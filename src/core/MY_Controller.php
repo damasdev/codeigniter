@@ -1,12 +1,12 @@
 <?php
 
 /* load the MX_Controller class */
-require_once APPPATH . 'third_party/MX/Controller.php';
+require_once APPPATH.'third_party/MX/Controller.php';
 
 class MY_Controller extends MX_Controller
 {
     /**
-     * Initialize Menu
+     * Initialize Menu.
      *
      * @return string
      */
@@ -18,10 +18,10 @@ class MY_Controller extends MX_Controller
     }
 
     /**
-     * Render view
+     * Render view.
      *
-     * @param  string $view
-     * @param  array $vars
+     * @param string $view
+     * @param array  $vars
      */
     protected function render($view, $vars = [])
     {
@@ -32,10 +32,10 @@ class MY_Controller extends MX_Controller
     }
 
     /**
-     * Return response with json format
+     * Return response with json format.
      *
      * @param mixed $payload
-     * @param int $statusCode
+     * @param int   $statusCode
      */
     protected function jsonResponse($payload, int $statusCode = 200)
     {
