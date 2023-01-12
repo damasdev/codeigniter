@@ -39,13 +39,13 @@ function dd($data): void
 }
 
 /**
- * User
+ * User.
  *
  * @return ?stdClass
  */
 function user(): ?stdClass
 {
-    $ci =&get_instance();
+    $ci = &get_instance();
     $ci->load->library('session');
 
     return $ci->session->userdata('user');
