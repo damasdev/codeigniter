@@ -111,7 +111,7 @@ class Menu extends MX_Controller
     private $items = [];
 
     /**
-     * User Role
+     * User Role.
      *
      * @var ?string
      */
@@ -158,10 +158,11 @@ class Menu extends MX_Controller
     }
 
     /**
-     * prepareItems
+     * prepareItems.
      *
-     * @param  array $data
-     * @param  ?string $parent
+     * @param array   $data
+     * @param ?string $parent
+     *
      * @return array
      */
     private function prepareItems(array $data, ?string $parent = null): array
@@ -198,7 +199,7 @@ class Menu extends MX_Controller
 
             if ($icon) {
                 $icon = "{$this->iconTagOpen}<i class='icon {$icon}'></i>{$this->iconTagClose}";
-                $label = trim($icon . "<span class='nav-link-title'>{$label}</span>");
+                $label = trim($icon."<span class='nav-link-title'>{$label}</span>");
             }
 
             if ($hasChildren) {
@@ -244,7 +245,7 @@ class Menu extends MX_Controller
             $doc->loadHTML($html);
 
             foreach ($doc->getElementsByTagName('*') as $tag) {
-                $tag->setAttribute('class', $tag->getAttribute('class') . ' active');
+                $tag->setAttribute('class', $tag->getAttribute('class').' active');
             }
 
             $html = $doc->saveHTML();
