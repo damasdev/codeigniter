@@ -106,7 +106,7 @@ $autoload['helper'] = ['url', 'common_helper'];
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = ['whitelist', 'menu', 'privilege'];
+$autoload['config'] = ['whitelist', 'menu', 'privilege', 'versioning'];
 
 /*
 | -------------------------------------------------------------------

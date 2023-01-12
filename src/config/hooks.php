@@ -32,6 +32,13 @@ $hook['pre_controller'][] = [
     'filepath' => 'hooks',
 ];
 
+$hook['pre_controller'][] = array(
+    'class' => 'Versioning',
+    'function' => 'init',
+    'filename' => 'Versioning.php',
+    'filepath' => 'hooks'
+);
+
 $hook['display_override'][] = [
     'class'    => 'Develbar',
     'function' => 'debug',

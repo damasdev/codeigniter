@@ -79,7 +79,7 @@
 
 {% block scripts %}
 	<script src="{{ base_url ('/vendor/datatables/js/datatables.min.js')}}"></script>
-	<script src="{{ base_url ('/js/modules/role/role.js')}}"></script>
+	<script src="{{ base_url ('/js/modules/role/role.js')}}{{ ver['js']['role'] }}"></script>
 {% endblock %}
 
 {% block styles %}
