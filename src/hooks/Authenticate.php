@@ -33,6 +33,7 @@ class Authenticate extends MY_Controller
         if ($this->isApiRequest()) {
             if (!$this->jwt_library->validate()) {
                 $this->jsonResponse([
+                    'status'  => 'error',
                     'message' => 'Unauthorized',
                 ], 401);
             }
@@ -59,6 +60,8 @@ class Authenticate extends MY_Controller
      */
     private function isApiRequest(): bool
     {
+        $this->setAPI(true);
+
         return $this->uri->segment(1) === 'api';
     }
 }

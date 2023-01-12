@@ -1,6 +1,8 @@
 <?php
 
 $config['privilege'] = [
-    'root' => [],
+    'root' => [
+        'user.module', 'role.module',
+    ],
     'user' => [],
 ];

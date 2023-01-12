@@ -91,7 +91,7 @@
 
 {% block scripts %}
 	<script src="{{ base_url ('/vendor/datatables/js/datatables.min.js')}}"></script>
-	<script src="{{ base_url ('/js/modules/user/user.js')}}"></script>
+	<script src="{{ base_url ('/js/modules/user/user.js')}}{{ ver['js']['user'] }}"></script>
 {% endblock %}
 
 {% block styles %}

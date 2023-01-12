@@ -4,8 +4,9 @@ class User extends MY_Controller
 {
     public function __construct()
     {
+        $this->assertPrivilege("user.module");
+
         $this->load->model("User_model", "userModel");
-        $this->load->library("datatables");
     }
 
     /**
