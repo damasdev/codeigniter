@@ -45,7 +45,7 @@ class MY_Model extends CI_Model
      */
     public function count(array $conditions = []): ?int
     {
-        return $this->db->where($conditions)->get($this->table)->num_rows();
+        return $this->db->where($conditions)->from($this->table)->count_all_results();
     }
 
     /**

@@ -85,12 +85,12 @@ class Authenticate extends MY_Controller
         $user = $this->auth_library->user();
 
         // Super Administrator
-        if ($user->type === 'admin') {
+        if ($user->role === 'root') {
             return true;
         }
 
         // Load Features
-        $features = $this->auth_library->features($user->role_id) ?? [];
+        $features = $this->auth_library->features($user->role) ?? [];
         foreach ($features as $feature) {
             // Check Permission
             if (isEqual($module, (string) $feature->module) && isEqual($class, (string) $feature->class) && isEqual($method, (string) $feature->method)) {

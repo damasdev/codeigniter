@@ -33,7 +33,7 @@ class Role extends MY_Controller
                 'code' => $this->input->post('code')
             ];
 
-            if (!$this->form_validation->run('role')) {
+            if (!$this->form_validation->run('store_role')) {
                 $errors = $this->form_validation->error_array();
                 throw new Exception(current($errors));
             }
@@ -55,22 +55,22 @@ class Role extends MY_Controller
     /**
      * Destroy Role
      *
-     * @param  int $id
+     * @param  string $code
      * @return void
      */
-    public function destroy(int $id): void
+    public function destroy(string $code): void
     {
         try {
-            $role = $this->roleModel->find(['id' => $id]);
+            $role = $this->roleModel->find(['code' => $code]);
             if (!$role) {
                 throw new Exception("Data not found");
             }
 
-            if ($role->type === 'admin') {
+            if ($role->code === 'root') {
                 throw new Exception("Role can't be deleted!");
             }
 
-            $this->roleModel->delete(['id' => $id]);
+            $this->roleModel->delete(['code' => $code]);
 
             $this->jsonResponse([
                 'status' => 'success',
@@ -87,12 +87,12 @@ class Role extends MY_Controller
     /**
      * Show Role
      *
-     * @param  int $id
+     * @param  string $code
      * @return void
      */
-    public function show(int $id): void
+    public function show(string $code): void
     {
-        $role = $this->roleModel->find(['id' => $id]);
+        $role = $this->roleModel->find(['code' => $code]);
 
         if (!$role) {
             show_404();
@@ -107,12 +107,12 @@ class Role extends MY_Controller
     /**
      * Edit Role
      *
-     * @param  int $id
+     * @param  string $code
      * @return void
      */
-    public function edit(int $id): void
+    public function edit(string $code): void
     {
-        $role = $this->roleModel->find(['id' => $id]);
+        $role = $this->roleModel->find(['code' => $code]);
 
         if (!$role) {
             show_404();
@@ -127,24 +127,23 @@ class Role extends MY_Controller
     /**
      * Update Data
      *
-     * @param  int $id
+     * @param  string $code
      * @return void
      */
-    public function update(int $id): void
+    public function update(string $code): void
     {
         try {
             $data = [
-                'name' => $this->input->post('name'),
-                'code' => $this->input->post('code')
+                'name' => $this->input->post('name')
             ];
 
-            if (!$this->form_validation->run('role')) {
+            if (!$this->form_validation->run('update_role')) {
                 $errors = $this->form_validation->error_array();
                 throw new Exception(current($errors));
             }
 
             $this->roleModel->update($data, [
-                'id' => $id
+                'code' => $code
             ]);
 
             $this->jsonResponse([
@@ -167,7 +166,7 @@ class Role extends MY_Controller
     public function datatables(): void
     {
         $this->load->library('datatables');
-        $data = $this->datatables->table('roles')->where('type', 'user')->draw();
+        $data = $this->datatables->table('roles')->draw();
 
         $this->jsonResponse($data);
     }

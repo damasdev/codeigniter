@@ -17,7 +17,7 @@ class User extends MY_Controller
         $this->load->model('role/Role_model', 'roleModel');
 
         $data['title'] = "User";
-        $data['roles'] = $this->roleModel->all(['type' => 'user']);
+        $data['roles'] = $this->roleModel->all();
 
         $this->render('user', $data);
     }
@@ -34,7 +34,7 @@ class User extends MY_Controller
                 'name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
                 'password' => $this->input->post('password'),
-                'role_id' => $this->input->post('role_id'),
+                'role' => $this->input->post('role'),
             ];
 
             if (!$this->form_validation->run('user')) {
@@ -71,10 +71,6 @@ class User extends MY_Controller
             $user = $this->userModel->findWithRole(['users.id' => $id]);
             if (!$user) {
                 throw new Exception("Data not found");
-            }
-
-            if ($user->type === 'admin') {
-                throw new Exception("User can't be deleted!");
             }
 
             $this->userModel->delete(['id' => $id]);
@@ -128,7 +124,7 @@ class User extends MY_Controller
         }
 
         $data['title'] = 'Edit Role';
-        $data['roles'] = $this->roleModel->all(['type' => 'user']);
+        $data['roles'] = $this->roleModel->all();
         $data['user'] = $user;
 
         $this->render('edit-user', $data);
@@ -147,7 +143,7 @@ class User extends MY_Controller
                 'name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
                 'password' => $this->input->post('password'),
-                'role_id' => $this->input->post('role_id'),
+                'role' => $this->input->post('role'),
             ];
 
             if (!$this->form_validation->run('user')) {
@@ -179,7 +175,7 @@ class User extends MY_Controller
     public function datatables(): void
     {
         $this->load->library('datatables');
-        $data = $this->datatables->table('users')->join('roles', 'roles.id = users.role_id')->where('roles.type', 'user')->draw();
+        $data = $this->datatables->table('users')->join('roles', 'roles.code = users.role')->draw();
 
         $this->jsonResponse($data);
     }

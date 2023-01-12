@@ -10,7 +10,7 @@ $config = [
         [
             'field' => 'email',
             'label' => 'email',
-            'rules' => 'required|valid_email'
+            'rules' => 'trim|required|valid_email|is_unique[users.email]'
         ],
         [
             'field' => 'password',
@@ -18,8 +18,8 @@ $config = [
             'rules' => 'required|trim'
         ],
         [
-            'field' => 'role_id',
-            'label' => 'role_id',
+            'field' => 'role',
+            'label' => 'role',
             'rules' => 'required|trim'
         ],
     ]
