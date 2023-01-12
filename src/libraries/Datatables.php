@@ -3,20 +3,6 @@
 class Datatables
 {
     /**
-     * DB.
-     *
-     * @var mixed
-     */
-    protected $db;
-
-    /**
-     * Input.
-     *
-     * @var mixed
-     */
-    protected $input;
-
-    /**
      * Table Name.
      *
      * @var string
@@ -51,12 +37,18 @@ class Datatables
      */
     protected $conditions = [];
 
-    public function __construct()
+    /**
+     * __get.
+     *
+     * Enables the use of CI super-global without having to define an extra variable.
+     *
+     * @param string $var
+     *
+     * @return mixed
+     */
+    public function __get($var)
     {
-        $codeigniter = &get_instance();
-
-        $this->input = $codeigniter->input;
-        $this->db = $codeigniter->db;
+        return get_instance()->$var;
     }
 
     /**

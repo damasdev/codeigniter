@@ -96,7 +96,7 @@ class MY_Loader extends MX_Loader
         if ((bool) @ini_get('short_open_tag') === false && CI::$APP->config->item('rewrite_short_tags') == true) {
             echo eval('?>'.preg_replace("/;*\s*\?>/", '; ?>', str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
         } else {
-            include $_ci_path;
+            include_once $_ci_path;
         }
 
         // PATCH : Add the the loaded view file to the list

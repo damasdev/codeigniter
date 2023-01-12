@@ -59,7 +59,6 @@ $autoload['packages'] = [APPPATH.'third_party/DevelBar'];
 */
 $autoload['libraries'] = [
     'twig', 'session', 'database',
-    'menu_library'      => 'menu_library',
     'auth/auth_library' => 'auth_library',
     'api/jwt_library'   => 'jwt_library',
 ];
@@ -107,7 +106,7 @@ $autoload['helper'] = ['url', 'common_helper'];
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = ['whitelist', 'menus'];
+$autoload['config'] = ['whitelist', 'menu', 'privilege'];
 
 /*
 | -------------------------------------------------------------------

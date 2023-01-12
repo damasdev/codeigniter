@@ -16,11 +16,3 @@ $config['whitelist']['']['matches'] = [
     'create:app', 'create:model', 'create:view', 'create:controller', 'create:migration',
     'undo:migration', 'do:migration', 'reset:migration',
 ];
-
-/**
- * Basic Feature.
- *
- * User can access feature without permission
- */
-$config['permissions']['auth']['auth'] = ['index'];
-$config['permissions']['home']['home'] = ['index'];

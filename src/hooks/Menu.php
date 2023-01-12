@@ -1,6 +1,6 @@
 <?php
 
-class Menu_library
+class Menu extends MX_Controller
 {
     /**
      * Tag opener of the navigation menu
@@ -111,6 +111,13 @@ class Menu_library
     private $items = [];
 
     /**
+     * User Role
+     *
+     * @var ?string
+     */
+    private $role = null;
+
+    /**
      * __get.
      *
      * Enables the use of CI super-global without having to define an extra variable.
@@ -124,12 +131,17 @@ class Menu_library
         return get_instance()->$var;
     }
 
-    public function render(?string $role)
+    public function __construct()
+    {
+        $this->role = $this->auth_library->user()->role ?? null;
+    }
+
+    public function init(): void
     {
         $html = '';
-        $items = $this->config->item('menus');
+        $items = $this->config->item('menu');
         foreach ($items as $index => $value) {
-            if (!in_array($role, $value['privileges'])) {
+            if (!in_array($this->role, $value['privileges'])) {
                 unset($items[$index]);
             }
         }
@@ -142,10 +154,17 @@ class Menu_library
             $this->renderItem($items, $html);
         }
 
-        return $html;
+        $this->twig->addGlobal('sidebar', $html);
     }
 
-    private function prepareItems(array $data, $parent = null)
+    /**
+     * prepareItems
+     *
+     * @param  array $data
+     * @param  ?string $parent
+     * @return array
+     */
+    private function prepareItems(array $data, ?string $parent = null): array
     {
         $items = [];
 
@@ -179,7 +198,7 @@ class Menu_library
 
             if ($icon) {
                 $icon = "{$this->iconTagOpen}<i class='icon {$icon}'></i>{$this->iconTagClose}";
-                $label = trim($icon."<span class='nav-link-title'>{$label}</span>");
+                $label = trim($icon . "<span class='nav-link-title'>{$label}</span>");
             }
 
             if ($hasChildren) {
@@ -225,7 +244,7 @@ class Menu_library
             $doc->loadHTML($html);
 
             foreach ($doc->getElementsByTagName('*') as $tag) {
-                $tag->setAttribute('class', $tag->getAttribute('class').' active');
+                $tag->setAttribute('class', $tag->getAttribute('class') . ' active');
             }
 
             $html = $doc->saveHTML();
