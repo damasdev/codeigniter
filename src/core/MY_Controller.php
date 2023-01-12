@@ -1,20 +1,45 @@
 <?php
 
-/* load the MX_Controller class */
-require_once APPPATH.'third_party/MX/Controller.php';
-
 class MY_Controller extends MX_Controller
 {
     /**
-     * Initialize Menu.
+     * privileges.
      *
-     * @return string
+     * @var array
      */
-    private function initializeMenu()
-    {
-        $role = $this->auth_library->user()->role ?? null;
+    private $privileges = [];
 
-        return $this->menu_library->render($role);
+    /**
+     * __construct.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $role = $this->session->user->role ?? null;
+        $this->privileges = $this->config->item('privilege')[$role] ?? [];
+    }
+
+    /**
+     * Assert Privilege.
+     *
+     * @param string $privilegeItem
+     *
+     * @return void
+     */
+    protected function assertPrivilege(string $privilegeItem): void
+    {
+        $hasPrivilegeAccess = in_array($privilegeItem, $this->privileges);
+        if (!$hasPrivilegeAccess) {
+            if ($this->input->is_ajax_request()) {
+                $this->jsonResponse([
+                    'status'  => 'error',
+                    'message' => 'You dont have permission',
+                ], 401);
+            } else {
+                show_error('You dont have permission', 401);
+            }
+        }
     }
 
     /**
@@ -25,9 +50,6 @@ class MY_Controller extends MX_Controller
      */
     protected function render($view, $vars = [])
     {
-        // Initialize menu configuration
-        $vars['sidebar'] = $this->initializeMenu();
-
         return $this->twig->display($view, $vars);
     }
 
@@ -36,8 +58,10 @@ class MY_Controller extends MX_Controller
      *
      * @param mixed $payload
      * @param int   $statusCode
+     *
+     * @return void
      */
-    protected function jsonResponse($payload, int $statusCode = 200)
+    protected function jsonResponse($payload, int $statusCode = 200): void
     {
         $this->output
             ->set_status_header($statusCode)

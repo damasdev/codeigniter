@@ -2,7 +2,7 @@ $("#submit").click(function (e) {
   e.preventDefault();
 
   let data = $("#form").serialize();
-  const roleId = $("#role_id").val();
+  const roleId = $("#role").val();
 
   $.ajax({
     url: `${baseURL}role/${roleId}`,

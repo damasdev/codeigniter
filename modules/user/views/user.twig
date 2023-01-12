@@ -72,9 +72,9 @@
 					</div>
 					<div class="form-group mb-3">
 						<label for="role">Role</label>
-						<select class="form-select select2" name="role_id" id="role">
+						<select class="form-select select2" name="role" id="role">
 							{% for role in roles %}
-								<option value="{{role.id}}">{{role.name}}</option>
+								<option value="{{role.code}}">{{role.name}}</option>
 							{% endfor %}
 						</select>
 					</div>

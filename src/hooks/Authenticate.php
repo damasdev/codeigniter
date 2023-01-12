@@ -3,12 +3,10 @@
 class Authenticate extends MY_Controller
 {
     private $whitelist = [];
-    private $permissions = [];
 
     public function __construct()
     {
         $this->whitelist = $this->config->item('whitelist');
-        $this->permissions = $this->config->item('permissions');
         $this->hmvc();
     }
 
@@ -52,53 +50,6 @@ class Authenticate extends MY_Controller
             redirect('auth/login', 'refresh');
             exit();
         }
-
-        // Check Basic Feature
-        if (in_array($method, $this->permissions[$module][$class] ?? [])) {
-            return;
-        }
-
-        // Check User Permission
-        if (!$this->hasPermission($module, $class, $method)) {
-            if ($this->input->is_ajax_request()) {
-                $this->jsonResponse([
-                    'status'  => 'error',
-                    'message' => 'You dont have permission',
-                ], 401);
-            } else {
-                show_error('You dont have permission', 401);
-            }
-        }
-    }
-
-    /**
-     * Check Permission.
-     *
-     * @param string $class
-     * @param string $method
-     *
-     * @return bool
-     */
-    private function hasPermission(string $module, string $class, string $method): bool
-    {
-        // User Data
-        $user = $this->auth_library->user();
-
-        // Super Administrator
-        if ($user->type === 'admin') {
-            return true;
-        }
-
-        // Load Features
-        $features = $this->auth_library->features($user->role_id) ?? [];
-        foreach ($features as $feature) {
-            // Check Permission
-            if (isEqual($module, (string) $feature->module) && isEqual($class, (string) $feature->class) && isEqual($method, (string) $feature->method)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**

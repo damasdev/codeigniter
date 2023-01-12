@@ -29,20 +29,16 @@ class Migration_Create_user_table extends CI_Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
-            'role_id' => [
-                'type'       => 'INT',
-                'constraint' => 11,
-                'unsigned'   => true,
+            'role' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
             ],
         ];
 
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('id', true);
+        $this->dbforge->add_key(['role', 'email']);
         $this->dbforge->create_table('users', true);
-
-        $this->dbforge->add_column('users', [
-            'CONSTRAINT fk_user_role_id FOREIGN KEY(role_id) REFERENCES roles(id) ON DELETE CASCADE',
-        ]);
 
         // Dumping data for table 'users'
         $data = [
@@ -50,7 +46,7 @@ class Migration_Create_user_table extends CI_Migration
             'name'     => 'Damas Amirul Karim',
             'password' => password_hash('rahasia', PASSWORD_BCRYPT),
             'email'    => 'codewithdamas@gmail.com',
-            'role_id'  => 1,
+            'role'     => 'root',
         ];
 
         $this->db->insert('users', $data);

@@ -52,9 +52,9 @@
 
 			<div class="form-group mb-3">
 				<label for="role">Role</label>
-				<select class="form-select select2" name="role_id" id="role">
+				<select class="form-select select2" name="role" id="role">
 					{% for role in roles %}
-						<option value="{{role.id}}" {% if role.id is same as (user.role_id) %} selected {% endif %}>
+						<option value="{{role.code}}" {% if role.code is same as (user.role) %} selected {% endif %}>
 							{{role.name}}
 						</option>
 					{% endfor %}

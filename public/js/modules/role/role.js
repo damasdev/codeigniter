@@ -12,23 +12,23 @@ $(document).ready(function () {
       method: "POST",
     },
     columns: [
-      { data: "name" },
       { data: "code" },
+      { data: "name" },
       {
-        data: "id",
-        render: function (id) {
+        data: "code",
+        render: function (code) {
           return `
-            <a href="${baseURL}role/${id}" class="btn btn-sm text-primary">
+            <a href="${baseURL}role/${code}" class="btn btn-sm text-primary">
               <i class="ti ti-list-details"></i>
               Detail
             </a>
             |
-            <a href="${baseURL}role/${id}/edit" class="btn btn-sm text-warning">
+            <a href="${baseURL}role/${code}/edit" class="btn btn-sm text-warning">
               <i class="ti ti-edit"></i>
               Edit
             </a>
             |
-            <span class="btn btn-sm text-danger remove" data-id="${id}">
+            <span class="btn btn-sm text-danger remove" data-id="${code}">
               <i class="ti ti-trash"></i>
               Delete
             </span>

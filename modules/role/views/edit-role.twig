@@ -41,11 +41,7 @@
 				<label for="name">Name</label>
 				<input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{ role.name }}">
 			</div>
-			<div class="form-group mb-3">
-				<label for="code">Code</label>
-				<input type="text" class="form-control" name="code" id="code" placeholder="Code" value="{{ role.code }}">
-			</div>
-			<input type="hidden" name="role_id" id="role_id" value="{{ role.id }}">
+			<input type="hidden" name="code" id="role" value="{{ role.code }}">
 		</div>
 		<div class="card-footer">
 			<button id="submit" class="btn btn-primary" type="button">

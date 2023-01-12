@@ -1,6 +1,6 @@
 <?php
 
-$config['menus'] = [
+$config['menu'] = [
     [
         'id'         => 'dashboard',
         'parent'     => null,

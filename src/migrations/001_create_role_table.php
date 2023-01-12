@@ -10,43 +10,32 @@ class Migration_Create_role_table extends CI_Migration
     public function up()
     {
         $fields = [
-            'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
-                'auto_increment' => true,
+            'code' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
             ],
             'name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 50,
             ],
-            'code' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 10,
-            ],
-            'type' => [
-                'type'    => 'ENUM("admin","user")',
-                'default' => 'user',
-                'null'    => false,
-            ],
         ];
 
         $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('id', true);
+        $this->dbforge->add_key('code', true);
         $this->dbforge->create_table('roles', true);
 
         $data = [
             [
-                'id'   => 1,
-                'name' => 'Administrator',
                 'code' => 'root',
-                'type' => 'admin',
+                'name' => 'Super Administrator',
             ],
             [
-                'id'   => 2,
-                'name' => 'User',
+                'code' => 'admin',
+                'name' => 'Administrator',
+            ],
+            [
                 'code' => 'user',
-                'type' => 'user',
+                'name' => 'User',
             ],
         ];
 
