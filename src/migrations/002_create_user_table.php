@@ -31,7 +31,7 @@ class Migration_Create_user_table extends CI_Migration
             ],
             'role' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 20
+                'constraint' => 20,
             ],
         ];
 
