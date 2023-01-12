@@ -4,6 +4,7 @@ class Role extends MY_Controller
 {
     public function __construct()
     {
+        $this->assertPrivilege("role.module");
 
         $this->load->model('Role_model', 'roleModel');
     }

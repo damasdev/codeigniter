@@ -3,33 +3,17 @@
 class MY_Controller extends MX_Controller
 {
     /**
-     * privileges.
-     *
-     * @var array
-     */
-    private $privileges = [];
-
-    /**
-     * __construct.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $role = $this->session->user->role ?? null;
-        $this->privileges = $this->config->item('privilege')[$role] ?? [];
-    }
-
-    /**
-     * Assert Privilege.
-     *
-     * @param string $privilegeItem
+     * Assert Privilege
      *
      * @return void
      */
     protected function assertPrivilege(string $privilegeItem): void
     {
-        $hasPrivilegeAccess = in_array($privilegeItem, $this->privileges);
+        $privileges = $this->config->item("privilege")[
+            $this->session->user->role ?? null
+        ] ?? [];
+
+        $hasPrivilegeAccess = in_array($privilegeItem, $privileges);
         if (!$hasPrivilegeAccess) {
             if ($this->input->is_ajax_request()) {
                 $this->jsonResponse([
