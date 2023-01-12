@@ -3,27 +3,28 @@
 class MY_Controller extends MX_Controller
 {
     /**
-     * privileges
+     * privileges.
      *
      * @var array
      */
     private $privileges = [];
-    
+
     /**
-     * __construct
+     * __construct.
      *
      * @return void
      */
     public function __construct()
     {
         $role = $this->session->user->role ?? null;
-        $this->privileges = $this->config->item("privilege")[$role] ?? [];
+        $this->privileges = $this->config->item('privilege')[$role] ?? [];
     }
 
     /**
-     * Assert Privilege
+     * Assert Privilege.
      *
-     * @param  string $privilegeItem
+     * @param string $privilegeItem
+     *
      * @return void
      */
     protected function assertPrivilege(string $privilegeItem): void
@@ -57,13 +58,14 @@ class MY_Controller extends MX_Controller
      *
      * @param mixed $payload
      * @param int   $statusCode
+     *
      * @return void
      */
     protected function jsonResponse($payload, int $statusCode = 200): void
     {
         $this->output
             ->set_status_header($statusCode)
-            ->set_content_type("application/json", "utf-8")
+            ->set_content_type('application/json', 'utf-8')
             ->set_output(
                 json_encode(
                     $payload,
