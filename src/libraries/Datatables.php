@@ -93,11 +93,11 @@ class Datatables
      * Where.
      *
      * @param string $key
-     * @param string $value
+     * @param ?string $value
      *
      * @return Datatables
      */
-    public function where(string $key, string $value): Datatables
+    public function where(string $key, ?string $value): Datatables
     {
         $this->conditions[] = ['key' => $key, 'value' => $value];
 
