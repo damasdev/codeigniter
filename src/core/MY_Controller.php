@@ -3,16 +3,17 @@
 class MY_Controller extends MX_Controller
 {
     /**
-     * isAPI
+     * isAPI.
      *
      * @var bool
      */
     private $isAPI = false;
 
     /**
-     * setAPI
+     * setAPI.
      *
-     * @param  bool $isAPI
+     * @param bool $isAPI
+     *
      * @return void
      */
     protected function setAPI(bool $isAPI): void
