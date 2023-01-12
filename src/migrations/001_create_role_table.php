@@ -12,12 +12,12 @@ class Migration_Create_role_table extends CI_Migration
         $fields = [
             'code' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 20
+                'constraint' => 20,
             ],
             'name' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 50
-            ]
+                'constraint' => 50,
+            ],
         ];
 
         $this->dbforge->add_field($fields);
@@ -27,15 +27,15 @@ class Migration_Create_role_table extends CI_Migration
         $data = [
             [
                 'code' => 'root',
-                'name' => 'Super Administrator'
+                'name' => 'Super Administrator',
             ],
             [
                 'code' => 'admin',
-                'name' => 'Administrator'
+                'name' => 'Administrator',
             ],
             [
                 'code' => 'user',
-                'name' => 'User'
+                'name' => 'User',
             ],
         ];
 
