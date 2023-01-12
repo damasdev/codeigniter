@@ -12,8 +12,8 @@ $(document).ready(function () {
       method: "POST",
     },
     columns: [
-      { data: "name" },
       { data: "code" },
+      { data: "name" },
       {
         data: "code",
         render: function (code) {

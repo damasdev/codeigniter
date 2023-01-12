@@ -10,7 +10,7 @@ $config = [
         [
             'field' => 'code',
             'label' => 'code',
-            'rules' => 'required|trim|is_unique[roles.code]|alpha_dash'
+            'rules' => 'required|trim|is_unique[roles.code]|alpha'
         ],
     ],
     'update_role' => [
