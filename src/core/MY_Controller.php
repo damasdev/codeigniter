@@ -10,6 +10,16 @@ class MY_Controller extends MX_Controller
     private $isAPI = false;
 
     /**
+     * isAPI
+     *
+     * @return bool
+     */
+    protected function isAPI(): bool
+    {
+        return $this->isAPI;
+    }
+
+    /**
      * setAPI.
      *
      * @param bool $isAPI

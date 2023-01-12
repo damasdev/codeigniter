@@ -60,7 +60,9 @@ class Authenticate extends MY_Controller
      */
     private function isApiRequest(): bool
     {
-        $this->setAPI(true);
+        if ($this->isAPI()) {
+            return true;
+        }
 
         return $this->uri->segment(1) === 'api';
     }
