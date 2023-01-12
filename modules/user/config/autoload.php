@@ -2,46 +2,6 @@
 
 /*
 | -------------------------------------------------------------------
-| AUTO-LOADER
-| -------------------------------------------------------------------
-| This file specifies which systems should be loaded by default.
-|
-| In order to keep the framework as light-weight as possible only the
-| absolute minimal resources are loaded by default. For example,
-| the database is not connected to automatically since no assumption
-| is made regarding whether you intend to use it.  This file lets
-| you globally define which systems you would like loaded with every
-| request.
-|
-| -------------------------------------------------------------------
-| Instructions
-| -------------------------------------------------------------------
-|
-| These are the things you can load automatically:
-|
-| 1. Packages
-| 2. Libraries
-| 3. Drivers
-| 4. Helper files
-| 5. Custom config files
-| 6. Language files
-| 7. Models
-|
-*/
-
-/*
-| -------------------------------------------------------------------
-|  Auto-load Packages
-| -------------------------------------------------------------------
-| Prototype:
-|
-|  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
-|
-*/
-$autoload['packages'] = [APPPATH.'third_party/DevelBar'];
-
-/*
-| -------------------------------------------------------------------
 |  Auto-load Libraries
 | -------------------------------------------------------------------
 | These are the classes located in system/libraries/ or your
@@ -57,11 +17,7 @@ $autoload['packages'] = [APPPATH.'third_party/DevelBar'];
 |
 | $autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = [
-    'twig', 'session', 'database',
-    'auth/auth_library' => 'auth_library',
-    'api/jwt_library'   => 'jwt_library',
-];
+$autoload['libraries'] = ['datatables'];
 
 /*
 | -------------------------------------------------------------------
@@ -92,7 +48,7 @@ $autoload['drivers'] = [];
 |
 | $autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = ['url', 'common_helper'];
+$autoload['helper'] = [];
 
 /*
 | -------------------------------------------------------------------
@@ -106,7 +62,7 @@ $autoload['helper'] = ['url', 'common_helper'];
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = ['whitelist', 'menu', 'privilege'];
+$autoload['config'] = ['versioning'];
 
 /*
 | -------------------------------------------------------------------

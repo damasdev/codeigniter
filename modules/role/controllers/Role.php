@@ -166,7 +166,6 @@ class Role extends MY_Controller
      */
     public function datatables(): void
     {
-        $this->load->library('datatables');
         $data = $this->datatables->table('roles')->draw();
 
         $this->jsonResponse($data);

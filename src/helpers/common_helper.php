@@ -37,3 +37,16 @@ function dd($data): void
     highlight_string(''.var_export($data, true).'');
     exit();
 }
+
+/**
+ * User
+ *
+ * @return ?stdClass
+ */
+function user(): ?stdClass
+{
+    $ci =&get_instance();
+    $ci->load->library('session');
+
+    return $ci->session->userdata('user');
+}

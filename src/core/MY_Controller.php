@@ -10,7 +10,7 @@ class MY_Controller extends MX_Controller
     protected function assertPrivilege(string $privilegeItem): void
     {
         $privileges = $this->config->item('privilege')[
-            $this->session->user->role ?? null
+            user()->role ?? null
         ] ?? [];
 
         $hasPrivilegeAccess = in_array($privilegeItem, $privileges);

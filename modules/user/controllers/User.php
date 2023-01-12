@@ -7,7 +7,6 @@ class User extends MY_Controller
         $this->assertPrivilege("user.module");
 
         $this->load->model("User_model", "userModel");
-        $this->load->library("datatables");
     }
 
     /**
