@@ -3,13 +3,13 @@
 class MY_Controller extends MX_Controller
 {
     /**
-     * Assert Privilege
+     * Assert Privilege.
      *
      * @return void
      */
     protected function assertPrivilege(string $privilegeItem): void
     {
-        $privileges = $this->config->item("privilege")[
+        $privileges = $this->config->item('privilege')[
             $this->session->user->role ?? null
         ] ?? [];
 
