@@ -92,7 +92,7 @@ class Datatables
     /**
      * Where.
      *
-     * @param string $key
+     * @param string  $key
      * @param ?string $value
      *
      * @return Datatables
