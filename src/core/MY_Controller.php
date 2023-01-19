@@ -42,7 +42,7 @@ class MY_Controller extends MX_Controller
 
         $hasPrivilegeAccess = in_array($privilegeItem, $privileges);
         if (!$hasPrivilegeAccess) {
-            if ($this->input->is_ajax_request() || $this->isAPI) {
+            if ($this->input->is_ajax_request() || $this->isAPI()) {
                 $this->jsonResponse([
                     'status'  => 'error',
                     'message' => 'You dont have permission',
@@ -63,10 +63,6 @@ class MY_Controller extends MX_Controller
      */
     protected function render($view, $vars = []): void
     {
-        if ($this->isAPI) {
-            $this->jsonResponse($vars);
-        }
-
         $this->twig->display($view, $vars);
     }
 
